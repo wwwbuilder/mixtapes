@@ -1,0 +1,533 @@
+{% extends "index.html" %}
+{% load staticfiles sekizai_tags get_ratings_range %}
+
+
+{% load  micawber_tags %}
+{% block pagetitle %}
+  <title>{{obj.username|title }} - Free Mixtapes Online</title>
+{% endblock pagetitle %}
+
+
+{% block metasocialmedia %}
+
+<meta property="fb:app_id" content="1512936935589178"/>
+<meta property="og:title" content="{{obj.username|title }} - Free Mixtapes Online" />
+<meta property="og:site_name" content="247Mixtapes"/>
+<meta property="og:type"  content="website" />
+<meta property="og:locale" content="en_US">
+
+<link rel="canonical" href="https://www.247mixtapes.com{{ obj.get_url}}/">
+
+<meta property="og:url" content="https://www.247mixtapes.com{{ obj.get_url}}/" />
+
+<meta property="og:image" content="{% if obj.profile_image %} {{obj.profile_image}} {% else %}https://placehold.it/261x190&text=No+Image!{% endif %}" />
+<meta property="og:image:width" content="600" />
+<meta property="og:image:height" content="314" />
+<meta property="og:image:type" content="image/jpg" />
+<meta property="og:description" content="{% if obj.aboutme %}{{obj.aboutme}} {% endif %}" />
+
+{% endblock metasocialmedia %}
+
+{% block extrajs %}
+
+<script type="text/javascript">
+  $(document).ready(function() {
+   
+   $.post(
+    'https://graph.facebook.com',
+    {
+        id: https://www.247mixtapes.com{{ obj.get_url}}/',
+        access_token:'1512936935589178|qCe1EoQD2WDecW856EZnnMJKWv0',
+        scrape: true
+    },
+    function(response){
+        console.log(response);
+    }
+);
+
+});
+
+</script>
+
+
+
+{% endblock extrajs %}
+
+
+
+{% block content %}
+ <div class="container" style="border:2px solid #333;">
+
+      <div class="blog-header">
+        <div class="well slide_well" >
+            <div id="carousel-main" class="carousel slide" data-ride="carousel" style="margin-bottom:0px;">
+              {% include "snippets/slider.html" %}
+          </div>
+        </div>
+      </div>
+
+      <div class="row" >
+
+        <div class="col-sm-12 blog-main">
+          <div class="blog-post">
+ 			<div class="well" style="background-color:#fff;color:#333333;">
+ 			
+ 			
+ 			<div class="row" style="margin-bottom:0px;">
+      <div class="col-xs-6 col-md-3 detailblock" style="padding-right:2px !important;padding-left:2px;">
+      
+      
+      <div class="thumbnail">
+      <a class="thumbnail" href="#" style="background-color:#eee;margin-bottom:0px;">
+        {% if obj.profile_image %}
+		       <img alt="100%x180" data-src="holder.js/100%x180" style="height: 180px; width: 100%; display: block;" src="{{obj.profile_image}}">
+        {% else %}
+          <img alt="no image" data-src="holder.js/100%x180" style="height: 180px; width: 100%; display: block;" src="http://placehold.it/261x190&text=No+Image! ">
+        {% endif %}
+        </a>
+     
+    </div>
+      
+
+      </div>
+      <div class="col-xs-8 col-md-5 detailblock" style="padding-right:2px !important;padding-left:2px;">
+        <div class="thumbnail" style="height:204px;">
+      <div class="" style="height:146px;">
+       <div style="float:left;float: left;
+    font-size: 15px;
+    width: 65%;height:146px;color: #DACEA9;">
+      <h3>{{obj.username|title }}</h3>
+      <div style="width: 100%;
+    word-wrap: break-word;line-height:1 !important;font-size: 15px;">{% if obj.aboutme %}  {{obj.aboutme|upper}} {% endif %}</div>
+      </div>
+      	       <div class="well" style="float:right;margin-bottom:0px;padding:10px;width:35%;line-height:1;color:#333;">
+		      <div class="label label-success">{{profileviews}}</div>
+		      <div style="font-size:15px;overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap">Views</div>
+		      <div class="label label-info s_count" style="text-align:center;">
+		      {{s_count}}
+		    </div>
+		      <div style="font-size:15px;overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap">Streams</div>
+		      <div class="label label-default d_count">
+		      {{d_count}}
+		      
+		    </div>
+		      <div style="font-size:15px;overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap">Downloads</div>
+		      
+		      </div>
+        </div>
+        <div class="" style="float: right; width: 143px;">
+        {% if request.user.is_authenticated %}
+        {% if not request.user.username == current_user %}
+	<button type="button" id="id_subscribe" data_id ='{{obj.id}}' style="padding: 1px 5px;" class="btn btn-default btn-group a_tool"  title = "Coming Soon. Subscribe to this user's account and receive instant email updates when they add a new mixtape.">{% if subscribe %}Unsubscribe {%else%} Subscribe {%endif%}</button>
+	{% endif %}
+{% endif %}	
+
+ 	</div>
+ 	<div class="" style="float: left;color:#fff;font-size:14px;position:absolute;bottom:30px;">My Links: <a {% if obj.facebook == None %}style="cursor:default;"{% endif %} href="{% if obj.facebook != None %}{{obj.facebook}}{% else %}javascript: void(0){% endif %}" target="_blank">Facebook</a> | <a {% if obj.twitter == None %}style="cursor:default;"{% endif %} href="{% if obj.twitter != None %}{{ obj.twitter }}{% else %}javascript: void(0){% endif %}" target="_blank">Twitter</a> | <a {% if obj.google == None %}style="cursor:default;"{% endif %} href="{% if obj.google != None %}{{ obj.google }}{% else %}javascript: void(0){% endif %}" target="_blank">Instagram</a> | <a {% if obj.youtube == None %}style="cursor:default;"{% endif %} href="{% if obj.youtube != None %}{{ obj.youtube }}{% else %}javascript: void(0){% endif %}" target="_blank">Youtube</a></div>
+    </div>
+      </div>
+      <div class="col-xs-7 col-md-4 detailblock" style="padding-right:2px !important;padding-left:2px;">
+      <div class="thumbnail" id="video-thumbnail" style="height:204px;">
+      
+      <div>
+      {% if obj.video %}
+          {% load embed_video_tags %}
+          {% video obj.video '353x192' %}
+      {% elif obj.youtube %}
+          {% load embed_video_tags %}
+          {% video obj.youtube '353x192' %}
+      {# TODO clean up disabled old video embedding code #}
+      {% elif obj.youtube %}
+			<video  class="sublime" data-autoresize='fit' width="100%" height="250px" data-settings="uid:autoresize:fit;" data-youtube-id="{{obj.youtube|get_youtubevideo}}" preload="none"></video>
+        {% elif obj.video and 'youtube' in obj.video %}
+                       <video  class="sublime" data-autoresize='fit' width="100%" height="250px" data-settings="uid:autoresize:fit;" data-youtube-id="{{obj.video|get_youtubevideo}}" preload="none"></video>
+        {% elif obj.video and 'vimeo' in obj.video %}
+                      
+            <video class="sublime" data-settings="uid:demo-vimeo-pro-flat-design; player-kit:1; autoresize:fit;" title="Demo: Vimeo Pro, Flat design" poster="https://secure-b.vimeocdn.com/ts/358/030/358030879_960.jpg" width="640" height="360" preload="none">
+              <source src="{{ obj.video }}" />
+              <source src="{{ obj.video }}" data-quality="hd" />
+            </video>
+        
+	{% else %}
+	<div  class="carous" id="carousel-example-generic" style="height:198px;">
+      <!-- <ol class="carousel-indicators">
+        <li class="" data-slide-to="0" data-target="#carousel-example-generic"></li>
+        <li data-slide-to="1" data-target="#carousel-example-generic" class=""></li>
+        <li data-slide-to="2" data-target="#carousel-example-generic" class="active"></li>
+      </ol> -->
+
+      <div class="">
+        <div class="item">
+          <h2 align="center" style="color=#fff"> {% if ads_user %} {{ads_user.content}} {% else %} {% endif %} </h2>
+        </div>
+      </div>
+    <!--  <a data-slide="prev" role="button" href="#carousel-example-generic" class="left carousel-control">
+        <span class="glyphicon glyphicon-chevron-left"></span>
+      </a>
+      <a data-slide="next" role="button" href="#carousel-example-generic" class="right carousel-control">
+        <!-- <span class="glyphicon glyphicon-chevron-right"></span>-->
+
+      </a>
+    </div>
+	{% endif %}
+				</div>
+      </div>
+        
+      </div>
+      
+    </div>	
+ 			<div class="">
+ 		<div class="social-container">
+		<div class="links">
+	<a href="#" data-type="twitter" data-url="https://www.247mixtapes.com{{ obj.get_url }}/" data-description="{{obj.username}} -{% if obj.aboutme %} {{obj.aboutme}}.{% endif %}" data-via="247Mixtapes" class="prettySocial fa fa-twitter twitter" ></a>
+
+			<a href="#"  data-type="facebook" data-url="https://www.247mixtapes.com{{ obj.get_url }}/" data-description="{{obj.username}} -{% if obj.aboutme %}{{obj.aboutme}} {% endif %}" data-media="{% if obj.profile_image %} {{obj.profile_image}} {% else %}https://placehold.it/261x190&text=No+Image!{% endif %}"   class="prettySocial fa fa-facebook facebook"></a>
+
+			<a href="#" data-type="googleplus" data-url="https://www.247mixtapes.com{{ obj.get_url }}/" data-description="{{obj.username}} -{% if obj.aboutme %}{{obj.aboutme}} {% endif %}" data-image="{% if obj.profile_image %} {{obj.profile_image}} {% else %}https://placehold.it/261x190&text=No+Image!{% endif %}" class="prettySocial fa fa-google-plus google"></a>
+			
+	<a href="#" data-type="pinterest" data-url="https://www.247mixtapes.com{{ obj.get_url }}/" data-description="{{obj.username}} -{% if obj.aboutme %}{{obj.aboutme}} {% endif %}" data-media="{% if obj.profile_image %} {{obj.profile_image}} {% else %}http://placehold.it/261x190&text=No+Image!{% endif %}" class="prettySocial fa fa-pinterest pinterest"></a>
+
+			<a href="#" data-type="linkedin" data-url="https://www.247mixtapes.com{{ obj.get_url }}/" data-title="{{obj.username}}." data-description="{% if obj.aboutme %} {{obj.aboutme}} {% endif %}" data-via="Mixtapes" data-media="{% if obj.profile_image %} {{obj.profile_image}} {% else %}http://placehold.it/261x190&text=No+Image!{% endif %}" class="prettySocial fa fa-linkedin linkedin"></a>
+
+		</div>
+
+		
+	</div>
+ 	</div>		
+ 			
+ 			<!--  
+ 			<div class="media" style=''>
+		      <a href="#" class="pull-left">
+		      {% if  object.images.all %}
+		      {% for img in object.images.all %}
+		      <img alt="80x64" data-src="holder.js/80x64" src="{{img.get_image}}" class="media-object" style="width: 128px; height: 128px;" >
+		      {{ break }}
+		      {% endfor %}
+		      {% else %}
+		        <img alt="80x64" data-src="holder.js/80x64" src="album.jpg" class="media-object" style="width: 128px; height: 128px;" >
+		      {% endif %}
+		      </a>
+		      <div class="media-body">
+		       
+		        <div class="col-sm-8" style="font-size:14px;line-height:1;">
+		         <h4 class="media-heading" style="color:#333333;">{{object.name}}</h4>
+		        Cras sit amet nibh libero, in gravida nulla. Nulla vel metus scelerisque ante sollicitudin commodo. Cras purus odio, vestibulum in vulputate at, tempus viverra turpis. Fusce condimentum nunc ac nisi vulputate fringilla. Donec lacinia congue felis in faucibus.
+		      </div>
+		      <div class="well" style="height:135px;width:105px;float:right;margin-bottom:0px;padding:12px;line-height:1">
+		      <span class="label label-success">4582</span></br>
+		      <span style="font-size:15px;">Views</span></br>
+		      <span class="label label-info s_count">
+		      {% if object.soundcloud_favoritings_count != None %}{{object.soundcloud_favoritings_count}}{%else%}0{% endif %}
+		    </span></br>
+		      <span style="font-size:15px;">Streams</span></br>
+		      <span class="label label-default d_count">
+		      
+		      {% if object.soundcloud_playback_count != None %}{{object.soundcloud_playback_count}}{%else%}0{% endif %}
+		      
+		    </span></br>
+		      <span style="font-size:15px;">Downloads</span>
+		      
+		      </div>
+		      </div>
+		    </div>
+		    -->
+		    
+	
+ 			
+ 			</div>
+ 			
+ 
+ 				<div class="media">
+				
+				<div class="panel panel-default" style="border:1px solid #DDDDDD;">
+					      <div class="panel-heading" style="background-color: #FFC100;">
+						        <h2 class="panel-title" style="color:#E70000;">
+						        <span class="glyphicon glyphicon-film"></span>
+						        
+						        {{obj.username}}'s recently uploaded mixtapes
+						        
+						        
+						        
+						        </h2>
+					        
+					        
+					      </div>
+					      <div class="panel-body">  
+					      
+				   
+					      
+					      
+					      
+					        <div class="row">
+					        <div class="thumbnails gallery-post-grid holder" id="grid">
+					        {% if recentmixtapes %}
+					         {% for mt in recentmixtapes %}
+								  <div class="col-sm-3 col-md-2 mix gallery-item mix_all" id="" data-name= "{{ mt.name }}" data-username="{{ mt.primaryArtist }}">
+								    <div class="thumbnail" style="height:320px;">
+								      <a href="{{ mt.get_absolute_url }}" class="image"  >
+								                                <span class="author">by <strong>{{ mt.primaryArtist }}</strong></span>
+								                                <span class="overlay-outer">
+								                                    <span class="overlay-inner">
+								                                      <span class="glyphicon glyphicon-zoom-in"></span>
+								                                    </span>
+								                                </span>
+								                                <img class="img-responsive full-width" src="{{ mt.get_mixtape_thumnail }}" style="width:100%; height:100px;" >
+								                            </a>
+								      <div class="caption">
+								        <h3>{{ mt.name|truncatechars:30 }}</h3>
+								        <p>{{ mt.description|truncatechars:30 }}</p>
+								      </div>
+								    </div>
+								  </div>
+
+					 {% endfor %} 
+					 
+					 {% else %}
+					 
+					 This user has not yet posted any mixtapes.
+					 {% endif %}
+					           </div>
+					      </div>
+					      </div>
+					</div>
+                   	
+				</div>
+              
+	 <!-- pagination section-->
+            <div class="row">
+            <ul class="pagination">
+              {% if recentmixtapes.has_previous %}
+              <li><a href="?page={{ recentmixtapes.previous_page_number }}">&laquo;</a></li>
+              {% endif %}
+              {% if recentmixtapes %}
+              {% for i in recentmixtapes.paginator.page_range %}
+                  <li {% if recentmixtapes.number == i %}class="active"{% endif %}>
+                      <a href="?page={{i}}">{{i}}</a>
+                  </li>
+              {% endfor %}
+              {% endif %}
+              {% if recentmixtapes.has_next %}
+              <li><a href="?page={{ recentmixtapes.next_page_number }}">&raquo;</a></li>
+              {% endif %}
+            </ul>
+            </div>
+ 	
+ 		<section>
+	<div class="row-fluid">
+		<!-- Main rail
+		================================================== -->
+		<div class="span8">
+			<!-- DISQUS comments section
+			================================================== -->
+			<div class="row-fluid" id="disqusRow">
+			    <div id="disqus_thread" class="well"></div>
+			    <noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+			    <a href="http://disqus.com" class="dsq-brlink">comments powered by 
+			    	<span class="logo-disqus">Disqus</span>
+			    </a>
+			</div>
+		</div>
+		<!-- Right Rail
+		================================================== -->
+		<div class="span4">
+			<!-- Other suggestions section
+			================================================== -->
+			{% if object.artistother %}
+			<div class="row-fluid">
+				<h3>You might also like... </h3>
+				<div class="row-fluid">
+					{% for o in object.artistother %}
+						<div class="span3 alert alert-warning artistother">
+							<img src="{{o.album_cover}}" class="shadowimage">
+							<h5>{{o.title}}</h5>
+							<em>{{o.primaryArtist.username}}</em>
+						</div>
+					{% endfor %}
+				</div>
+			</div>
+			<br>
+			{% endif %}
+		</div>
+	</div>
+</section>	
+ 
+          </div><!-- /.blog-post -->
+
+
+          
+
+        </div><!-- /.blog-main -->
+
+      
+
+      </div><!-- /.row -->
+
+    </div><!-- /.container -->
+
+
+
+{% addtoblock "bottom_js" %}
+
+
+	<script type="text/javascript">
+//<![CDATA[
+try{if (!window.CloudFlare) {var CloudFlare=[{verbose:0,p:0,byc:0,owlid:"cf",bag2:1,mirage2:0,oracle:0,paths:{cloudflare:"/cdn-cgi/nexp/dok2v=1613a3a185/"},atok:"d1d57b30a62a1a248bf430d0d71f45a9",petok:"6103c8ec0aa071ca43e0308e497f59042f1bfc68-1418892428-1800",zone:"sonnyt.com",rocket:"0",apps:{"ga_key":{"ua":"UA-21599784-2","ga_bs":"2"}}}];!function(a,b){a=document.createElement("script"),b=document.getElementsByTagName("script")[0],a.async=!0,a.src="//ajax.cloudflare.com/cdn-cgi/nexp/dok2v=919620257c/cloudflare.min.js",b.parentNode.insertBefore(a,b)}()}}catch(e){};
+//]]>
+</script>
+
+
+<script type="text/javascript">
+  $(document).ready(function() {
+
+
+
+      if( /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent) ) {
+   	 // some code..
+  	  $('.col-xs-6').css('width','100%');
+      $('.col-xs-8').css('width','100%');
+      $('.col-xs-7').css('width','100%');
+      $('.detailblock').css('height','100%');
+      $('.detailblock .thumbnail').css('height','100%');
+      $('.breadcrumb').css({'position':'absolute','bottom':'5px'});
+      $('.caption').css({'width':'100%','height':'146px'});
+      $('#midetails').css('width','40%');
+      <!--$('.thumbnail').css('height','300px');-->
+     $('.col-xs-8 .thumbnail').css('height','280px');
+
+      $('.breadcrumb').find('button').each(function(){
+         $(this).css('width','60%');
+      });
+      $('#stream_button').css('width','60%');
+     $('#download_button').css('width','60%');
+
+   	}
+
+    <!--else {-->
+      <!--$('.col-xs-6').css('width','100%');-->
+      <!--$('.col-xs-8').css('width','100%');-->
+      <!--$('.col-xs-7').css('width','100%');-->
+      <!--$('.breadcrumb').css({'position':'absolute','bottom':'5px'});-->
+      <!--$('.caption').css({'width':'100%','height':'146px'});-->
+      <!--$('#midetails').css('width','40%');-->
+      <!--$('.col-xs-8 .thumbnail').css('height','280px');-->
+      <!--$('.breadcrumb').find('button').each(function(){-->
+         <!--$(this).css('width','60%');-->
+      <!--});-->
+      <!--$('#stream_button').css('width','60%');-->
+     <!--$('#download_button').css('width','60%');-->
+
+      <!--<!--$('.caption').css('height','146px');-->-->
+      <!--$('.breadcrumb').css({'position':'absolute','bottom':'5px'});-->
+
+    <!--}-->
+    
+  });
+</script>
+
+<script>
+
+//$(function() {
+//    $("#ytplayer-wrapper").fitVids();
+//    $("#ytplayer").fadeIn('slow');
+//});
+
+{% if obj.video %}
+
+//$('#video_iframe').fitVids();
+$(document).ready(function(){
+    $.getScript('//cdnjs.cloudflare.com/ajax/libs/fitvids/1.1.0/jquery.fitvids.js', function(){
+        $('#video-thumbnail').fitVids();
+    });
+});
+
+{% endif %}
+
+</script>
+
+	<script>
+		function rearrange() {
+		  if (document.documentElement.clientWidth < 768) {
+			$('#userprofileTitleRow').insertAfter('#flexsliderRow');
+		  };
+		};
+		$(function() {
+			rearrange();
+		});
+		window.onresize=function(){
+			rearrange();
+		}
+	</script>
+
+	<script>
+		$(function() {
+			$('#mixtapeTabs li:first-child').addClass('active');
+			$('.tab-pane:first').addClass('active');
+			$('#discographyTabs a').click(function (e) {
+				e.preventDefault();
+				$(this).tab('show');
+			});
+			$('#discographyTabs li a:first').click();
+			$('#discographyTabsContent .tab-pane:first').addClass('in');
+			addthis.init();
+		});
+	</script>
+
+	<script type="text/javascript">
+	    /* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
+	    var disqus_shortname = '247mixtapes'; // required: replace example with your forum shortname
+	    /* * * DON'T EDIT BELOW THIS LINE * * */
+	    (function() {
+	        var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+	        dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+	        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+	    })();
+	</script>
+	
+	
+	<script src="{{STATIC_URL}}mixitup/mixitup.js"></script>
+<script>
+
+	$(function() {
+		$('#grid').mixitup({
+			buttonEvent: 'click',
+			effects: ['fade','scale'],
+			easing: 'windup',				
+		});		
+	});
+
+</script>
+
+ <script>
+
+        function equalHeights (target) {
+            $(target).height('auto');
+
+            var heights = []
+            $(target).each(function(){
+                heights.push($(this).height());             
+            });
+            var highest = Math.max.apply(Math, heights)
+            $(target).height(highest);
+        }    
+
+        $(function() {
+            equalHeights('.mix');
+            $(window).resize(function(){
+                $('.mix').css('height', 'auto');
+            });
+        });
+        </script>
+	
+{% endaddtoblock %}
+
+{% endblock content %}
+
+
+
+

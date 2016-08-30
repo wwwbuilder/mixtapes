@@ -1,0 +1,62 @@
+{% extends 'index.html' %}
+
+{% load staticfiles sekizai_tags %}
+
+{% addtoblock "top_js" %}
+
+{% endaddtoblock %}
+{% block pagetitle %}
+  <title>My Profile // 24/7Mixtapes</title>
+  {% endblock pagetitle %}
+{% block content %}
+
+<div class="container">
+  <div class="row">
+
+        <div class="col-sm-3 col-md-2">
+		<div id="siteBody">
+        	<div id="leftColumnWide">
+                
+                <div class="filterBar">
+                	<a href="/account" class="filterButton active"><span><span><span><img src="/images/icon_account_active.gif" width="10" height="10" alt="My Account">My Account</span></span></span></a>
+                	<a href="/account-files.php" class="filterButton"><span><span><span><img src="/images/icon_file.gif" width="10" height="10" alt="my files">My Files</span></span></span></a>
+                    <div class="filterbarSub">
+                    	<a href="/account" class="active"><span><span><span>overview</span></span></span></a>
+                    	<a href="/account-settings.php"><span><span><span>settings</span></span></span></a>
+                    	<a href="/account-profile.php"><span><span><span>profile</span></span></span></a>
+                    	<a href="/account-premium.php"><span><span><span>premium</span></span></span></a>
+                    </div>
+              	</div>
+                
+                <div class="module1 basicProfile">
+                	<div class="header"></div>
+                    <div class="content">
+                        <h1 class="banner"><span><span><span><span class="icon user"></span>Account Overview<em>nijabhasker: Basic Member</em></span></span></span></h1>
+                        <div class="besideBanner">
+                        	                            	<a href="/account-premium.php"><img src="/images/btnUpgrade.gif" align="Upgrade"></a>
+                                <div align="right" style="margin:-1px 5px 0 0; font-size:11px;"><a href="/account-premium.php#whyupgrade" style="font-weight:normal;">why upgrade?</a></div>
+                                                    </div>
+                        						<div class="container">
+                        	<div class="avatar"><a href="/account-settings.php#avatar"><img src="http://edge-avy.datpiff.com/1/nijabhasker.ts1406793455.large.gif" align="Avatar"></a></div>
+                            <div class="profileStats">
+                            	<div>Faved: <span class="darkCharcoal"><a href="/mixtapes-favorites.php">0 mixtapes</a>, <a href="/videos-favorites.php">0 videos</a></span></div>
+                            	<div>Rated: <span class="darkCharcoal">0 mixtapes, 0 videos</span></div>
+                             	<div>Commented: <span class="darkCharcoal">0 times</span></div>
+                                <div class="darkCharcoal strong" style="margin-top:10px;">Joined July 31st, 2014</div>
+                                <div><span class="charcoal strong">5</span> downloads remaining today</div>
+                           </div>
+                        </div>
+                        <div class="breaker"></div>
+               	  	</div>
+                  	<div class="wholefooter"></div>
+                </div>
+                
+            </div>
+			</div>
+                
+            </div>
+
+</div>
+
+{% endblock %}
+

@@ -1,0 +1,149 @@
+{% extends "index.html" %}
+{% load staticfiles sekizai_tags %}
+{% block pagetitle %}
+  <title>About Us // 24/7Mixtapes</title>
+  {% endblock pagetitle %}
+{% block content %}
+ 
+
+<div class="container">
+    <ol class="breadcrumb">
+        <li class="active">
+            <span>About us</span>
+        </li>
+    </ol>
+</div>
+
+<div class="container">
+
+    <div class="row">
+
+        <div class="col-sm-3 col-md-2">
+
+            <div class="standard-box">
+
+                <h2 class="header-box">Submenu</h2>
+
+                <ul class="list with-links list-headers">
+
+                    <li>
+                        <h3>
+                            <a  href="#">About us</a>
+                        </h3>
+                    </li>
+
+                    <li>
+                        <h3>
+                            <a class="desc-select" href="#getwithus">What you get with us</a>
+                        </h3>
+                    </li>
+
+                    <li>
+                        <h3>
+                            <a class="desc-select" href="#stickwithbest">Stick with the best</a>
+                        </h3>
+                    </li>
+
+                    <li>
+                        <h3>
+                            <a class="desc-select" href="#wearelegimate">We are legitimate</a>
+                        </h3>
+                    </li>
+                                        <li>
+                        <h3>
+                            <a class="desc-select" href="#ourcommitments">Our Commitments</a>
+                        </h3>
+                    </li>
+                                        <li>
+                        <h3>
+                            <a class="desc-select" href="#conclusion">Conclusion</a>
+                        </h3>
+                    </li>
+                                        <li>
+                        <h3>
+                            <a class="desc-select" href="#questions">Questions</a>
+                        </h3>
+                    </li>
+
+                </ul>
+
+            </div>
+
+        </div>
+
+        <div class="col-sm-11 col-md-10">
+
+            <h2 class="header-box">About us</h2>
+
+            <div class="text">
+
+                <a href="{{ STATIC_URL }}img/photos/concert-2.jpg" data-lightbox="about-us" data-title="About us">
+                    <img class="pull-left" src="{{ STATIC_URL }}img/photos/concert-2-L.jpg" alt="About us">
+                </a>
+
+                <p>24/7 Mixtapes was founded by knowledgeable business professionals with the main goal of providing a simple yet powerful website for mixtape enthusiasts from all over the world. 24/7Mixtapes.com was born to provide the best mixtape downloading and streaming services on the web!
+</p>
+<h3 id="getwithus">What you get with us</h3>
+<p>
+<ul>
+<li>Fast and reliable access to our services via our high end servers!</li>
+
+<li>Unlimited mixtape downloads/streaming in our members area!</li>
+
+<li>Safe and secure payment methods!</li>
+
+<li>Continuous Updates - New mixtapes added daily!</li>
+
+<li>Fantastic Support – via live chat, forum, email!</li>
+
+<li>A top notch service that will continually improve!</li>
+</ul></p>
+<h3 id="stickwithbest">Stick with the best!</h3>
+<p>
+We know you have seen offerings from other websites claiming to provide similar services. What makes us different?
+</p>
+ <h3>Our service will exceed your expectations:</h3>
+<p>
+<ul>
+<li>
+Constant enhancements to include new features requested by members!
+</li>
+<li>
+Daily Updates will keep you coming back day after day!
+</li>
+</ul>
+</p>
+
+ <h3 id="wearelegimate">We are legitimate:</h3>
+ <p>
+<ul>
+<li>
+We are a registered corporation in good standing.
+</li></ul></p>
+ <h3 id="ourcommitments">Our Commitments: </h3>
+<p>We are determined to make every dollar spent on a 24/7Mixtapes membership well worth it. You are very important to us. As a 24/7Mixtape member, we are committed to providing you with a reliable high-quality mixtape streaming/downloading service which is industry leading customer support!
+</p>
+ <h3 id="conclusion">Conclusion: </h3>
+ <p>
+You do not have to search further; Let 24/7Mixtapes.com provide you with the services you have been looking for, one mixtape at a time!
+</p>
+ <h3 id="questions">Questions? </h3>
+ <p>
+If you have any questions about us and/or the services in which we offer, please contact us and we will get in touch with you as soon as possible.
+   </p>
+   </ul>           
+                
+                
+                
+                
+                
+            </div>
+
+        </div>
+
+
+
+    </div>
+    </div>
+
+    {% endblock content %}

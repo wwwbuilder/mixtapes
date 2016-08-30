@@ -1,0 +1,89 @@
+<form role="form" method="post" accept-charset="utf-8" id="add_userprofile_form" data-parsley-validate data-parsley-class-handler="#element">
+	<div class="form-group">
+		<label for="username">Name</label>
+		<input type="text" class="form-control" name="username" required>
+                <div id="form_messages"></div>
+	</div>
+    
+
+	<div class="row">
+		<div class="col-md-6">
+			<div class="form-group" id="facebook-container">
+				<label for="facebook"></label>
+				<div class="input-group" name="facebook">
+					<span class="input-group-addon">
+						<i class="fa fa-facebook"></i>
+					</span>
+					<input type="url" class="form-control" name="facebook" parsley-error-container="#facebook-container">
+				</div>
+			</div>
+		</div>
+		<div class="col-md-6">
+			<div class="form-group" id="twitter-container">
+				<label for="twitter"></label>
+				<div class="input-group">
+					<span class="input-group-addon">
+						<i class="fa fa-twitter"></i>
+					</span>
+					<input type="url" class="form-control" name="twitter" parsley-error-container="#twitter-container">
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<div class="row">
+		<div class="col-md-6">
+			<div class="form-group" id="soundcloud-container">
+				<label for="soundcloud"></label>
+				<div class="input-group">
+					<span class="input-group-addon" name="soundcloud">
+						<i class="icon-soundcloud"></i>
+					</span>
+					<input type="url" class="form-control" name="soundcloud" parsley-error-container="#soundcloud-container">
+				</div>
+			</div>
+		</div>
+		<div class="col-md-6">
+			<div class="form-group" id="youtube-container">
+				<label for="youtube"></label>
+				<div class="input-group">
+					<span class="input-group-addon">
+						<i class="fa fa-youtube-play"></i>
+					</span>
+					<input type="url" class="form-control" name="youtube" parsley-error-container="#youtube-container">
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<div class="row">
+		<div class="col-md-6">
+			<div class="form-group" id="google-container">
+				<label for="google"></label>
+				<div class="input-group">
+					<span class="input-group-addon">
+						<i class="fa fa-google-plus"></i>
+					</span>
+					<input type="url" class="form-control" name="google" parsley-error-container="" parsley-error-container="#google-container">
+				</div>
+			</div>
+		</div>
+		<div class="col-md-6">
+			<div class="form-group" id="pinterest-container">
+				<label for="pinterest"></label>
+				<div class="input-group">
+					<span class="input-group-addon">
+						<i class="fa fa-pinterest"></i>
+					</span>
+					<input type="url" class="form-control" name="pinterest" parsley-error-container="#pinterest-container">
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<div class="form-group">
+		<label for="aboutme">About</label>
+		<textarea name="aboutme" class="form-control"></textarea>
+	</div>
+
+</form>

@@ -1,0 +1,59 @@
+{% extends "index.html" %}
+{% load staticfiles sekizai_tags %}
+
+{% load i18n staticfiles %}
+{% block pagetitle %}
+  <title>This Week's Hottest Free Mixtapes 24/7 Mixtapes</title>
+  {% endblock pagetitle %}
+  
+{% block content %}
+
+{% block genreheader %}
+
+{% endblock genreheader %}
+
+<div class="container">
+    <ol class="breadcrumb">
+        <li class="active">
+            <span>Mixtapes</span>
+        </li>
+    </ol>
+</div>
+<div class="container">
+
+    <div class="row">
+
+        <div class="col-md-10">
+
+            <div class="standard-box no-margin-bottom">
+
+                <h1 class="header-box">Hot this week</h1>
+
+                <div class="row">
+                    {% for mt in object_list %}
+
+                    <div class="col-sm-3 col-xs-6">
+                        <div class="standard-extend-item gallery">
+                        <span class="author"><a href="{{ mt.get_absolute_url }}"> <strong> {{ mt.name }} </strong></a></span>
+
+                            <a href="{{ mt.get_mixtape_thumnail }}" class="image" data-lightbox="gallery-1" data-title="Guitarist">
+                                <span class="author">by <strong>{{ mt.primaryArtist }}</strong></span>
+                                <span class="overlay-outer">
+                                    <span class="overlay-inner">
+                                      <span class="glyphicon glyphicon-zoom-in"></span>
+                                    </span>
+                                </span>
+                                <img class="img-responsive full-width" src="{{ mt.get_mixtape_thumnail }}" alt="Guitarist">
+                            </a>
+                        </div>
+                    </div>
+                    {% endfor %}
+
+
+                </div>
+
+            </div>
+         </div>
+        </div>
+        </div>
+{% endblock content %}

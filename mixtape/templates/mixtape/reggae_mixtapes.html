@@ -1,0 +1,105 @@
+{% extends "index.html" %}
+{% load staticfiles sekizai_tags %}
+{% load phileo_tags agon_ratings_tags %}
+{% load i18n staticfiles get_ratings_range %}
+{% block pagetitle %}
+  <title>New Reggae Mixtapes // 24/7Mixtapes</title>
+  {% endblock pagetitle %}
+{% block content %}
+
+{% block genreheader %}
+
+{% endblock genreheader %}
+
+<div class="container">
+    <ol class="breadcrumb">
+        <li class="active">
+            <span>Mixtapes</span>
+        </li>
+    </ol>
+</div>
+<div class="container">
+
+    <div class="row">
+        <div class="toolbar">
+
+                <h1 class="header-box">New Reggae Mixtapes</h1>
+         </div>
+        {% for mt in tap_list %}
+        <div class="col-sm-3 col-xs-6" style="height:300px;">
+                    <div class="standard-extend-item">
+                        <a class="image" href="{{ mt.get_absolute_url }}">
+                            <span class="date date-full">
+                                <span class="month">{{ mt.created|date:"d M Y" }}</span>
+                           		 </span>
+                            <span class="author">by <strong>{{mt.primaryArtist}}</strong></span>
+                            <img class="img-responsive full-width" src="{{ mt.get_mixtape_thumnail}}" alt="{{ mt.name }}">
+                            <!--<span class="rating">-->
+                                <!--<span class="star positive">-->
+                                    <!--<span class="glyphicon glyphicon-star"></span>-->
+                                <!--</span>-->
+                                <!--<span class="star positive">-->
+                                    <!--<span class="glyphicon glyphicon-star"></span>-->
+                                <!--</span>-->
+                                <!--<span class="star positive">-->
+                                    <!--<span class="glyphicon glyphicon-star"></span>-->
+                                <!--</span>-->
+                                <!--<span class="star positive">-->
+                                    <!--<span class="glyphicon glyphicon-star"></span>-->
+                                <!--</span>-->
+                                <!--<span class="star negative">-->
+                                    <!--<span class="glyphicon glyphicon-star"></span>-->
+                                <!--</span>-->
+                            <!--</span>-->
+                        </a>
+                        <h3>
+                            <a href="{{ mt.get_absolute_url }}">{{ mt.name }}</a>
+                        </h3>
+                        <h4>{{mt.primaryArtist.username}}</h4>
+                        ----------------------------
+                        <h4>Rating:
+                        {% overall_rating mt 'overall' as the_overall_rating %}
+                        <span id="" class="" style="width: 100px; cursor: default;">
+
+                        {% if the_overall_rating|floatformat > 0 %}
+                        {% for i in the_overall_rating|get_range %}
+                        <img id="" src="https://static.247mixtapes.com/agon_ratings/img/star-on.png" alt="1" title="bad" class="">
+                        {% endfor %}
+                        {% for i in the_overall_rating|get_offstar_range %}
+                        <img id="" src="https://static.247mixtapes.com/agon_ratings/img/star-off.png" alt="1" title="bad" class="">
+                        {% endfor %}
+                        {% else %}
+                        {% for i in the_overall_rating|get_offstar_range %}
+                        <img id="" src="https://static.247mixtapes.com/agon_ratings/img/star-off.png" alt="1" title="bad" class="">
+                        {% endfor %}
+                        {% endif %}
+                        </span>
+                        </h4>
+                        <h4>Listens:
+                        {{ mt.soundcloud_playback_count|default:"-" }}
+                        </h4>
+                    </div>
+                </div>
+             {% endfor %}
+        </div>
+         <!-- pagination section-->
+        <div class="row">
+            <ul class="pagination">
+          {% if tap_list.has_previous %}
+          <li><a href="?page={{ tap_list.previous_page_number }}">&laquo;</a></li>
+          {% endif %}
+          {% if tap_list %}
+          {% for i in tap_list.paginator.page_range %}
+              <li {% if tap_list.number == i %}class="active"{% endif %}>
+                  <a href="?page={{i}}">{{i}}</a>
+              </li>
+          {% endfor %}
+          {% endif %}
+          {% if tap_list.has_next %}
+          <li><a href="?page={{ tap_list.next_page_number }}">&raquo;</a></li>
+          {% endif %}
+        </ul>
+        </div>
+
+        </div>
+{% endblock content %}

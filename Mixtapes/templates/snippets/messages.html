@@ -1,0 +1,32 @@
+{% for message in messages %}
+          <div id="alert_box" class="text">
+          <h4>
+                {% if message.tags == 'success' %}
+                   
+                   <div class="alert alert-success alert-dismissable" style="background-color:#009a2c;">
+                   <i class='icon-check icon-2x'></i>
+                    <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+                    <strong>Well done!</strong> {{ message}}
+                </div>
+                {% elif message.tags == 'info' %} 
+                        <div class="alert alert-info alert-dismissable">
+                                <i class='icon-info-sign icon-2x'></i>
+                                <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+                                <strong>Heads up!</strong> {{ message}}
+                        </div>
+                {% elif message.tags == 'warning' %}
+                    <div class="alert alert-warning alert-dismissable">
+                   <i class='icon-exclamation icon-2x'></i>
+                    <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+                    <strong>Warning!</strong>{{ message}}
+                </div>
+                {% elif message.tags == 'error' %}
+                    <div class="alert alert-danger alert-dismissable">
+                        <i class='icon-remove-circle icon-2x'></i>
+                    <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+                    <strong>Oh snap!</strong> {{ message}}
+                </div>
+            {% endif %}
+        </h4>
+        </div>
+{% endfor %} 

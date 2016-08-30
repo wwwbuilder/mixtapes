@@ -1,0 +1,632 @@
+{% extends "index.html" %}
+
+{% load staticfiles sekizai_tags %}
+
+{% load url from future %}
+{% load bootstrap_tags %}
+{% load i18n %}
+{% load account %}
+{% load url from future %}
+{% block pagetitle %}
+  <title>Create an Account // 24/7Mixtapes</title>
+  {% endblock pagetitle %}
+
+{% block head_title %}{% trans "Signup" %}{% endblock %}
+
+{% block content %}
+ <div class="container">
+    <ol class="breadcrumb">
+        <li>
+            <span>Auth</span>
+        </li>
+        <li class="active">
+            <span>Registration</span>
+        </li>
+    </ol>
+</div>
+
+<div class="container">
+
+    <div class="row">
+
+        <div class="col-md-10">
+
+            <h1 class="header-box">Registration</h1>
+            <div id="verify-block">
+            <form class="form-horizontal" method="POST"  data-parsley-validate data-parsley-class-handler="#element" id="signup_data">{%  csrf_token %}
+			     <div id="message"><h4 style="color:yellow;"></h4></div>
+                <div class="form-group has-feedback">
+                    <label for="username" class="col-sm-3 control-label">Username</label>
+                    <div class="col-sm-6">
+                         <input class=" form-control" id="id_username" maxlength="30" name="username" placeholder="Username" type="text" required />
+                        <span class="glyphicon glyphicon-user form-control-feedback"></span>
+						<span class="help-block parsley-error-list" id="parsley-32555999141186476">
+						   <span  id="username_unique" class="unique_username hidden" style="display: inline;">This value is required.</span>
+						</span>
+                    </div>
+                </div>
+                {%  if form.username.errors  %}
+                    <div class="form-group  has-feedback">
+                    <label for="inputEmail3" class="col-sm-3 control-label"></label>
+                        <div class="col-sm-6">
+                            <span style="color:red;">{{ form.username.errors }}</span><br />
+                       </div>
+                    </div>
+                {% endif %}
+
+                <div class="form-group has-feedback">
+                    <label for="inputEmail3" class="col-sm-3 control-label">Email</label>
+                    <div class="col-sm-6">
+                        <input type="email" class=" form-control" id="id_email" name="email" placeholder="E-mail address" type="text" required  />
+                        <span class="glyphicon glyphicon-envelope form-control-feedback"></span>
+                        <span  id="email_error" class="unique_username hidden" style="display: inline;">Email already Exists.</span>
+                    </div>
+                </div>
+            {%  if form.email.errors  %}
+                    <div class="form-group  has-feedback">
+                    <label for="inputEmail3" class="col-sm-3 control-label"></label>
+                        <div class="col-sm-6">
+                            <span style="color:red;">{{ form.email.errors }}</span><br />
+                       </div>
+                    </div>
+                {% endif %}
+                <div class="form-group has-feedback">
+                    <label for="inputPassword3" class="col-sm-3 control-label">Password</label>
+                    <div class="col-sm-6">
+                        <input class=" form-control" id="id_password1" name="password1" placeholder="Password" type="password" required />
+                        <span class="glyphicon glyphicon-lock form-control-feedback"></span>
+                    </div>
+                </div>
+            {%  if form.password1.errors  %}
+                    <div class="form-group  has-feedback">
+                    <label for="inputEmail3" class="col-sm-3 control-label"></label>
+                        <div class="col-sm-6">
+                            <span style="color:red;">{{ form.password1.errors }}</span><br />
+                       </div>
+                    </div>
+                {% endif %}
+                <div class="form-group has-feedback">
+                    <label for="inputPassword4" class="col-sm-3 control-label">Repeat password</label>
+                    <div class="col-sm-6">
+                        <input class=" form-control" id="id_password2" name="password2" placeholder="Password" type="password"  required />
+                        <span class="glyphicon glyphicon-lock form-control-feedback"></span>
+						<span class="help-block parsley-error-list" id="parsley-32555999141186476">
+						   <span  id="password_error" class="password_error hidden" style="display: inline;"></span>
+						</span>
+                    </div>
+                </div>
+            {%  if form.password2.errors  %}
+                    <div class="form-group  has-feedback">
+                    <label for="inputEmail3" class="col-sm-3 control-label"></label>
+                        <div class="col-sm-6">
+                            <span style="color:red;">{{ form.password2.errors }}</span><br />
+                       </div>
+                    </div>
+                {% endif %}
+                <div class="form-group has-feedback">
+                    <label for="inputPassword4" class="col-sm-3 control-label">Cell Phone</label>
+                    <div class="col-sm-6">
+                        <input class=" form-control" id="id_cell_phone" name="cell_phone" placeholder="+1 (702) 123-4567" type="text" required />
+                        <span class="glyphicon glyphicon-phone form-control-feedback"></span>
+						<span id="valid-msg" class="hidden" style="color:#00C900;">✓ Valid</span>
+						<span id="error-msg" class="hidden" style="color:red;">Invalid number</span>
+					   <span class="help-block parsley-error-list" id="parsley-32555999141186476">
+						   <span  id="phone_unique" class="unique_phone hidden" style="display: inline;"></span>
+						</span>
+                    </div>
+                </div>
+            {%  if form.cell_phone.errors  %}
+                    <div class="form-group  has-feedback">
+                    <label for="inputcell_phone" class="col-sm-3 control-label"></label>
+                        <div class="col-sm-6">
+                            <span style="color:red;">{{ form.cell_phone.errors }}</span><br />
+                       </div>
+                    </div>
+                {% endif %}
+                <div class="form-group">
+                    <div class="col-sm-offset-3 col-sm-6">
+                        <div class="checkbox">
+                            <label>
+                                <input id="id_terms_and_condition" name="terms_and_condition" type="checkbox" required /> I hereby agree to 24/7Mixtape's <a href="#" data-toggle="modal" data-target="#terms-modal">Terms of Use</a> and <a href="#" data-toggle="modal" data-target="#privacy-modal">Privacy Policy</a>.
+                            </label>
+                        </div>
+                    </div>
+                </div>
+            {%  if form.terms_and_condition.errors  %}
+                    <div class="form-group  has-feedback">
+                    <label for="inputEmail3" class="col-sm-3 control-label"></label>
+                        <div class="col-sm-6">
+                            <span style="color:red;">{{ form.terms_and_condition.errors }}</span><br />
+                       </div>
+                    </div>
+                {% endif %}
+				<!--<div class="form-group has-feedback">-->
+                    <!--<label for="inputcaptcha" class="col-sm-3 control-label">Captcha</label>-->
+                    <!--<div class="col-sm-6">-->
+					<!--<script type="text/javascript">-->
+							<!--var DjangoRecaptchaOptions = {-->
+						  <!--"lang": "en"-->
+						<!--};-->
+							<!--if (typeof RecaptchaOptions !== 'object') {-->
+								<!--RecaptchaOptions = DjangoRecaptchaOptions;-->
+							<!--} else {-->
+								<!--for (key in DjangoRecaptchaOptions) {-->
+									<!--RecaptchaOptions[key] = DjangoRecaptchaOptions[key];-->
+								<!--}-->
+							<!--}-->
+						<!--</script>-->
+						<!--<script type="text/javascript" src="http://www.google.com/recaptcha/api/challenge?k=6LcXOPgSAAAAAMhmvDE9KTRHW2HnHDYyp_i2FgxE&hl=en"></script>-->
+						<!--<noscript>-->
+						  <!--<iframe src="http://www.google.com/recaptcha/api/noscript?k=6LcXOPgSAAAAAMhmvDE9KTRHW2HnHDYyp_i2FgxE&hl=en" height="300" width="500" frameborder="0"></iframe><br />-->
+						  <!--<textarea name="recaptcha_challenge_field" rows="3" cols="40"></textarea>-->
+						  <!--<input type='hidden' name='recaptcha_response_field' value='manual_challenge' />-->
+						<!--</noscript>-->
+						<!--<input data-maxlength="40" id="id_confirmation_key" name="confirmation_key" type="hidden" /></p>-->
+					   <!--<span class="help-block parsley-error-list" id="parsley-32555999141186476">-->
+						   <!--<span  id="captcha" class="captcha hidden" style="display: inline;"></span>-->
+						<!--</span>-->
+                    <!--</div>-->
+                <!--</div>-->
+                <div class="form-group">
+                {% if redirect_field_value %}
+                                        <input type="hidden" name="{{ redirect_field_name }}" value="{{ redirect_field_value }}" />
+                                {% endif %}
+
+                    <div class="col-sm-offset-3 col-sm-6">
+                        <!--<button class="btn btn-success btn-large btn-block btn-lg btn-warning" type="submit" style="margin-top: 10px">Sign Up <i class="icon-signin"></i></button>-->
+                     <!--<button type="submit" class="btn btn-block btn-lg btn-warning" id="signup">Sign Up</button>-->
+					 <a href="#" id="signup" class="btn btn-block btn-lg btn-warning">Sign Up</a>
+                     
+    <!--<form action=""  class="form ajax" data-replace-closest=".change-card" method="POST">-->
+        <!--<input name="stripe_token" type="hidden" />-->
+        <!--<a href="" class="btn btn-lg btn-primary change-card" data-toggle="modal" data-target="#add_userprofile_modal">-->
+             <!--<button type="submit" class="btn btn-block btn-lg btn-warning">Sign in</button>-->
+        <!--</a>-->
+    <!--</form>-->
+                    </div>
+                    <div class="col-sm-offset-3 col-sm-6">
+              <span style="float:left;">  Already have an account?  &nbsp; </span> &nbsp;<a class="button secondaryAction pull-left" href="/login/"> Log in here. </a>
+            </div>
+                    
+                   
+                </div>
+				
+            </form>
+            </div>
+        </div>
+
+
+
+        <div class="col-md-2">
+
+            <div class="standard-box">
+
+                <h2 class="header-box">Need help?</h2>
+
+                <h3 class="margin-top-10">Shoot us an email.</h3>
+
+                <div class="team-item">
+                    <img src="{% static 'img/persons/person-6.png' %}" alt="person">
+
+                    <div class="description">
+                        <h3>24/7 Support</h3>
+                        <p><small><a href="mailto:support@247mixtapes.com">support@247mixtapes.com</a></small></p>
+                    </div>
+                </div>
+
+            </div>
+
+        </div>
+
+
+
+    </div>
+</div>
+<div class="modal fade change-card" id="verification_modal" tabindex="-1" role="dialog" aria-labelledby="addUserProfileTitle" aria-hidden="true" data-backdrop="static" data-keyboard="false">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+        <h4 class="modal-title" id="addArtistTitle"><i class="fa fa-user"></i> Enter the verification code sent to your cell phone</h4>
+      </div>
+	 
+      <div class="modal-body">
+	    <div id="error-message" class="row-fluid hidden">
+                 
+                <p class="text-info">
+                   The code you are entered is wrong. Please enter the correct code.
+               </p>
+                 <br>
+         
+            </div>
+        <input class=" form-control" id="verification" maxlength="30" name="verification" placeholder="Verification Code" type="text" />
+
+      </div>
+      <div class="modal-footer">
+          <button type="button" class="btn btn-default" id="pop-close" data-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-primary" id="verification_button">Submit Verification Code <i class="fa fa-plus-circle"></i></button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="modal fade" id="terms-modal" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <h3 class="modal-title">Terms of Use</h3>
+            </div>
+
+            <div class="modal-body">
+
+			    <p>
+                This site is owned and operated by 247Mixtapes.com. These terms of use apply to and govern your, and any authorized user of your account, use of this site, including all services provided therein. Your use of this site signifies your agreement to be bound by these terms of use. If you do not agree tobe bound by these terms of use, do not access or otherwise use this site. 247Mixtapes.com reserves the right, at its sole discretion, to change, modify, add or remove any portion of this site or these terms of use, in whole or in part, at any time. Changes to these terms of use will be effective whenposted. You agree to review these terms of use periodically to be aware of any changes. Your continued use of this site after any changes to these terms of use are posted will be considered acceptance of those changes.
+                </p>
+                <h3 id="license">License To Use This Site</h3>
+
+                <p>
+                247Mixtapes.com grants you a non-exclusive, non-transferable, limited right to access, use and display this site and the materials thereon for your personal use only, provided that you comply fully with these terms of use. 247Mixtapes.com reserves the right to monitor content on the site and to remove content which 247Mixtapes.com, in its sole discretion, determines to be harmful, offensive, or otherwise in violation of these terms.
+				</p>
+ 				<p>All users must be 18 years or older or must have permission from a parent or legal guardian for the use of this website.
+                </p>
+                 <h3 id="disclaimer">Disclaimer</h3>
+                 <p>
+					247Mixtapes.com would like to state that all content on this website is provided FREE courtesy of the mixtape djs / vjs who produced the various audio and video mixes . The content is provided FREE for promotional use only - NOT FOR SALE. All monies paid to 247Mixtapes.com are for website subscription / bandwidth usage / maintenance of the website and promotional services.
+                 
+                 </p>
+                 <h3 id="liability">Limited Liability</h3>
+                 <p>
+					Under no circumstances, including, but not limited to, negligence, shall 247Mixtapes.com be liable for any indirect, special, exemplary, or consequential damages that result from the use of, or the inability to use, the site, the site's materials, or the software, even if 247Mixtapes.com has been advised of the possibility of such damages. In no event shall 247Mixtapes.com's total liability to you for all damages, losses, and causes of action (whether in contract, tort, including, but not limited to, negligence, or otherwise) exceed the amount paid by you, if any, for accessing this site. Because some states do not allow the exclusion or limitation of liability for consequential or incidental damages, the above limitation may not apply to you. In such states, 247Mixtapes.com's liability is limited to the greatest extent permitted by law.
+                 </p>
+                 <h3 id="idemnification">Indemnification</h3>
+                 <p>
+					You agree to indemnify, defend and hold harmless 247Mixtapes.com, its officers, directors, employees, agents, licensors, suppliers and any third party information providers to the site from and against all losses, expenses, damages and costs, including reasonable attorneys' fees, resulting from any violation of this Agreement by you.
+					</p> <p>
+					The provisions of these Terms of Use are for the benefit of 247Mixtapes.com and its agents, directors, employees, licensors, officers, suppliers, and any third party information providers to the site. Each of these individuals or entities shall have the right to assert and enforce those provisions directly against you on its own behalf.
+				</p>
+				<h3 id="user">User Submissions</h3>
+                 <p>
+					Any material, information or other communication you transmit or post to this site, unless specified, will be considered non-confidential and non-proprietary communications. 247Mixtapes.com shall have no obligations with respect to the communications. 247Mixtapes.com and its designees shall be free to copy, disclose, distribute, incorporate and otherwise use the communications and all data embodied therein for any and all commercial or non-commercial purposes. <b>No compensation will be paid with respect to the use of your submission, as provided herein.</b>
+                 </p>
+                 <h3 id="renewal">Automatic Membership Renewal</h3>
+                 <p>
+                 
+				All monthly 247Mixtapes.com membership are automatically renewed via our backend system. This means that you will not have to purchase consectutive memberships for each month. If you do not wish to be charged for another month of service you can easily cancel your membership within your 247Mixtapes account. By signing up on this website you accept and understand how our automatic membership renewal system works
+                 </p>
+                 <h3 id="refund">Refunds Policy</h3>
+                 <p>
+					You may request a refund for any of our memership services within 24 hours of the membership start. Refunds WILL NOT be honored if requested after the 24 hour allowance timeframe.
+                 </p>
+                 <h3 id="termination">Termination</h3>
+                 <p>
+					You understand and agree that 247Mixtapes.com may, in its sole discretion and at any time, terminate your account, and discard and remove any content posted or submitted by you, for any reason. You understand and agree that 247Mixtapes.com may take any one or more of these actions without prior notice to you. Should 247Mixtapes.com take any of these actions, it may, in its sole discretion, immediately deactivate and/or delete any or all information about and concerning your account, including your Registration Information and submitted content. You understand and agree that 247Mixtapes.com shall not have any liability to you or any other person for any termination of your access and/or the removal of information concerning your account. 
+                 </p> 
+
+			</div>
+                
+
+        </div>
+    </div>
+</div>
+
+
+
+<div class="modal fade" id="privacy-modal" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <h3 class="modal-title">Privacy Policy</h3>
+            </div>
+
+            <div class="modal-body">
+
+			<p>
+					Last Updated On Tuesday, May 26th, 2015
+				</p><p>
+					Protecting consumer privacy is very important to us. Our Privacy Policy is available to inform you about our collection and use of personal information so that you can make informed choices about how your own information is collected and used. This Privacy Policy reflects our policies covering personal information collected at 247Mixtapes.com on or after the effective date shown above.
+				</p><p>
+					We believe that information used responsibly benefits consumers and the economy. In addition, 247Mixtapes.com strives to better serve our customers by offering goods and services that we believe fit their needs and interests. When identifying an opportunity, 247Mixtapes.com may use consumer information it has collected in an effort to identify consumers who may be interested in what we have to offer. Consumers rely on 247Mixtapes.com for safe and reliable service. The relationships we have developed through the years have been established based on mutual trust and exceptional customer service. Each day we strive to reinforce our commitment to our consumers ensuring that we abide by a set of privacy policies, which are outlined below. These policies guide us in the collection and use of information as well as protecting your privacy. We use personal information about consumers only in a manner consistent with these policies.
+                </p>
+                <h3 id="collection">Collection Of Information</h3>
+
+                <p>
+                
+					247Mixtapes.com needs to collect personal information in order to offer or provide goods and services to consumers and our customers. We may obtain this information from a variety of sources:
+					<ul><li>Directly from transactions in which 247Mixtapes.com and customers are involved;</li>
+					<li>Directly from consumer surveys, questionnaires and other materials submitted to us by consumers;</li>
+					<li>Indirectly from click thru activity on our web sites;</li>
+					</ul>            
+                
+                
+                </p>
+ 				
+                 <h3 id="disclosure">Disclosure Of Information</h3>
+                 <p>
+					
+					247Mixtapes.com does not disclose customer information to third parties without first giving customers an opportunity to opt-out of certain kinds of disclosures. There are some disclosures to third parties that are not subject to the opt-out, such as disclosures necessary to effect, administer or enforce a transaction requested by you, to companies that perform services for us or to prevent fraud.
+                 </p>
+                 <h3 id="use">We Use Appropriate Security Safeguards</h3>
+                 <p>
+					Security is a priority to 247Mixtapes.com. We employ appropriate measures to protect consumer information against unauthorized access, disclosure, alteration or destruction. These may include, among others, encryption, physical access security and other appropriate technologies. 247Mixtapes.com continually reviews and enhances its security systems, as necessary.	
+			     </p>
+                 <h3 id="assurance">Assurance Of Quality Information</h3>
+                 <p>
+					
+					247Mixtapes.com employs appropriate measures to assure the quality of information we collect directly from consumers is accurate. We will inform consumers about how they can access their personal information and make corrections. Where 247Mixtapes.com collects information directly from consumers, we permit them, if possible, to dispute or correct any erroneous or out-of-date personally identifiable information. Where applicable, we abide by laws related to such information. You can correct factual errors in your personally identifiable information by sending us a written request that credibly shows error. We reserve the right to independently verify claims made. To protect your privacy and security, we also will take reasonable steps to verify your identity before making corrections.
+				</p>
+				<h3 id="opt">Opt Out Right</h3>
+                 <p>
+					247Mixtapes.com may disclose consumer information to third parties as described earlier in this notice. Many of these disclosures are beneficial to consumers because they permit goods and services of interest to consumers to be offered to consumers at attractive rates. We strive to give consumers choices about how their data will be used. You have the right to opt-out of (direct us not to make) these disclosures when the consumer information is about you. If you would like to opt out simply visit our homepage and select the "Opt Out" option at the bottom of the page.
+				</p>
+                 <h3 id="questions">Questions Or Comments</h3>
+                 <p>
+                 
+					If you have any questions or comments about our Privacy Policy, or for some reason believe we have not adhered to our statement, please contact: <a href="mailto:support@247mixtapes.com" class="style1">support@247Mixtapes.com</a>.
+					
+					We may alter this statement as needed for certain products and services and to abide by local laws or regulations around the world. 247Mixtapes.com reserves the right to amend or modify this statement from time to time. We urge you to review this statement whenever you visit in order to obtain the most current statement. You may change your choices at any time.
+				</p>
+
+			</div>
+                
+
+        </div>
+    </div>
+</div>
+
+
+
+{% addtoblock "bottom_js" %}
+<script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+<script src="{{STATIC_URL}}build/js/intlTelInput.js"></script>
+<script src="{{STATIC_URL}}js/phoneparser.js"></script>
+<script>
+  phonenumber = $("#id_cell_phone").intlTelInput();
+  phonenumber.intlTelInput({
+  validationScript: "../../lib/libphonenumber/build/isValidNumber.js"
+});
+  phonenumber.blur(function() {
+	validate = parsePhone($(phonenumber).val());
+	if (validate == null){
+	   <!--$('#error-msg').text('Invalidnumber');-->
+	   $('#error-msg').removeClass("hidden");
+	}
+	else {
+	  	   $('#valid-msg').removeClass("hidden");
+
+	}
+  });
+  // on keydown: reset
+  phonenumber.keydown(function() {
+   $('#error-msg').addClass("hidden");
+   $('#valid-msg').addClass("hidden");
+});
+</script>
+<script>
+   $('#signup').click(function () {
+	form_valid = $('#signup_data').parsley().validate();
+	user_valid = ($('#id_username').val() != "");
+	currentstep = $('#signup');
+	validate = parsePhone($('#id_cell_phone').val());
+	endpoint = '/twilio_verification/';
+	method = "post";
+
+	if ( form_valid && validate){
+			var data = $('#signup_data').serialize();
+			$.ajax({
+				url: '/validate_form/',
+				type: method,
+				data: data,
+				success: function(data) {
+					username_error = data.username_error;
+					email_error = data.email_error;
+					cell_phone_error = data.cell_phone_error;
+					password_error = data.password_error;
+					if ( username_error || cell_phone_error || password_error || email_error){
+
+					   if ( username_error !== null ){
+   					      $('#username_unique').text( username_error );
+						  $('#username_unique').removeClass("hidden");
+					   }
+					   if ( email_error !== null ){
+							$('#email_error').text( email_error );
+							 $('#email_error').removeClass("hidden");
+						 }
+					     if ( cell_phone_error !== null ){
+   					      $('#phone_unique').text( cell_phone_error );
+						  $('#phone_unique').removeClass("hidden");
+					   }
+					     if ( password_error !== null ){
+							$('#password_error').text( password_error );
+							 $('#password_error').removeClass("hidden");
+						 }
+					     
+					}
+			         else {
+					     var data = $('#signup_data').serialize();
+						$.ajax({
+							url: endpoint,
+							type: method,
+							data: data,
+							success: function(data) {
+								//Store mixtape data in the next button as a data attributes
+								currentstep.data('form_data', data.form_data);
+								currentstep.data('message', data.message);
+								currentstep.data('message_body', data.message_body);
+								currentstep.data('verication_text',data.verication_text);
+								currentstep.data('message_info',data.message_info);
+			
+			
+								<!--currentstep.data('current_mixtape_content_type_id', data.content_type_id);-->
+								//Go through the usual precedure
+								if (data.message && data.verication_text){
+									var modal = $('#verification_modal');
+									<!--alert('modal');-->
+									modal.modal();
+								}
+								else {
+									$('#message h4').text(data.message_info);
+								}
+							},
+							error: function(data){
+								$.pnotify({
+									title: 'Error',
+									text: data.responseText,
+									icon: 'fa fa-exclamation-circle',
+									type: 'error'
+								})
+								}
+								});
+							}
+							
+						}
+			});
+	       
+	}
+   });
+  </script>
+  <script>
+  
+  function getParameterByName(name) {
+	    name = name.replace(/[\[]/, "\\[").replace(/[\]]/, "\\]");
+	    var regex = new RegExp("[\\?&]" + name + "=([^&#]*)"),
+	        results = regex.exec(location.search);
+	    return results == null ? "" : decodeURIComponent(results[1].replace(/\+/g, " "));
+	}
+  
+   $('#verification_button').click(function () {
+		message = $('#signup').data('message');
+		data = $('#signup').data('form_data');
+		message_body = $('#signup').data('message_body');
+		verication_text = $('#signup').data('verication_text');
+		verify_text = $('#verification').val();
+		if (verify_text == verication_text){
+			endpoint = '/adduserprofile/';
+			method = "post";
+			$.ajax({
+					url: endpoint,
+					type: method,
+					data: {'data':data,'message':message,'message_body':message_body,'code':verify_text},
+					success: function(data) {
+						//Store mixtape data in the next button as a data attributes
+						var modal = $('#verification_modal');
+						 <!--alert('modal');-->
+						 <!--/modal.close();-->
+						 if (getParameterByName('next') == ""){							 
+						 
+						 window.location.href = "/my-profile/";
+						 }else{
+							 window.location.href = getParameterByName('next')
+						 }
+					},
+					error: function(data){
+						$.pnotify({
+							title: 'Error',
+							text: data.responseText,
+							icon: 'fa fa-exclamation-circle',
+							type: 'error'
+						})
+					}
+				});
+			}
+			else{
+			   $('#error-message').removeClass("hidden");
+			}
+
+   });
+
+   $('#pop-close').click(function(){
+        message = $('#signup').data('message');
+        data = $('#signup').data('form_data');
+        message_body = $('#signup').data('message_body');
+        verication_text = $('#signup').data('verication_text');
+        verify_text = $('#verification').val();
+            if (verify_text == ''){
+                endpoint = '/verify/';
+                method = "post";
+                $.ajax({
+                        url: endpoint,
+                        type: method,
+                        data: {'data':data,'message':message,'message_body':message_body,'code':verication_text},
+                        success: function(data) {
+                                //Store mixtape data in the next button as a data attributes
+                                var modal = $('#verification_modal');
+                                 <!--alert('modal');-->
+                                 <!--/modal.close();-->                                 
+                                 window.location.href = "/";
+                        },
+                        error: function(data){
+                                $.pnotify({
+                                        title: 'Error',
+                                        text: data.responseText,
+                                        icon: 'fa fa-exclamation-circle',
+                                        type: 'error'
+                                })
+                        }
+                });
+            }
+            else{
+                   $('#error-message').removeClass("hidden");
+                }
+   });
+
+   </script>
+ {% endaddtoblock %}
+{#<div class="container">#}
+{#	<h1 class="phone-center">{% trans "New User Registration" %}</h1>#}
+{#	<hr>#}
+{#	#}
+{#	<div class="row-fluid">#}
+{#	#}
+{#		<div class="span4" style="width:48.5%;">#}
+{#			<div class="alert alert-success thickwhiteborder" id="signin-block">#}
+{#				<h2>... or sign in</h2>#}
+{#				<a class="btn btn-success big-btn" href="{{ login_url }}">#}
+{#					Sign in <i class="icon-signin"></i>#}
+{#				</a>#}
+{#			</div>#}
+{#	#}
+{#		<div>#}
+{#			{% if socialaccount.providers %}#}
+{#				<div class="alert alert-info thickwhiteborder" id="social-block">#}
+{#					<h2><i class="icon-group"></i> Social sign-up</h2>#}
+{#					<ul class="socialaccount_providers">#}
+{#						{% include "socialaccount/snippets/provider_list.html" %}#}
+{#					</ul>#}
+{#				</div>#}
+{#			{% endif %}#}
+{#		</div>#}
+{#	</div>#}
+{##}
+{#		<div class="span4" style="width:48.5%;">#}
+{#			<div class="alert alert-warning thickwhiteborder" id="signup-block">#}
+{#				<h2><i class="icon-frown"></i> Antisocial, huh?</h2>#}
+{#				<form class="login" method="POST" action="{% url 'account_signup' %}">#}
+{#					{% csrf_token %}#}
+{#					{{ form|as_bootstrap }}#}
+{#	#}
+{#					{% if redirect_field_value %}#}
+{#						<input type="hidden" name="{{ redirect_field_name }}" value="{{ redirect_field_value }}" />#}
+{#					{% endif %}#}
+{#	#}
+{#					<a class="button secondaryAction pull-left" href="{% url 'account_reset_password' %}">{% trans "Forgot Password?" %}</a>#}
+{#					<br>#}
+{#					<br>#}
+{#					<button class="btn btn-success btn-large primaryAction" type="submit" style="margin-top: 10px">{% trans "Sign Up" %} <i class="icon-signin"></i></button>#}
+{#				</form>#}
+{#			</div>#}
+{#		</div>#}
+{#	#}
+{#	#}
+{#	#}
+{#	</div>#}
+{#</div>#}
+
+
+
+{% endblock %}
+
+

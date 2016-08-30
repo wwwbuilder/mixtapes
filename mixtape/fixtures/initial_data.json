@@ -1,0 +1,532 @@
+[
+{
+    "pk": 1, 
+    "model": "mixtape.genre", 
+    "fields": {
+        "rght": 2, 
+        "updated": "2014-06-02T04:15:36.716Z", 
+        "updated_by": null, 
+        "parent": null, 
+        "created": "2014-06-02T04:15:36.716Z", 
+        "deleted": false, 
+        "level": 0, 
+        "created_by": null, 
+        "slug": "rap", 
+        "lft": 1, 
+        "tree_id": 1, 
+        "order": null, 
+        "name": "Rap"
+    }
+},
+{
+    "pk": 2, 
+    "model": "mixtape.genre", 
+    "fields": {
+        "rght": 2, 
+        "updated": "2014-06-02T04:15:36.722Z", 
+        "updated_by": null, 
+        "parent": null, 
+        "created": "2014-06-02T04:15:36.722Z", 
+        "deleted": false, 
+        "level": 0, 
+        "created_by": null, 
+        "slug": "blends", 
+        "lft": 1, 
+        "tree_id": 2, 
+        "order": null, 
+        "name": "Blends"
+    }
+},
+{
+    "pk": 3, 
+    "model": "mixtape.genre", 
+    "fields": {
+        "rght": 2, 
+        "updated": "2014-06-02T04:15:36.726Z", 
+        "updated_by": null, 
+        "parent": null, 
+        "created": "2014-06-02T04:15:36.726Z", 
+        "deleted": false, 
+        "level": 0, 
+        "created_by": null, 
+        "slug": "reggae", 
+        "lft": 1, 
+        "tree_id": 3, 
+        "order": null, 
+        "name": "Reggae"
+    }
+},
+{
+    "pk": 4, 
+    "model": "mixtape.genre", 
+    "fields": {
+        "rght": 2, 
+        "updated": "2014-06-02T04:15:36.731Z", 
+        "updated_by": null, 
+        "parent": null, 
+        "created": "2014-06-02T04:15:36.731Z", 
+        "deleted": false, 
+        "level": 0, 
+        "created_by": null, 
+        "slug": "east-cost", 
+        "lft": 1, 
+        "tree_id": 4, 
+        "order": null, 
+        "name": "East Coast"
+    }
+},
+{
+    "pk": 5, 
+    "model": "mixtape.genre", 
+    "fields": {
+        "rght": 2, 
+        "updated": "2014-06-02T04:15:36.735Z", 
+        "updated_by": null, 
+        "parent": null, 
+        "created": "2014-06-02T04:15:36.735Z", 
+        "deleted": false, 
+        "level": 0, 
+        "created_by": null, 
+        "slug": "dirty-south", 
+        "lft": 1, 
+        "tree_id": 5, 
+        "order": null, 
+        "name": "Dirty South"
+    }
+},
+    {
+    "pk": 6, 
+    "model": "mixtape.genre", 
+    "fields": {
+        "rght": 2, 
+        "updated": "2014-06-02T04:15:36.735Z", 
+        "updated_by": null, 
+        "parent": null, 
+        "created": "2014-06-02T04:15:36.735Z", 
+        "deleted": false, 
+        "level": 0, 
+        "created_by": null, 
+        "slug": "rb", 
+        "lft": 1, 
+        "tree_id": 6, 
+        "order": null, 
+        "name": "R&B"
+    }
+},
+     {
+    "pk": 7, 
+    "model": "mixtape.genre", 
+    "fields": {
+        "rght": 2, 
+        "updated": "2014-06-02T04:15:36.735Z", 
+        "updated_by": null, 
+        "parent": null, 
+        "created": "2014-06-02T04:15:36.735Z", 
+        "deleted": false, 
+        "level": 0, 
+        "created_by": null, 
+        "slug": "dance-hall", 
+        "lft": 1, 
+        "tree_id": 7, 
+        "order": null, 
+        "name": "Dance Hall"
+    }
+},
+      {
+    "pk": 7, 
+    "model": "mixtape.genre", 
+    "fields": {
+        "rght": 2, 
+        "updated": "2014-06-02T04:15:36.735Z", 
+        "updated_by": null, 
+        "parent": null, 
+        "created": "2014-06-02T04:15:36.735Z", 
+        "deleted": false, 
+        "level": 0, 
+        "created_by": null, 
+        "slug": "cs", 
+        "lft": 1, 
+        "tree_id": 7, 
+        "order": null, 
+        "name": "Chopped & Screwed"
+    }
+},
+   
+      {
+    "pk": 9, 
+    "model": "mixtape.genre", 
+    "fields": {
+        "rght": 2, 
+        "updated": "2014-06-02T04:15:36.735Z", 
+        "updated_by": null, 
+        "parent": null, 
+        "created": "2014-06-02T04:15:36.735Z", 
+        "deleted": false, 
+        "level": 0, 
+        "created_by": null, 
+        "slug": "instrumentals", 
+        "lft": 1, 
+        "tree_id": 9, 
+        "order": null, 
+        "name": "Instrumentals"
+    }
+},
+{
+    "pk": 1, 
+    "model": "mixtape.addoncategory", 
+    "fields": {
+        "rght": 2, 
+        "updated": "2014-05-20T03:18:56.581Z", 
+        "updated_by": 1, 
+        "parent": null, 
+        "created": "2014-05-20T03:18:56.581Z", 
+        "deleted": false, 
+        "level": 0, 
+        "created_by": 1, 
+        "slug": "pre-release-upgrades", 
+        "lft": 1, 
+        "tree_id": 1, 
+        "order": null, 
+        "name": "Pre-Release Upgrades"
+    }
+},
+{
+    "pk": 2, 
+    "model": "mixtape.addoncategory", 
+    "fields": {
+        "rght": 2, 
+        "updated": "2014-05-20T03:19:07.681Z", 
+        "updated_by": 1, 
+        "parent": null, 
+        "created": "2014-05-20T03:19:07.681Z", 
+        "deleted": false, 
+        "level": 0, 
+        "created_by": 1, 
+        "slug": "post-release-upgrades", 
+        "lft": 1, 
+        "tree_id": 2, 
+        "order": null, 
+        "name": "Post-Release Upgrades"
+    }
+},
+{
+    "pk": 3, 
+    "model": "mixtape.addoncategory", 
+    "fields": {
+        "rght": 2, 
+        "updated": "2014-05-20T04:28:55.948Z", 
+        "updated_by": 1, 
+        "parent": null, 
+        "created": "2014-05-20T04:28:55.948Z", 
+        "deleted": false, 
+        "level": 0, 
+        "created_by": 1, 
+        "slug": "publisher-upgrades", 
+        "lft": 1, 
+        "tree_id": 3, 
+        "order": null, 
+        "name": "Publisher Upgrades"
+    }
+},
+{
+    "pk": 4, 
+    "model": "mixtape.addontype", 
+    "fields": {
+        "category": 2, 
+        "rght": 2, 
+        "updated": "2014-05-20T03:22:19.795Z", 
+        "updated_by": 1, 
+        "parent": null, 
+        "created": "2014-05-20T03:22:14.859Z", 
+        "deleted": false, 
+        "description": "Feature your mixtape on the front page of 247Mixtapes for 7 days and attract more listeners.", 
+        "level": 0, 
+        "created_by": 1, 
+        "slug": "featured-mixtape", 
+        "price": "150.00", 
+        "lft": 1, 
+        "tree_id": 3, 
+        "duration": null, 
+        "order": null, 
+        "name": "Featured Mixtape"
+    }
+},
+{
+    "pk": 5, 
+    "model": "mixtape.addontype", 
+    "fields": {
+        "category": 2, 
+        "rght": 2, 
+        "updated": "2014-05-20T03:22:51.517Z", 
+        "updated_by": 1, 
+        "parent": null, 
+        "created": "2014-05-20T03:22:51.517Z", 
+        "deleted": false, 
+        "description": "Sponsored mixtapes can be downloaded by anyone, whether they are logged into the site or not. If the downloader is logged into their 247Mixtapes account, the sponsored mixtape download does not count against their daily download allowance.", 
+        "level": 0, 
+        "created_by": 1, 
+        "slug": "sponsored-mixtape", 
+        "price": "100.00", 
+        "lft": 1, 
+        "tree_id": 4, 
+        "duration": 7, 
+        "order": null, 
+        "name": "Sponsored Mixtape"
+    }
+},
+{
+    "pk": 6, 
+    "model": "mixtape.addontype", 
+    "fields": {
+        "category": 2, 
+        "rght": 2, 
+        "updated": "2014-05-20T03:23:15.986Z", 
+        "updated_by": 1, 
+        "parent": null, 
+        "created": "2014-05-20T03:23:15.986Z", 
+        "deleted": false, 
+        "description": "Place your mixtape in the slider where it will show up on EVERY single mixtape page for 7 days.", 
+        "level": 0, 
+        "created_by": 1, 
+        "slug": "sitewide-slider-upgrade", 
+        "price": "100.00", 
+        "lft": 1, 
+        "tree_id": 5, 
+        "duration": 7, 
+        "order": null, 
+        "name": "Sitewide Slider Upgrade"
+    }
+},
+{
+    "pk": 7, 
+    "model": "mixtape.addontype", 
+    "fields": {
+        "category": 2, 
+        "rght": 2, 
+        "updated": "2014-05-20T03:23:35.869Z", 
+        "updated_by": 1, 
+        "parent": null, 
+        "created": "2014-05-20T03:23:35.869Z", 
+        "deleted": false, 
+        "description": "Highlight your mixtape listing across the site and draw more attention to it.", 
+        "level": 0, 
+        "created_by": 1, 
+        "slug": "highlight-mixtape", 
+        "price": "15.00", 
+        "lft": 1, 
+        "tree_id": 6, 
+        "duration": null, 
+        "order": null, 
+        "name": "Highlight Mixtape"
+    }
+},
+{
+    "pk": 8, 
+    "model": "mixtape.addontype", 
+    "fields": {
+        "category": 2, 
+        "rght": 2, 
+        "updated": "2014-05-20T03:23:59.330Z", 
+        "updated_by": 1, 
+        "parent": null, 
+        "created": "2014-05-20T03:23:59.330Z", 
+        "deleted": false, 
+        "description": "Customize the background artwork on your mixtape page and make it stand out. The artwork will remain on the mixtape\u2019s page for as long as the mixtape is on the 247Mixtapes website.", 
+        "level": 0, 
+        "created_by": 1, 
+        "slug": "custom-skin-on-mixtape-page", 
+        "price": "150.00", 
+        "lft": 1, 
+        "tree_id": 7, 
+        "duration": null, 
+        "order": null, 
+        "name": "Custom Skin On Mixtape Page"
+    }
+},
+{
+    "pk": 9, 
+    "model": "mixtape.addontype", 
+    "fields": {
+        "category": 2, 
+        "rght": 2, 
+        "updated": "2014-05-20T03:24:38.429Z", 
+        "updated_by": 1, 
+        "parent": null, 
+        "created": "2014-05-20T03:24:38.429Z", 
+        "deleted": false, 
+        "description": "Your advertisement will appear as the background of our homepage for one day. It will link to wherever you'd like pending our approval.", 
+        "level": 0, 
+        "created_by": 1, 
+        "slug": "custom-skin-on-homepage", 
+        "price": "400.00", 
+        "lft": 1, 
+        "tree_id": 8, 
+        "duration": 1, 
+        "order": null, 
+        "name": "Custom Skin On Homepage"
+    }
+},
+{
+    "pk": 10, 
+    "model": "mixtape.addontype", 
+    "fields": {
+        "category": 2, 
+        "rght": 2, 
+        "updated": "2014-05-20T03:25:00.140Z", 
+        "updated_by": 1, 
+        "parent": null, 
+        "created": "2014-05-20T03:25:00.141Z", 
+        "deleted": false, 
+        "description": "Tweet your mixtape to @247Mixtapes (which has 48,000+ followers) and get easy, quick exposure.", 
+        "level": 0, 
+        "created_by": 1, 
+        "slug": "tweet-your-mixtape", 
+        "price": "25.00", 
+        "lft": 1, 
+        "tree_id": 9, 
+        "duration": null, 
+        "order": null, 
+        "name": "Tweet Your Mixtape"
+    }
+},
+{
+    "pk": 11, 
+    "model": "mixtape.addontype", 
+    "fields": {
+        "category": 2, 
+        "rght": 2, 
+        "updated": "2014-03-09T02:38:50.385Z", 
+        "updated_by": 1, 
+        "parent": null, 
+        "created": "2014-03-09T02:38:34.416Z", 
+        "deleted": false, 
+        "description": "An image is worth a 1000 words. We'll post your mixtape cover on our Instagram feed to drive thousands of page views to your mixtape of choice.", 
+        "level": 0, 
+        "created_by": 1, 
+        "slug": "instagram-post", 
+        "price": "30.00", 
+        "lft": 1, 
+        "tree_id": 5, 
+        "duration": null, 
+        "order": null, 
+        "name": "Instagram Post"
+    }
+},
+{
+    "pk": 12, 
+    "model": "mixtape.addontype", 
+    "fields": {
+        "category": 2, 
+        "rght": 2, 
+        "updated": "2014-05-20T03:25:43.564Z", 
+        "updated_by": 1, 
+        "parent": null, 
+        "created": "2014-05-20T03:25:43.564Z", 
+        "deleted": false, 
+        "description": "", 
+        "level": 0, 
+        "created_by": 1, 
+        "slug": "facebook-post-coming-soon", 
+        "price": "25.00", 
+        "lft": 1, 
+        "tree_id": 11, 
+        "duration": null, 
+        "order": null, 
+        "name": "Facebook Post (Coming Soon)"
+    }
+},
+{
+    "pk": 13, 
+    "model": "mixtape.addontype", 
+    "fields": {
+        "category": 1, 
+        "rght": 2, 
+        "updated": "2014-05-20T03:21:28.196Z", 
+        "updated_by": 1, 
+        "parent": null, 
+        "created": "2014-05-20T03:20:59.862Z", 
+        "deleted": false, 
+        "description": "Have a counter on your mixtape page which counts down (up to 7 days in advance) until its release.", 
+        "level": 0, 
+        "created_by": 1, 
+        "slug": "basic-mixtape-page-countdown", 
+        "price": "100.00", 
+        "lft": 1, 
+        "tree_id": 1, 
+        "duration": 7, 
+        "order": null, 
+        "name": "Basic Mixtape Page Countdown"
+    }
+},
+{
+    "pk": 14, 
+    "model": "mixtape.addontype", 
+    "fields": {
+        "category": 1, 
+        "rght": 2, 
+        "updated": "2014-05-20T03:21:24.763Z", 
+        "updated_by": 1, 
+        "parent": null, 
+        "created": "2014-05-20T03:21:24.763Z", 
+        "deleted": false, 
+        "description": "Have your mixtape counter listed beneath the featured mixtapes on homepage for 24 hours before your mixtape drops.", 
+        "level": 0, 
+        "created_by": 1, 
+        "slug": "enhanced-homepage-mixtape-countdown", 
+        "price": "300.00", 
+        "lft": 1, 
+        "tree_id": 2, 
+        "duration": 1, 
+        "order": null, 
+        "name": "Enhanced Homepage Mixtape Countdown"
+    }
+},
+
+{
+    "pk": 15, 
+    "model": "mixtape.addontype", 
+    "fields": {
+        "category": 3, 
+        "rght": 2, 
+        "updated": "2014-05-20T04:56:15.672Z", 
+        "updated_by": 1, 
+        "parent": null, 
+        "created": "2014-05-20T04:56:15.672Z", 
+        "deleted": false, 
+        "description": "Consists of: Verified Account Status, Priority Mixtape Approval, Rep Your City, Mixtape Analytics, and Unlimited Mixtape Submissions.", 
+        "level": 0, 
+        "created_by": 1, 
+        "slug": "publisher-vip-monthly", 
+        "price": "3.00", 
+        "lft": 1, 
+        "tree_id": 12, 
+        "duration": 30, 
+        "order": null, 
+        "name": "Publisher Vip - Monthly"
+    }
+},
+{
+    "pk": 16, 
+    "model": "mixtape.addontype", 
+    "fields": {
+        "category": 3, 
+        "rght": 2, 
+        "updated": "2014-05-20T04:56:41.365Z", 
+        "updated_by": 1, 
+        "parent": null, 
+        "created": "2014-05-20T04:56:41.365Z", 
+        "deleted": false, 
+        "description": "Consists of: Verified Account Status, Priority Mixtape Approval, Rep Your City, Mixtape Analytics, and Unlimited Mixtape Submissions.", 
+        "level": 0, 
+        "created_by": 1, 
+        "slug": "publisher-vip-yearly", 
+        "price": "30.00", 
+        "lft": 1, 
+        "tree_id": 13, 
+        "duration": 365, 
+        "order": null, 
+        "name": "Publisher Vip - Yearly"
+    }
+}
+]
+

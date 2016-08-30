@@ -1,0 +1,51 @@
+<span>
+    <ul class="social-bar">
+        {% if object.homepage %}
+            <li>
+                <a href="{{object.homepage}}" target="_blank">
+                    <i class="icon-globe icon-2x"></i>
+                </a>
+            </li>
+        {% endif %}
+
+        {% if object.facebook %}
+            <li>
+                <a href="{{object.facebook}}" target="_blank">
+                    <i class="icon-facebook-sign icon-2x"></i>
+                </a>
+            </li>
+        {% endif %}
+
+        {% if object.twitter %}
+            <li>
+                <a href="{{object.twitter}}" target="_blank">
+                    <i class="icon-twitter-sign icon-2x"></i>
+                </a>
+            </li>
+        {% endif %}
+
+        {% if object.google %}
+            <li>
+                <a href="{{object.google}}" target="_blank">
+                    <i class="icon-google-plus-sign icon-2x"></i>
+                </a>
+            </li>
+        {% endif %}
+
+        {% if object.youtube %}
+            <li>
+                <a href="{{object.youtube}}" target="_blank">
+                    <i class="icon-play-sign icon-2x"></i>
+                </a>
+            </li>
+        {% endif %}
+
+        {% if object.pinterest %}
+            <li>
+                <a href="{{object.pinterest}}" target="_blank">
+                    <i class="icon-pinterest icon-2x"></i>
+                </a>
+            </li>
+        {% endif %}         
+    </ul>
+</span>

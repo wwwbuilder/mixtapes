@@ -1,0 +1,65 @@
+<table class="table" style="margin: 0">
+	<tbody>
+		{% if object.homepage %}
+		<tr>
+			<td class="socialIcon">
+				<a href="{{object.homepage}}" target="_blank"><i class="icon-globe"></i></a>
+			</td>
+			<td class="verticalmiddle">
+				<a href="{{object.homepage}}">{{object.homepage}}</a>
+			</td>
+		</tr>
+		{% endif %}
+		{% if object.facebook %}
+		<tr>
+			<td class="socialIcon">
+				<a href="{{object.facebook}}" target="_blank"><i class="icon-facebook-sign"></i></a>
+			</td>
+			<td class="verticalmiddle">
+				<a href="{{object.facebook}}">{{object.facebook}}</a>
+			</td>
+		</tr>
+		{% endif %}
+		{% if object.twitter %}
+		<tr>
+			<td class="socialIcon">
+				<a href="{{object.twitter}}" target="_blank"><i class="icon-twitter"></i></a>
+			</td>
+			<td class="verticalmiddle">
+				<a href="{{object.twitter}}">{{object.twitter}}</a>
+			</td>
+		</tr>
+		{% endif %}
+		{% if object.google %}
+		<tr>
+			<td class="socialIcon">
+				<a href="{{object.google}}" target="_blank"><i class="icon-google-plus"></i></a>
+			</td>
+			<td class="verticalmiddle">
+				<a href="{{object.google}}">{{object.google}}</a>
+			</td>
+		</tr>
+		{% endif %}
+		{% if object.youtube %}
+		<tr>
+			<td class="socialIcon">
+				<a href="{{object.youtube}}" target="_blank"><i class="icon-play-sign"></i></a>
+			</td>
+			<td class="verticalmiddle">
+				<a href="{{object.youtube}}">{{object.youtube}}</a>
+			</td>
+		</tr>
+		{% endif %}
+		{% if object.pinterest %}
+		<tr>
+			<td class="socialIcon">
+				<a href="{{object.pinterest}}" target="_blank"><i class="icon-pinterest"></i></a>
+			</td>
+			<td class="verticalmiddle">
+				<a href="{{object.pinterest}}">{{object.pinterest}}</a>
+			</td>
+		</tr>
+		{% endif %}
+	</tbody>
+	<thead></thead>
+</table> 

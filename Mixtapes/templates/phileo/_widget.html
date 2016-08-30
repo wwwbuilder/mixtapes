@@ -1,0 +1,15 @@
+<div class="phileo">
+    {% if can_like %}
+        <a class="btn btn-info ajax"
+           data-method="post"
+           data-replace-closest=".phileo"
+           data-spinner="off"
+           href="{{ like_url }}">
+            <i class="icon {{ like_class }}"></i>
+            {{ like_text }}
+        </a>
+    {% endif %}
+    <p class="count text text-info">
+        {{ like_count }} {{ counts_text }}
+    </p>
+</div>

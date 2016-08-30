@@ -1,0 +1,18 @@
+{% load staticfiles sekizai_tags %}
+
+{% load bootstrap_tags %}
+{% if success %}
+	<div class="text alert_user"  id="alert_box">
+			          <h4>
+			                 
+			                        <div class="alert alert-info alert-dismissable">
+			                                <i class="icon-info-sign icon-2x"></i>
+			                                <button aria-hidden="true" data-dismiss="alert" class="close" type="button">×</button>
+			                                <strong>Heads up!</strong> userprofile updated
+			                        </div>
+			                
+			        </h4>
+			        </div>
+{% endif %}
+
+{{ form|as_bootstrap }}

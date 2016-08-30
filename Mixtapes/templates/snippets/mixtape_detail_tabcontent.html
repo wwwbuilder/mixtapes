@@ -1,0 +1,67 @@
+<div class="row-fluid trackHeading">
+	<div class="span7">
+		<h2>{{track.filename}}</h2>
+	</div>
+
+	<div class="span5 buttonSide">
+		<button class='btn btn-large btn-primary btn-span pull-right' onClick="downloadfile(url='{{track.secure_url}}', policy='{{FILEPICKER_UPLOAD_POLICY}}', signature='{{FILEPICKER_UPLOAD_SIGNATURE}}', type='Track')">Download Track <i class="icon-download-alt"></i></button>
+		<!--{% if user.userprofile.premium or track.mixtape.isSponsored %}-->
+			<!--<button class='btn btn-large btn-primary btn-span pull-right' onClick="downloadfile(url='{{track.secure_url}}', policy='{{track.policy}}', signature='{{track.signature}}', type='Track')">Download Track <i class="icon-download-alt"></i></button>-->
+		<!--{% endif %}-->
+	</div>
+
+</div>
+
+<table class="table">
+	<tbody>
+		{% if track.genres.all %}
+			<tr>
+				<td>
+					<strong>Genre{% if track.genre.all|length > 1 %}s{% endif %}</strong>
+				</td>
+				<td>
+					{{track.genre_list}}
+				</td>
+			</tr>
+		{% endif %}
+
+		{% if track.artists.all %}
+			<tr>
+				<td>
+					<strong>Artist{% if track.artists.all|length > 1 %}s{% endif %}</strong>
+				</td>
+				<td>
+					{{track.artist_list}}
+				</td>
+			</tr>
+		{% endif %}
+
+		{% if track.producers.all %}
+			<tr>
+				<td>
+					<strong>Producer{% if track.producers.all|length > 1 %}s{% endif %}</strong>
+				</td>
+				<td>
+					{{track.producer_list}}
+				</td>
+			</tr>
+		{% endif %}
+
+		{% if track.djs.all %}
+			<tr>
+				<td>
+					<strong>DJ{% if track.djs.all|length > 1 %}s{% endif %}</strong>
+				</td>
+				<td>
+					{{track.dj_list}}
+				</td>
+			</tr>
+		{% endif %}
+	</tbody>
+	<thead></thead>
+</table>
+
+{% if track.lyrics %}
+	<h4>Lyrics</h4>
+	<p>{{track.lyrics}}</p>
+{% endif %}

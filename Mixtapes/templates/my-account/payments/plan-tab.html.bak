@@ -1,0 +1,118 @@
+<h2>Current Plan</h2>
+{% with request.user.customer.current_subscription as subscription %}
+{% if subscription %}
+{% if subscription.cancel_at_period_end %}
+{% if subscription.status == "active" %}
+
+<div class="alert alert-success">
+    <ul class="fa-ul">
+        <li>
+            <i class="fa fa-itimes-circle fa-lg fa-li"></i>
+            Your subscription has been <strong>canceled</strong> but you can continue to use the site for another <strong>{{ subscription.current_period_end|timeuntil }}</strong>.
+        </li>
+    </ul>
+</div>
+
+{% endif %}
+{% if subscription.status == "trialing" %}
+
+<div class="alert alert-success">
+    <ul class="fa-ul">
+        <li>
+            <i class="fa fa-times-circle fa-lg fa-li"></i>
+            Your trial has been <strong>canceled</strong> but you can continue to use the site for another <strong>{{ subscription.current_period_end|timeuntil }}</strong>.
+        </li>
+    </ul>
+</div>
+
+{% endif %}
+{% else %}
+{% if subscription.status == "active" %}
+<div class="alert alert-success">
+    <ul class="fa-ul">
+        <li>
+            <i class="fa fa-calendar fa-lg fa-li"></i>
+            Your subscription will automatically renew in <strong>{{ subscription.current_period_end|timeuntil }}</strong>.
+        </li>
+    </ul>
+</div>
+{% else %}
+{% if subscription.status == "trialing" %}
+{% if subscription.plan and request.user.customer.card_kind %}
+<div class="alert alert-success">
+    <ul class="fa-ul">
+        <li>
+            <i class="fa fa-calendar fa-lg fa-li"></i>
+            Your free trial will end in <strong>{{ subscription.current_period_end|timeuntil }}</strong> after which you commence a <strong>{{ subscription.plan_display }}</strong> plan.
+        </li>
+    </ul>
+</div>
+
+
+{% else %}
+<div class="alert alert-success">
+    <ul class="fa-ul">
+        <li>
+            <i class="fa fa-calendar fa-lg fa-li"></i>
+            Your free trial will end in <strong>{{ subscription.current_period_end|timeuntil }}</strong> after which you will need to get a subscription to continue using the site.
+        </li>
+    </ul>
+</div>
+
+{% endif %}
+{% else %}
+{% if subscription.status == "canceled" %}
+{% if subscription.is_period_current %}
+<div class="alert alert-success">
+    <ul class="fa-ul">
+        <li>
+            <i class="fa fa-times-circle fa-lg fa-li"></i>
+            Your subscription has been <strong>canceled</strong> but you can continue to use the site for another <strong>{{ subscription.current_period_end|timeuntil }}</strong
+        </li>
+    </ul>
+</div>
+
+{% else %}
+<div class="alert alert-success">
+    <ul class="fa-ul">
+        <li>
+            <i class="fa fa-times-circle fa-lg fa-li"></i>
+            Your subscription has been <strong>canceled</strong>.
+        </li>
+    </ul>
+</div>
+
+{% endif %}
+{% else %}
+<div class="alert alert-success">
+    <ul class="fa-ul">
+        <li>
+            <i class="fa fa-info-circle fa-lg fa-li"></i>
+            Your subscription is <strong>{{ subscription.status }}</strong>.
+        </li>
+    </ul>
+</div>
+{% endif %}
+{% endif %}
+{% endif %}
+{% endif %}
+{% else %}
+
+{{subscription.plan}}
+<div class="alert alert-info">
+    <ul class="fa-ul">
+        <li>
+            <i class="fa fa-info-circle fa-lg fa-li"></i>
+            You have free, but limited access to the many features of the site for fans, artists, producers, and DJ's. Consider upgrading for unlimited uploads and downloads!
+        </li>
+    </ul>
+</div>
+{% endif %}
+
+<hr>
+
+{% include "payments/_plan_comparison_table.html" %}
+
+
+
+{% endwith %}

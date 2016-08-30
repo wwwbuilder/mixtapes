@@ -1,0 +1,23 @@
+{% extends "index.html" %}
+{% load staticfiles sekizai_tags %}
+{% block pagetitle %}
+  <title>Page not Found // 24/7Mixtapes</title>
+  {% endblock pagetitle %}
+{% block content %}
+<div class="collaboration-box error-box" style="background-image: url('{{ STATIC_URL}}img/slider-photos/slogan-background.jpg')">
+
+    <div class="overlay"></div>
+
+    <div class="collaboration-box-content">
+
+        <div class="container">
+
+            <h1 class="collaboration-heading">Error 404</h1>
+            <p>Sorry. This page doesn't exist. Try going back to the <a href="/">home page</a>.</p>
+
+        </div>
+
+    </div>
+
+</div>
+{% endblock %}

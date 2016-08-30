@@ -1,0 +1,77 @@
+{% load staticfiles sekizai_tags %}
+<script language="javascript">var STATIC_URL = "{{ STATIC_URL|escapejs }}";</script>
+<script type="text/javascript" src="{{STATIC_URL }}js/cc.js"></script>
+<script type="text/javascript">
+    $(function() {
+      var creditly = Creditly.initialize(
+          '.creditly-wrapper .expiration-month-and-year',
+          '.creditly-wrapper .credit-card-number',
+          '.creditly-wrapper .security-code',
+          '.creditly-wrapper .card-type');
+
+      $(".creditly-card-form .submit").click(function(e) {
+        e.preventDefault();
+        var output = creditly.validate();
+        if (output) {
+          // Your validated credit card output
+          console.log(output);
+        }
+      });
+    });
+  </script>
+<style>
+	.carddd {
+    float: right;
+}
+	.card_img {
+    float: left;
+}
+	label {
+    padding-top: 13px;
+	}
+</style>
+<form class="creditly-card-form" id="change-card-form" action="{% url 'my-account:change-card' %}" method="POST">
+{% csrf_token %}
+<section class="creditly-wrapper">
+<div class="credit-card-wrapper">
+<div class="first-row form-group">
+<div class="col-sm-8 controls">
+<div class="card_img"><label class="control-label" >Card Number</label></div> <div class="card-type carddd"></div>
+<input class="number credit-card-number form-control"
+                  type="text" name="number" data-stripe="number" id="number"
+                  inputmode="numeric" autocomplete="cc-number" autocompletetype="cc-number" x-autocompletetype="cc-number"
+                  placeholder="&#149;&#149;&#149;&#149; &#149;&#149;&#149;&#149; &#149;&#149;&#149;&#149; &#149;&#149;&#149;&#149;">
+</div>
+
+<div class="col-sm-4 controls">
+<label class="control-label">CVV</label>
+<input class="security-code form-control"·
+                  inputmode="numeric"
+                  type="text" name="cvc" data-stripe="cvc" id="cvc"
+                  placeholder="&#149;&#149;&#149;&#149;">
+</div>
+</div>
+<div class="second-row form-group">
+<div class="col-sm-8 controls">
+<label class="control-label">Name on Card</label>
+<input class="billing-address-name form-control"
+                  type="text" name="cc-name" id="cc-name" data-stripe="name"
+                  placeholder="Cardholer Name" >
+</div>
+<div class="col-sm-4 controls">
+<label class="control-label">Expiration</label>
+<input class="expiration-month-and-year form-control" id="ttttt"
+                  type="text" name="expiration-month-and-year"
+                  placeholder="MM / YY">
+</div>
+</div>
+
+</div>
+</section>
+<!--<button class="submit"><span>Submit</span></button>-->
+			<input type="hidden" name="exp_month" data-stripe="exp_month"  id="exp_monthh" value="" maxlength="2">
+			<input type="hidden" name="exp_year" data-stripe="exp_year" id="exp_yearh"  value="" maxlength="4">
+		<!--<input value="" name="testing" id="testting"/>-->
+</form>
+<br/>
+<div class="payment-errors"></div>

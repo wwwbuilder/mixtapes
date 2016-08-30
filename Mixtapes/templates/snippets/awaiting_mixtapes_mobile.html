@@ -1,0 +1,65 @@
+{% for mt in waitingapproval %}
+    <div class="media visible-phone">
+        <a href="{{mt.get_absolute_url}}" class="pull-left">
+            <img class="img-circle" style="width: 120px; height: 120px;" src="{{mt.get_mixtape_thumnail}}">
+        </a>
+        <div class="media-body">
+            <a href="{{mt.get_absolute_url}}">
+                <h2 class="media-heading">{{mt.name}}</h2>
+            </a>
+            <div class="meta">
+                <p>
+                    ft.
+                    <strong>{{mt.primaryArtist.username}}</strong>
+                </p>
+            </div>
+            <table class="table table-hover">
+                <tbody>
+                    <tr>
+                        <td>
+                            <div class="badge badge-info">Released</div>
+                        </td>
+                        <td>
+                            {{mt.releaseDatetime}}
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <div class="badge badge-info">Genre</div>
+                        </td>
+                        <td>
+                            {{mt.primaryGenre}}
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <div class="badge badge-info">Addons</div>
+                        </td>
+                        <td>
+                            {% if mt.active_addons %}
+                                {% for ao in mt.active_addons %}
+                                    <a class="label label-info addon-link" href="{{mt.addons_url}}">
+                                        {{ao.name}}
+                                    </a>
+                                {% endfor %}
+                             {% endif %}
+                             <br>
+                                <a class="badge badge-info addon-link red-addon-link" href="{{mt.addons_url}}">Get add-ons? <i class="icon-chevron-sign-right"></i></a>
+                            
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+            {% if mt.can_edit %}
+
+                <a class="btn btn-info btn-large btn-span whitewords" href="{% url 'mixtape_create' mixtapeid=mt.id %}" style="color: white !important; margin-top: 10px">
+                    <i class="icon-edit"></i> Edit
+                </a>
+
+            {% endif %}            
+        </div>
+    </div>
+    {% if not forloop.last %}       
+        <hr class="soften visible-phone">
+    {% endif %}
+{% endfor %}

@@ -1,0 +1,185 @@
+{% extends "index.html" %}
+
+{% load staticfiles sekizai_tags %}
+
+
+{% block pagetitle %}
+  <title>Upload Your Mixtape // 24/7Mixtapes</title>
+  {% endblock pagetitle %}
+{% block content %}
+{% include "mixtape/snippets/add_userprofile_modal.html" %}
+
+<div class="container">
+    <ol class="breadcrumb">
+        <li class="active">
+            <span>Upload</span>
+        </li>
+    </ol>
+</div>
+
+
+{% if mixtape_uploads %}
+
+
+
+<div class="container">
+    <h1>Mixtape Upload</h1>
+    <div class="row">
+        <div class="col-md-12">
+
+            {% include "mixtape/snippets/progressbar.html" %}
+
+            <div class="panel-group" id="accordion">
+
+                <!-- Mixtape Data -->
+                <div class="panel panel-default panel-primary">
+                    <div class="panel-heading">
+                        <h3 class="panel-title upload-step">
+                            <a data-parent="#accordion" href="#stepMixtapeData" class="collapse in">
+                                <span class="badge badge-primary">1</span> Mixtape Data <i class="fa fa-check hidden"></i>
+                            </a>
+                        </h3>
+                    </div>
+                    <div id="stepMixtapeData" class="panel-collapse collapse in" style="height: 0px;">
+                        <div class="panel-heading">
+                            <div class="row">
+                                <div class="col-md-8">
+                                    <h2><i class="fa fa-headphones"></i> Tell us about your mixtape</h2>
+                                </div>
+                                <div class="col-md-4">
+                                    <!-- {% include "snippets/dropbox.html" %} -->
+                                </div>
+                            </div>                        
+                        </div>
+                        <div class="panel-body">
+                            {% include "mixtape/forms/mixtape_data.html" %}                            
+                        </div>
+                    </div>
+                </div>
+
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <h3 class="panel-title upload-step">
+                            <a data-parent="#accordion" href="#stepUploadImages" class="collapsed">
+                                <span class="badge badge-primary">2</span> Upload Images <i class="fa fa-check hidden"></i>
+                            </a>
+                        </h3>
+                    </div>
+                    <div id="stepUploadImages" class="panel-collapse collapse" style="height: 0px;">
+                        <div class="panel-heading"><h2><i class="fa fa-picture-o"></i> Got cover art? </h2></div>
+                        <div class="panel-body">
+                            {% include "mixtape/snippets/upload_images.html" %}
+                        </div>
+                    </div>
+                </div>
+
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <h3 class="panel-title upload-step">
+                            <a data-parent="#accordion" href="#stepUploadTracks" class="collapsed">
+                                <span class="badge badge-primary">3</span> Upload Tracks <i class="fa fa-check hidden"></i>
+                            </a>
+                        </h3>
+                    </div>
+                    <div id="stepUploadTracks" class="panel-collapse collapse" style="height: 0px;">
+                        <div class="panel-heading">
+                            <h2><i class="fa fa-music"></i> Let's hear 'em</h2>
+                        </div>
+                        <div class="panel-body">
+                            {% include "mixtape/snippets/upload_tracks.html" %}
+                        </div>
+                    </div>
+                </div>
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <h3 class="panel-title upload-step">
+                            <a data-parent="#accordion" href="#stepUpgrades" class="collapsed">
+                                <span class="badge badge-primary">4</span> Upgrade <i class="fa fa-check hidden"></i>
+                            </a>
+                        </h3>
+                    </div>
+                    <div id="stepUpgrades" class="panel-collapse collapse" style="height: 0px;">
+                        <div class="panel-heading">
+                            
+                        </div>
+                        <div class="panel-body">
+                            {% include "mixtape/snippets/upgrade.html" %}
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+            <br>
+            <div class="row-fluid hidden" id="all_done">
+              <h1>..and you're done!</h1>
+              <p class="text-info">
+               Your mixtape has been submitted for approval. You will recieve an e-mail when it is approved.
+              </p>
+           <br>
+           <a href="/my_mixtapes" style="text-decoration: none">
+              {% include 'mixtape/snippets/addons.html' %}
+          </a>
+        </div>
+            <!--<button id="all_done" class="btn btn-lg btn-block btn-success hidden">-->
+            <!--<div id="done-message" class="row-fluid hidden">-->
+                 <!--<h1>..and you're done!</h1>-->
+                <!--<p class="text-info">-->
+                    <!--Your mixtape has been submitted for approval. You will recieve an e-mail when it is approved.-->
+               <!--</p>-->
+                 <!--<br>-->
+         
+            <!--</div>-->
+
+                <!--<h3 style="font-size: 150%;">Done <i class="fa fa-check-circle fa-lg"></i></h3>-->
+            <!--</button>-->
+            <div id="fp_api_key" class="hidden">{{FILEPICKER_API_KEY}}</div>
+            <div id="fp_upload_pol" class="hidden">{{FILEPICKER_UPLOAD_POLICY}}</div>
+            <div id="fp_upload_sig" class="hidden">{{FILEPICKER_UPLOAD_SIGNATURE}}</div>
+
+
+        </div>
+    </div>
+</div>
+{% else %}
+
+{% include "mixtape/snippets/upgrade_to_upload.html" %}
+
+{% endif %}
+
+
+{% include "mixtape/snippets/optional_modal.html" %}
+{% include "mixtape/snippets/handlebars_templates.html" %}
+
+{% addtoblock "top_css" %}
+<link rel="stylesheet" href="{{STATIC_URL}}smalot-bootstrap-datetimepicker/css/bootstrap-datetimepicker.min.css">
+<link rel="stylesheet" href="{{STATIC_URL}}select2/select2.css">
+<link rel="stylesheet" href="{{STATIC_URL}}select2-bootstrap-css/select2-bootstrap.css">
+<link rel="stylesheet" href="{{STATIC_URL}}style.css">
+<link rel="stylesheet" href="{{STATIC_URL}}pnotify/jquery.pnotify.default.css">
+<style>
+#filepicker_dialog_container {
+width:50% !important;
+height:90% !important;
+/* top:20% !important; */
+left:22% !important;
+
+}
+</style>
+
+
+{% endaddtoblock %}
+
+{% addtoblock "bottom_js" %}
+
+<script type="text/javascript">
+(function(a){if(window.filepicker){return}var b=a.createElement("script");b.type="text/javascript";b.async=!0;b.src=("https:"===a.location.protocol?"https:":"http:")+"//api.filepicker.io/v1/filepicker.js";var c=a.getElementsByTagName("script")[0];c.parentNode.insertBefore(b,c);var d={};d._queue=[];var e="pick,pickMultiple,pickAndStore,read,write,writeUrl,export,convert,store,storeUrl,remove,stat,setKey,constructWidget,makeDropPane".split(",");var f=function(a,b){return function(){b.push([a,arguments])}};for(var g=0;g<e.length;g++){d[e[g]]=f(e[g],d._queue)}window.filepicker=d})(document); 
+</script>
+<script type="text/javascript">var addthis_config = {"data_track_addressbar":true};</script>
+
+   <!--<script src="{{STATIC_URL}}js/vendor/bootstrap.min.js"></script>-->
+
+
+{% endaddtoblock %}
+
+{% endblock content %}

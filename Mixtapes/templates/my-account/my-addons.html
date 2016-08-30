@@ -1,0 +1,45 @@
+{% extends 'index.html' %}
+
+{% load staticfiles sekizai_tags %}
+
+{% addtoblock "top_js" %}
+
+{% endaddtoblock %}
+
+{% block content %}
+
+<div class="container">
+    <h1>My Addons</h1>
+
+    {% for cat in addon_categories %}
+    <h3>{{cat.name}}</h3>
+    <table class="table table-hover">
+        <thead>
+            <tr>
+                <th style="width: 30%">Name</th>
+                <th style="width: 15%">Price</th>
+                <th style="width: 15%">Duration</th>
+                <th style="width: 40%">Description</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for addon in cat.addons %}
+            <tr>
+                <td>{{addon.name}}</td>
+                <td>${{addon.price}}</td>
+                <td>{{addon.duration|default_if_none:""}} {% if addon.duration != none %}days{% endif %}</td>
+                <td>{{addon.description}}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    
+    {% if not forloop.last %}
+    <hr>
+    {% endif %}
+
+    {% endfor %}
+</div>
+
+{% endblock %}
+

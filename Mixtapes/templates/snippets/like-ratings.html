@@ -1,0 +1,24 @@
+{% load phileo_tags agon_ratings_tags %}
+<div class="rating_hide" style="display:none">
+<div class="well thickwhiteborder" id="likes-ratings">
+    <div class="row-fluid">
+        <div class="span4">
+            <h4 style="margin: 5px 0;color:red;">Like this mixtape!</h4>
+            
+        </div>
+        <div class="span4">
+            {% overall_rating object 'overall' as the_overall_rating %}
+            
+        </div>
+        <h4 style="margin: 5px 0;color:red;">Overall Rating</h4>
+        <div class="badge badge-info" style="font-size: 150%; padding: 6px"><span id="o_rating">{{ the_overall_rating }}</span>/5.0</div>
+        <div class="span4">
+            <h4 style="margin: 5px 0;color:red;">Rate this mixtape!</h4>
+            <div id="user_rating" class="category-overall"></div><span class="overall_rating category-overall" style="color:#333;float:right">
+                
+                
+            </span>
+        </div>
+    </div>
+</div>
+</div>

@@ -1,0 +1,32 @@
+<div class="modal fade" id="optional-modal">
+	<div class="modal-dialog">
+		<div class="modal-content">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+				<h4 class="modal-title"></h4>
+			</div>
+			<div class="modal-body">
+				<form role="form">
+					<div class="form-group" id="optional-video_url">
+						<label for="video_url">Video URL</label>						
+						<div class="input-group">
+							<span class="input-group-addon"><i class="fa fa-youtube-play"></i></span>
+							<input type="url" class="form-control" name="video_url" value="{{video_url}}" parsley-error-container="#optional-video_url">
+						</div>
+						<span class="help-block" style="margin-top: 13px;">
+							<em>Do you have a music video for this track?</em>
+						</span>
+					</div>
+					<div class="form-group">
+						<label for="lyrics">Lyrics</label>
+						<textarea style="min-height: 200px;" type="url" class="form-control" name="lyrics" value="{{lyrics}}"></textarea>
+					</div>					
+				</form>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+					<button type="button" class="btn btn-success" onclick="saveOptionalModal()"><i class="fa fa-save"></i> Save</button>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>

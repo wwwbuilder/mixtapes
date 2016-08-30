@@ -1,0 +1,76 @@
+{% extends "index.html" %}
+{% load staticfiles sekizai_tags %}
+
+{% block pagetitle %}
+  <title>Premium Memberships // 24/7Mixtapes</title>
+  {% endblock pagetitle %}
+{% block content %}
+<div class="container">
+
+
+<div class="top-margin">
+
+	<hr>
+	<div class="row">
+    <div class="span12">
+    <div class=" ">
+          <h1 style="text-align:center">  
+           Please select your premium upgrade type below:
+           </h1>
+		   <br>
+           </div>
+        <div class="pricing-table-wrapper">
+        <div style="margin: 0 auto;">
+            <div class="pricing-table row-fluid" style="background-color:#eee;">
+            <div class="well" style="width:33%;float:left;margin-right:2%;max-height:400px;min-height:200px;margin-left:18%;">
+            
+            <h4 style="color:#333"><span class="icon-star icon-2x"></span> Premium Member</h4>
+            <p style="color:#333">Select if you just want to download and stream mixtapes.<p/>
+    <h4 style="color:#333"> 
+	<br>
+                            <a class="btn btn-large btn-success" style="overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;width:100%;width:100%;" href="/premium-member/">signup <i class="icon-chevron-sign-right"></i></a>
+                 </h4>
+               
+              </div>
+                <div class="well" style="width:33%;float:left;margin-right:2%;max-height:400px;min-height:200px;">
+                <h4 style="color:#333"><span class="icon-star icon-2x"></span> Premium Publisher</h4>
+                <p style="color:#333">Select if you just want to upload and publish		mixtapes.<p/>
+                 <h4 style="color:#333"> 
+				 <br>
+                            <a class="btn btn-large btn-success" style="overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;width:100%;width:100%;" href="/premium-publisher/">signup <i class="icon-chevron-sign-right"></i></a>
+                 </h4>
+                </div>
+            </div>
+        </div></div>
+    </div>
+</div>
+	
+</div>
+</div>
+
+
+
+{% addtoblock "bottom_js" %}
+
+<script src="{{ STATIC_URL }}js/csrf.js"></script>
+
+<script src="{{ STATIC_URL }}js/subscriptions.js"></script>
+
+<script>
+    $(function() {
+        equalHeights('.pricing-button');
+        $(window).resize(function(){
+            $('.pricing-button').css('height', 'auto');
+        });
+    });
+</script>
+
+
+	
+{% endaddtoblock %}
+
+{% endblock content %}

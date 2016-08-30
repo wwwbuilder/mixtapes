@@ -1,0 +1,712 @@
+{% extends 'index.html' %}
+
+{% load staticfiles sekizai_tags %}
+{% load humanize %}
+{% load phileo_tags agon_ratings_tags %}
+{% load staticfiles get_ratings_range %}
+{% block pagetitle %}
+  <title>Download and Listen to Free Mixtapes Online</title>
+  {% endblock pagetitle %}
+
+{% block content %}
+
+
+
+{% addtoblock "top_css" %}
+<!--<link rel="stylesheet" href="//flipclockjs.com/_themes/flipclockjs/css/flipclock.css">*/-->
+{% if home_skin %}
+		<style type="text/css">
+			body{
+			  background: url({{home_skin_url.get_image|safe}}) no-repeat center center fixed; 
+			  -webkit-background-size: cover;
+			  -moz-background-size: cover;
+			  -o-background-size: cover;
+			  background-size: cover;
+	 
+			}                      
+                        
+		</style>
+{% endif %}
+<style type="text/css">
+
+
+
+@-moz-document url-prefix() {
+
+
+
+.box-headr{
+        /*text-align:center;*/
+    padding:4px;
+  
+     margin-left:0px !important;
+    text-align: left;
+    }
+
+.text img{
+
+ border: 2px solid #ffc100 !important;
+    margin-left: 6% !important;
+    margin-right: 1%;
+    transition: all 0.25s ease 0s !important;
+    float: left;
+}
+.flip-clock-wrapper{
+margin-left:10% !important;
+}
+
+}
+
+
+
+
+
+
+
+    .box-high{
+        <!--height:80px;-->
+    }
+    
+    .news {
+      border:0px solid transparent;
+      border-radius:3px;
+      /*margin-bottom:0px;*/
+      padding:0px;
+      float: left;
+      width: 100%;
+    }
+
+.box-headr{
+        /*text-align:center;*/
+    text-align: center;
+    color: #00810f;
+    }
+
+.col-lg-12{
+    text-align: center;
+    }
+
+.text img{
+
+ border: 2px solid #ffc100 !important;
+    margin:0% !important;
+    transition: all 0.25s ease 0s !important;
+    float: left;
+}
+
+
+
+
+.flip-clock-label{
+
+color: white !important;
+font-size: 30px !important;
+    position: absolute !important;
+    right: -109px !important;
+    text-shadow: none !important;
+    /*top: 3.5em !important;*/
+}
+
+@media screen and (max-width: 819px) {
+
+    /*.home-featured .clock { margin: 0 auto; display: block; width: 322px; }*/
+
+
+    .flip-clock-wrapper ul { height: 50px !important ; line-height: 50px !important ; margin: 3px !important; }
+    .flip-clock-wrapper ul li a div.down:after { bottom: 24px!important; }
+    .flip-clock-divider { height: 50px!important; }
+    .flip-clock-dot { height: 6px!important; width: 6px!important; left: 7px!important;}
+    .flip-clock-dot.top { top: 17px!important; }
+    .flip-clock-dot.bottom { bottom: 8px!important; }
+
+    .flip-clock-divider .flip-clock-label { font-size: 16px!important; }
+    .flip-clock-divider.days .flip-clock-label { right: -76px!important; }
+    .flip-clock-divider.hours .flip-clock-label { right: -70px!important; }
+    .flip-clock-divider.minutes .flip-clock-label { right: -64px!important; }
+    .flip-clock-divider.seconds .flip-clock-label { right: -70px!important; }
+
+    .flip-clock-wrapper ul { width: 37px!important; }
+    .flip-clock-wrapper ul li a div div.inn { font-size: 38px!important; }
+
+    /* Korekcja położenia pól zegara załamanych do nowej linii */
+    .flip-clock-wrapper ul { margin-bottom: 35px!important; }
+    .flip-clock-wrapper { text-align: center;
+position: relative;
+width: 188%;
+margin: -1em;
+left: -143px;
+top: 20px; 
+margin-left: 8%;
+}
+}
+
+.flip-clock-divider.minutes { clear: none!important;}
+
+
+
+</style>
+
+
+{% endaddtoblock %}
+
+  <div id="carousel-main" class="carousel slide" data-ride="carousel">
+
+
+      {% include "snippets/slider.html" %}
+  </div>
+
+
+{% if all_comings %}
+
+    {% if alert_cdown.releaseDatetime|date:"Y-m-j-H-i-s" %}
+<script src="//code.jquery.com/jquery.js"></script>
+<script type="text/javascript" src="{{STATIC_URL }}js/jquery.countdown.js"></script>
+
+    <a href="{{ alert_cdown.get_absolute_url }}">
+    <!--<div class="news alert alert-success alert-dismissable">
+    <div style="width:100%;height:111px;border: 0 solid transparent;border-radius: 3px;" title="{{ all_comings.0.name }}"> 
+<div class="col-xs-12 col-sm-12 col-lg-12" style="height:42px;margin-top:-48px;">-->
+
+    <h2 class="box-headr"> {{ all_comings.0.name }} is dropping in <span id="newclock"></span></h2><div class="col-xs-12 col-sm-12 col-lg-12">
+        <!--<span id="newclock"></span>-->
+<script type="text/javascript">
+$('#newclock').countdown('{{alert_cdown.releaseDatetime|date:"Y/m/j H:i:s"}}', function(event) {
+   $(this).html(event.strftime('%D days %H:%M:%S'));
+   });
+</script>
+<!--<div class="clock" style="transform: scale(0.5)!important;min-height: 0px;padding-left: 0px;padding-right: 0px !important;margin-top: -6% !important;"></div>-->
+ 
+
+  <!--<script src="//flipclockjs.com/_themes/flipclockjs/js/libs/prism.js"></script>-->
+  <!--<script src="//flipclockjs.com/_themes/flipclockjs/js/libs/modernizr.foundation.js"></script>-->
+ <!--<script src="//flipclockjs.com/_themes/flipclockjs/js/libs/jquery.js"></script>-->
+	<!--<script src="//flipclockjs.com/_themes/flipclockjs/js/flipclock/flipclock.js"></script> -->
+
+ 
+<!--<script type="text/javascript">-->
+
+<!--var clock;-->
+		<!--(function($) {-->
+			<!--var clock;-->
+
+			<!--clock = $('.clock').FlipClock({-->
+		        <!--clockFace: 'DailyCounter',-->
+		        <!--autoStart: false,-->
+		        <!---->
+		    <!--});-->
+				    <!---->
+		    <!--clock.setTime({{alert_cdown.releaseDatetime|date:"Y-m-j-H-i-s"|counter_value}});-->
+		    <!--clock.setCountdown(true);-->
+		    <!--clock.start();-->
+
+		<!--}(jQuery));-->
+
+
+
+
+<!--if( /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent) ) {-->
+   	 <!--// some code..-->
+  	 <!---->
+        <!--$('.flip-clock-wrapper').css({ 'text-align': 'center',-->
+<!--'position': 'relative !important',-->
+<!--'width': '188% !important',-->
+<!--'margin': '-1em !important',-->
+<!--'left': '-143px !important',-->
+<!--'top': '27px !important'});-->
+
+
+   	<!--}-->
+    <!--else {-->
+     <!---->
+
+    <!--}-->
+
+
+
+       <!--</script>-->
+
+
+       <!-- <script language="JavaScript">
+        TargetDate = '{{alert_cdown.releaseDatetime|date:"m/d/Y f A"}}';   //{{alert_cdown.releaseDatetime|date:"Y-m-j-H-i-s"}}
+        BackColor = "";
+        ForeColor = "";
+        CountActive = true;
+        CountStepper = -1;
+        LeadingZero = true;
+        DisplayFormat = "%%D%% Days, %%H%% Hours, %%M%% Minutes, %%S%% Seconds.";
+        FinishMessage = "";
+
+            </script>-->
+            <!-- <script language="JavaScript" src="http://scripts.hashemian.com/js/countdown.js"></script>-->
+       <!--</div>-->
+    </a>
+    {% endif %}  
+{% endif %}
+
+<div class="container hom-container">
+
+
+
+        <div class="col-sm-6 col-md-5">
+
+            <div class="standard-box">
+
+                <h2 class="header-box">24/7 SPOTLIGHT</h2>
+ 
+ 
+
+                <div class="recommended-box">
+{% if spotlight %}  
+                     <a href="" title="{{ spotlight.title}}">
+                       <img class="img-responsive full-width" style="height:386px;" src="{{ STATIC_URL}}{{ spotlight.image}}" alt="{{ spotlight.title }}" />
+                    </a>
+
+                    <div class="description">
+
+                        <h3>
+                            <a href="article-item.html">{{ spotlight.title}}</a>
+                        </h3>
+                        <p>{{ spotlight.description|truncatewords:25}}<a href="article-item.html" title="more">&raquo;</a></p>
+
+                    </div>
+
+{% endif %}
+                </div>
+
+            </div>
+
+        </div>
+
+        <div class="col-sm-6 col-md-5">
+
+            <div class="standard-box">
+
+                <h2 class="header-box"><a href="/hot-this-week/">Hot this week</a></h2>
+
+                <div class="row solid" style="margin-bottom:0px;">
+                    {% for mt in popularmixtapes|slice:":9" %}
+                    <div class="col col-sm-4 col-xs-6">
+                        <div class="item-img-square">
+                            <a href="{{ mt.get_absolute_url}}">
+                                <img class="img-responsive full-width" src="{{ mt.get_mixtape_thumnail}}" alt="{{ mt.name}}" style="height:117px;">
+                                <span class="description">
+                                    <span class="title">{{ mt.name }}</span>
+                                    <span class="info"><strong>{{ mt.created.year}}-{{ mt.created.month}}-{{ mt.created.day }}</strong> by <span class="user">{{ mt.primaryArtist}}</span></span>
+                                </span>
+                            </a>
+
+                        </div>
+                    </div>
+			      {% endfor %}
+
+
+                </div>
+
+                <div class="standard-box-more">
+                    <span class="line"></span>
+                    <a href="/hot-this-week/" data-toggle="tooltip" data-placement="left" title="Click for more...">more &raquo;</a>
+
+                </div>
+
+            </div>
+
+        </div>
+
+        <div class="col-sm-12 col-md-2">
+
+</div>
+          <div class="col-sm-12 col-md-2">
+
+            <div class="row">
+{% if  not request.user.is_authenticated %}
+                <div class="">
+<div class="standard-box">
+
+
+					     <h2 class="header-box">Log in</h2>
+
+                       <form class="form-horizontal" enctype="application/x-www-form-urlencoded" method="post" action="{% url 'account_login' %}">
+                       					{% csrf_token %}
+
+
+                           <div class="form-group has-feedback">
+                               <div class="col-sm-12">
+                                   <input class=" form-control" id="id_login" maxlength="30" name="login" placeholder="Username" type="text" />
+                                   <span class="glyphicon glyphicon-user form-control-feedback"></span>
+                               </div>
+                           </div>
+
+                           <div class="form-group has-feedback">
+                               <div class="col-sm-12">
+                                  <input class=" form-control" id="id_password" name="password" placeholder="Password" type="password" />
+                                   <span class="glyphicon glyphicon-lock form-control-feedback"></span>
+                               </div>
+                           </div>
+
+                           <div class="form-group">
+                               <div class="col-xs-6">
+                                   <input type="submit" name="submit" value="Log in" class="btn btn-warning">
+                               </div>
+                               <div class="col-xs-6">
+                                   <div class="register-link pull-right">
+                                       <a href="/registration" data-toggle="tooltip" data-placement="bottom" title="Registration is totally free!">Register</a>
+                                   </div>
+                               </div>
+                           </div>
+
+                       </form>
+
+
+                   </div>
+
+                </div>
+  {% endif %}
+                   <div class="">
+
+                    <div class="standard-box">
+
+                        <h2 class="header-box">Search</h2>
+
+                        <form action="/search/" method="GET" enctype="application/x-www-form-urlencoded" class="form-horizontal">
+                            <div class="form-group has-feedback">
+                                <div class="col-sm-12">
+                                    <input type="search" placeholder="search..." value="" id="search" name="name" class="form-control">
+                                    <span class="glyphicon glyphicon-search form-control-feedback"></span>
+                                    <button style="float: right; margin-top: 2%;" class="btn btn-default btn-xs" type="submit">Search </button>
+                                </div>
+                            </div>
+
+                        </form>
+
+                    </div>
+					</div>
+
+
+     </div>
+
+   </div>
+
+
+     <div class="row">
+
+        <div class="col-md-10">
+
+            <div class="standard-box">
+
+                <h2 class="header-box"><a href="{% url 'featured_mixtapes' %}">Featured Mixtapes</a></h2>
+
+                <div class="row">
+                {% for f in featured %}
+
+                    <div class="col-sm-3 col-xs-6" style="height:310px;">
+                        <div class="standard-extend-item {% if f.id|highlight_mixtape %}highlight_mixtape {% endif %}" {% if f.id|highlight_mixtape %}style="border:5px dotted gold" {% endif %}>
+                            <a class="image" href="{{ f.get_absolute_url }}">
+                               <span class="date date-full">
+                                <span class="month">{{ f.created|date:"d M Y" }}</span>
+                           		 </span>
+                                <span class="author">by <strong>{{f.primaryArtist.username}}</strong></span>
+                                <img class="img-responsive full-width" src="{{f.get_mixtape_thumnail}}" style="width:100%; height:150px;" alt="{{ f.name }}" >
+                            </a>
+                            <h3 >
+                                <a href="{{ f.get_absolute_url}}">{{ f.name|truncatechars:30 }}</a>
+                            </h3>
+                            <h4>{{f.primaryArtist.username}}</h4>
+                            ----------------------------
+                            <h4>Rating:
+                            {% overall_rating f 'overall' as the_overall_rating %}
+                            <span id="" class="" style="width: 100px; cursor: default;">
+
+                            {% if the_overall_rating|floatformat > 0 %}
+                            {% for i in the_overall_rating|get_range %}
+                            <img id="" src="https://static.247mixtapes.com/agon_ratings/img/star-on.png" style="width:6%;" alt="1" title="bad" class="">
+                            {% endfor %}
+                            {% for i in the_overall_rating|get_offstar_range %}
+                            <img id="" src="https://static.247mixtapes.com/agon_ratings/img/star-off.png" style="width:6%;" alt="1" title="bad" class="">
+                            {% endfor %}
+                            {% else %}
+                            {% for i in the_overall_rating|get_offstar_range %}
+                            <img id="" src="https://static.247mixtapes.com/agon_ratings/img/star-off.png" style="width:6%;" alt="1" title="bad" class="">
+                            {% endfor %}
+                            {% endif %}
+                            </span>
+                            </h4>
+                            <h4>Streams:
+							{{ f.soundcloud_favoritings_count|default:"-" }}
+                            </h4>
+                        </div>
+                    </div>
+                    {% endfor %}
+                </div>
+				<div class="standard-box-more">
+                    <a href="/featured-mixtapes/" data-toggle="tooltip" data-placement="top" title="Click for more...">more &raquo;</a>
+                </div>
+            </div>
+
+        </div>
+     <div class="col-sm-12 col-md-2 row">
+
+    
+        </div>
+      </div>
+
+
+
+
+{% if countdown_home %}
+<div class="row">
+
+        <div class="col-md-10">
+
+            <div class="standard-box">
+
+                <h2 class="header-box"><a href="{% url 'upcoming_mixtapes' %}">Upcoming Mixtapes</a></h2>
+
+                <div class="row">
+                {% for f in countdown_home %}
+
+                    <div class="col-sm-3 col-xs-6" style="height:255px;">
+                        <div class="standard-extend-item {% if f.id|highlight_mixtape %}highlight_mixtape {% endif %}" {% if f.id|highlight_mixtape %}style="border:5px dotted gold" {% endif %}>
+                            <a class="image" href="{{ f.get_absolute_url}}">
+                                <span class="date date-full">
+                                <span class="month">{% if f.releaseDatetime > f.created %}{{ f.releaseDatetime|date:"d M Y" }}{% else %}{{ f.created|date:"d M Y" }}{% endif %}</span>
+                           		 </span>
+                                <span class="author">by <strong>{{f.primaryArtist.username}}</strong></span>
+                                <img class="img-responsive full-width" src="{{f.get_mixtape_thumnail}}" style="width:211px; height:150px;" alt="{{ f.name }}">
+                            </a>
+                            <h3>
+                                <a href="{{ f.get_absolute_url}}">{{ f.name|truncatechars:30 }}</a>
+                            </h3>                            
+                            
+                            <div class="btn btn-warning" style="width:100%"><h3>{{ f.releaseDatetime|date:"d M Y" }}</h3></div>
+                                <span class="badge"></span>
+                           		
+                        </div>
+                    </div>
+
+                    {% endfor %}
+                </div>
+            </div>
+			<div class="standard-box-more">
+                    <a href="/upcoming-mixtapes/" data-toggle="tooltip" data-placement="top" title="Click for more...">more &raquo;</a>
+                </div>
+        </div>
+
+	</div>
+{% endif %}
+
+
+
+      <div class="row">
+
+        <div class="col-md-10">
+
+            <div class="standard-box">
+
+                <h2 class="header-box"><a href="{% url 'recent_mixtapes' %}">Recent Mixtapes</a></h2>
+
+                <div class="row">
+                {% for f in recentmixtapes %}
+
+                    <div class="col-sm-3 col-xs-6" style="height:315px;">
+                        <div class="standard-extend-item {% if f.id|highlight_mixtape %}highlight_mixtape {% endif %}" {% if f.id|highlight_mixtape %}style="border:5px dotted gold" {% endif %}>
+                            <a class="image" href="{{ f.get_absolute_url}}">
+                                <span class="date date-full">
+                                <span class="month">{{ f.created|date:"d M Y" }}</span>
+                           		 </span>
+                                <span class="author">by <strong>{{f.primaryArtist.username}}</strong></span>
+                                <img class="img-responsive full-width" src="{{f.get_mixtape_thumnail}}" style="width:100%; height:150px;" alt="{{ f.name }}">
+
+                            </a>
+                            <h3>
+                                <a href="{{ f.get_absolute_url}}">{{ f.name|truncatechars:30 }}</a>
+                            </h3>
+                            <h4>{{f.primaryArtist.username}}</h4>
+                            ----------------------------
+                            <h4>Rating:
+                            {% overall_rating f 'overall' as the_overall_rating %}
+                            <span id="" class="" style="width: 100px; cursor: default;">
+
+                            {% if the_overall_rating|floatformat > 0 %}
+                            {% for i in the_overall_rating|get_range %}
+                            <img id="" src="https://static.247mixtapes.com/agon_ratings/img/star-on.png" style="width:6%;" alt="1" title="bad" class="">
+                            {% endfor %}
+                            {% for i in the_overall_rating|get_offstar_range %}
+                            <img id="" src="https://static.247mixtapes.com/agon_ratings/img/star-off.png" style="width:6%;" alt="1" title="bad" class="">
+                            {% endfor %}
+                            {% else %}
+                            {% for i in the_overall_rating|get_offstar_range %}
+                            <img id="" src="https://static.247mixtapes.com/agon_ratings/img/star-off.png" style="width:6%;" alt="1" title="bad" class="">
+                            {% endfor %}
+                            {% endif %}
+                            </span>
+                            </h4>
+                            <h4>Streams:
+                            {{ f.soundcloud_favoritings_count|default:"-" }}
+                            </h4>
+                        </div>
+                    </div>
+                    
+                    {% endfor %}
+                </div>
+				<div class="standard-box-more">
+                    <a href="/recent-mixtapes/" data-toggle="tooltip" data-placement="top" title="Click for more...">more &raquo;</a>
+                </div>
+            </div>
+        
+         <div class="col-sm-12 col-md-2 row">
+
+
+
+        </div>
+
+      </div>          
+
+      </div>
+
+
+      <div class="row">
+
+        <div class="col-md-10">
+
+            <div class="standard-box">
+
+                <h2 class="header-box"><a href="{% url 'hot_this_week' %}">Top of the month </a></h2>
+
+                <div class="row">
+                {% for f in topofmonth %}
+
+                    <div class="col-sm-3 col-xs-6" style="height:310px;">
+                        <div class="standard-extend-item {% if f.id|highlight_mixtape %}highlight_mixtape {% endif %}" {% if f.id|highlight_mixtape %}style="border:5px dotted gold" {% endif %}>
+                            <a class="image" href="{{ f.get_absolute_url}}">
+                                <span class="date date-full">
+                                <span class="month">{{ f.created|date:"d M Y" }}</span>
+                           		 </span>
+                                <span class="author">by <strong>{{f.primaryArtist.username}}</strong></span>
+                                <img class="img-responsive full-width" src="{{f.get_mixtape_thumnail}}" style="width:100%; height:150px;" alt="{{ f.name }}">
+                            </a>
+                            <h3>
+                                <a href="{{ f.get_absolute_url}}">{{ f.name|truncatechars:30 }}</a>
+                            </h3>
+                            <h4>{{f.primaryArtist.username}}</h4>
+                            ----------------------------
+                            <h4>Rating:
+                            {% overall_rating f 'overall' as the_overall_rating %}
+                            <span id="user_ratingtag" class="" style="width: 100px; cursor: default;">
+
+                            {% if the_overall_rating|floatformat > 0 %}
+                            {% for i in the_overall_rating|get_range %}
+                            <img id="user_ratingtag-1" src="https://static.247mixtapes.com/agon_ratings/img/star-on.png" style="width:6%;" alt="1" title="bad" class="user_ratingtag">
+                            {% endfor %}
+                            {% for i in the_overall_rating|get_offstar_range %}
+                            <img id="user_ratingtag-1" src="https://static.247mixtapes.com/agon_ratings/img/star-off.png" style="width:6%;" alt="1" title="bad" class="user_ratingtag">
+                            {% endfor %}
+                            {% else %}
+                            {% for i in the_overall_rating|get_offstar_range %}
+                            <img id="user_ratingtag-1" src="https://static.247mixtapes.com/agon_ratings/img/star-off.png" style="width:6%;" alt="1" title="bad" class="user_ratingtag">
+                            {% endfor %}
+                            {% endif %}
+                            </span>
+                            </h4>
+                            <h4>Streams:
+                          {% if f.soundcloud_favoritings_count != None %}{{ f.soundcloud_favoritings_count|intcomma}}{%else%}0{% endif %}
+                            </h4>
+                        </div>
+                    </div>
+                    {% endfor %}
+                </div>
+            </div>
+			<div class="standard-box-more">
+                    <a href="/top-of-month/" data-toggle="tooltip" data-placement="top" title="Click for more...">more &raquo;</a>
+                </div>
+        </div>
+
+    </div>
+
+
+</div>
+
+
+<div class="collaboration-box" style="background-image: url('{{STATIC_URL }}img/slider-photos/slogan-background.jpg')">
+
+    <div class="overlay"></div>
+
+    <div class="collaboration-box-content">
+
+        <div class="container">
+
+            <h1 class="collaboration-heading">"Mixtapes Around the Clock!"</h1>
+        </div>
+
+    </div>
+
+</div>
+
+
+
+{% addtoblock "bottom_js" %}
+<script src="{{STATIC_URL }}mixitup/mixitup.js"></script>
+<script src="{{STATIC_URL }}jquery-countdown/jquery.countdown.min.js"></script>
+
+ <script src="//code.jquery.com/jquery-1.9.1.min.js"></script>
+ <script src="//code.jquery.com/ui/1.9.2/jquery-ui.js"></script>
+ 
+
+ <script>
+    
+		function equalHeights (target) {
+			$(target).height('auto');
+
+			var heights = []
+			$(target).each(function(){
+				heights.push($(this).height());
+			});
+			var highest = Math.max.apply(Math, heights)
+			$(target).height(highest);
+		};
+		$('#grid').mixitup({
+			buttonEvent: 'click',
+			effects: ['fade','scale'],
+			easing: 'windback',
+			onMixEnd: function(){
+				equalHeights('.caption');
+				equalHeights('.mymixtapesheading h2');
+			}
+		});
+		$('#mobile-grid').mixitup({
+			buttonEvent: 'click',
+			effects: ['fade','scale'],
+			easing: 'windback',
+			onMixStart:function(config){
+				$('#mobile-grid .media:not(.'+config.filter+')').removeClass('visible-phone');
+				$('#mobile-grid .'+config.filter).addClass('visible-phone');
+
+				if (config.filter == 'all') {
+					$('#mobile-grid .media').addClass('visible-phone');
+				}
+			},
+			onMixEnd: function(){
+				equalHeights('.caption');
+				equalHeights('.mymixtapesheading h2');
+			}
+		});
+	</script>
+
+	<script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+"://platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");
+	</script>
+    <script type="text/javascript">
+    $(function () {
+        $('#item_1').addClass("active");
+
+        var t=$('#forloopcount').attr('data-slide-to');
+        if (t == 1) {
+            $('#forloopcount').addClass("active");
+        }
+    });
+
+    /* for showing the ratings */
+
+
+    </script>    
+    </div>
+{% endaddtoblock %}
+{% endblock content %}

@@ -1,0 +1,1045 @@
+{% load staticfiles sekizai_tags  %}
+<!DOCTYPE html>
+<html class="no-js">
+
+<head>
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+
+
+
+	{% block pagetitle %}
+  <title>24/7 Mixtapes: Mixtapes around the clock.</title>
+
+  {% endblock pagetitle %}
+  {% block meta %}
+  <meta name="description" content="">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+ <link rel="shortcut icon" href="{{STATIC_URL }}logo/favicon.ico">
+ {% endblock %}
+
+
+{% block metasocialmedia %}
+
+
+{% endblock metasocialmedia %}
+
+
+
+
+  {% addtoblock "top_css" %}
+ <link href="//netdna.bootstrapcdn.com/font-awesome/3.2.1/css/font-awesome.css" rel="stylesheet">
+    <!-- bootstrap styles -->
+    <link href="{{STATIC_URL}}css/boot_strap.css" media="screen" rel="stylesheet" type="text/css" >
+      <link href="//cdnjs.cloudflare.com/ajax/libs/mediaelement/2.13.1/css/mediaelementplayer.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="{{STATIC_URL }}css/mejsplayer.css">
+  <!--<link href="{{STATIC_URL}}wonder/css/style.css" rel="stylesheet"  type="text/css">-->
+  <link href="{{STATIC_URL}}wonder/css/flexslider.css" rel="stylesheet"  type="text/css">
+  <link href="{{STATIC_URL}}flipclockjs/css/app.css" rel="stylesheet"  type="text/css">
+ <link href="{{STATIC_URL}}css/flipclock.css" rel="stylesheet"  type="text/css">
+   <!--<link href="//flipclockjs.com/_themes/flipclockjs/css/flipclock.css" rel="stylesheet"  type="text/css">-->
+  
+    <link href="{{STATIC_URL }}css/styles.min.css" media="screen" rel="stylesheet" type="text/css" >
+
+    <!-- additional fonts -->
+    <link href="{{STATIC_URL }}css/font-awesome.min.css" media="screen" rel="stylesheet" type="text/css" >
+
+    <!-- Modernizr -->
+<script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+    <script type="text/javascript" src="{{STATIC_URL}}js/newjs/modernizr.custom.min.js"></script>
+ 	<link href="{{STATIC_URL }}build/css/intlTelInput.css" rel="stylesheet">
+ 	<link href="{{STATIC_URL }}lightbox/css/lightbox.css" rel="stylesheet" />
+	<link href="{{STATIC_URL}}css/blog.css" media="screen" rel="stylesheet" type="text/css" >
+	<script type="text/javascript" src="//cdn.sublimevideo.net/js/rn24a2c5.js"></script>
+
+	 <script src="{{STATIC_URL}}js/countdown.js" type="text/javascript"></script>
+        <!-- <script src="{{STATIC_URL}}js/flipclock.min.js" type="text/javascript"></script>-->
+       
+        
+        <script src="{{STATIC_URL}}flipclockjs/js/libs/jquery.js" type="text/javascript"></script>
+        <script src="{{STATIC_URL}}flipclockjs/js/flipclock/flipclock.js" type="text/javascript"></script>
+
+    <script type="text/javascript">
+
+        //checking media queries browsers support
+        Modernizr.load({
+            test: Modernizr.mq('only all'),
+            nope: '{{STATIC_URL}}js/newjs/respond.min.js'
+        });
+
+
+        
+    </script>
+    <style type="text/css">
+		 
+		{% if not request.user.is_authenticated %}
+		.navbar.navbar-inverse .navbar-collapse .nav > li {
+		    position: relative;
+		    width: 10.0%;
+		}
+		{% else %}
+		.navbar.navbar-inverse .navbar-collapse .nav > li {
+		    position: relative;
+		    width: 11.0%;
+		}
+		{% endif %}
+		.dropdown:hover .dropdown-menu {
+		    display: block;
+		 }
+		 .intl-tel-input {
+		    display: block !important;
+		    position: relative;
+		 }
+		 .loading{ 
+		 	background-image:url('{{ STATIC_URL }}img/photos/720.GIF'')
+		 }
+		.pricelist > .table-bordered > thead > tr > th, .pricelist .table-bordered > tbody > tr > th, .pricelist .table-bordered > tfoot > tr > th, .pricelist .table-bordered > thead > tr > td, .pricelist .table-bordered > tbody > tr > td, .pricelist .table-bordered > tfoot > tr > td {
+    border: 1px solid #333 !important;
+}
+
+#form_messages{
+    color:red;
+}
+
+</style>
+ {% endaddtoblock %}
+
+  <!-- Top CSS -->
+  {% render_block "top_css" %}
+
+  {% addtoblock "top_js" %}
+   <!-- Google map -->
+    <script src="https://maps.googleapis.com/maps/api/js?v=3.exp&amp;sensor=false"></script>
+
+    <script>
+
+        //google map
+        function initialize() {
+          var myLatlng = new google.maps.LatLng(41.543174, -87.684496);
+          var mapOptions = {
+            zoom: 15,
+            center: myLatlng
+          }
+          var map = new google.maps.Map(document.getElementById('map-canvas'), mapOptions);
+
+          var marker = new google.maps.Marker({
+              position: myLatlng,
+              map: map,
+              title: 'Flossmoor'
+          });
+        }
+
+        google.maps.event.addDomListener(window, 'load', initialize);
+
+        //checking media queries browsers support
+        Modernizr.load({
+            test: Modernizr.mq('only all'),
+            nope: 'js/respond.min.js'
+        });
+
+    </script>
+
+  {% endaddtoblock %}
+
+
+  <!-- Top JS -->
+  {% render_block "top_js" %}
+  
+
+{% block extrajs %}
+
+{% endblock extrajs %}
+
+
+  <script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+  ga('create', '{{TRACKING_CODE}}', 'auto');
+
+
+  {% if request.user %}
+  {% with request.user.customer.current_subscription as subscription %}
+	 {% if subscription.plan == 'premium-publisher-monthly' or subscription.plan == 'premium-publisher-yearly'%}
+
+	 ga('create', '{{request.user.userprofile.tracking_code}}', 'auto', {'name': 'newTracker'});
+	 ga('newTracker.send', 'pageview');
+
+	{% endif %}
+	{% endwith %}
+	{% endif %}
+	 ga('send', 'pageview');
+
+
+</script>
+</head>
+
+<body>
+
+
+ <!--[if lt IE 7]>
+      <p class="chromeframe">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> or <a href="http://www.google.com/chromeframe/?redirect=true">activate Google Chrome Frame</a> to improve your experience.</p>
+  <![endif]-->
+<div class="navbar navbar-inverse navbar-fixed-top">
+    <div class="container">
+
+  {% include "header.html" %}
+</div>
+</div>
+  <!-- Essential Footer JS -->
+   {% addtoblock "bottom_js" %}
+    <!--Add a comment to this line-->
+   <script>window.jQuery || document.write('<script src="{{STATIC_URL }}js/vendor/jquery-1.10.1.min.js"><\/script>')</script>
+   {% endaddtoblock %}
+	{% include 'snippets/messages.html' %}
+
+
+  {% block content %}
+  {% endblock content %}
+
+
+<div class="container">
+
+    <div class="row">
+
+        <div class="col-sm-4">
+
+            <div class="standard-box bottom-box margin-bottom-10">
+
+                <h2 class="header-box">Menu</h2>
+
+                <div class="row">
+
+                    <div class="col-xs-4">
+
+                        <ul class="list list-menu with-links">
+                            <li>
+                                <a href="/">Home</a>
+                            </li>
+                            <li>
+                                <a href="/about-us">About us</a>
+                            </li>
+                            <li>
+                                <a href="/recent-mixtapes">Mixtapes</a>
+                            </li>
+                            <li>
+                                <a href="/registration">Registration</a>
+                            </li>
+                        </ul>
+
+                    </div>
+
+                    <div class="col-xs-6">
+
+                        <ul class="list list-menu with-links">
+                             <li>
+                                <a href="/upload">Upload Mixtapes</a>
+                            </li>
+                            <li>
+                                <a href="/people">People</a>
+                            </li>
+                            <li>
+                                <a href="/premium">Premium</a>
+
+                            </li>
+                            <li>
+                                <a href="/contactus">Contact</a>
+                            </li>
+
+                        </ul>
+
+                    </div>
+
+                </div>
+
+
+            </div>
+
+        </div>
+
+
+        <div class="col-sm-4">
+
+            <div class="standard-box bottom-box">
+
+                <h2 class="header-box">Address</h2>
+
+                <div class="address-box">
+
+                    <h3>24/7mixtapes</h3>
+                    <p><span class="glyphicon glyphicon-map-marker"></span> PO Box 762</p>
+                    <p style="padding-left : 23px;">Flossmoor, IL 60422</p>
+                    <p> <span class="glyphicon glyphicon-earphone"></span> 312-940-4915</p>
+                    <p><span class="glyphicon glyphicon-envelope"></span> <a href="mailto:support@247mixtapes.com ">support@247mixtapes.com </a></p>
+
+                </div>
+
+            </div>
+
+        </div>
+
+        <div class="col-sm-4">
+
+            <div class="standard-box bottom-box">
+
+                <h2 class="header-box">Contact us</h2>
+
+                <form class="form-horizontal" id="contact_form" enctype="application/x-www-form-urlencoded" method="post" action="/addcontactus/">{% csrf_token %}
+
+                    <div class="form-group has-feedback">
+                        <div class="col-sm-12">
+                            <input class="form-control" type="email" name="email" id="contact_email" value="" placeholder="Email">
+                            <span class="glyphicon glyphicon-envelope form-control-feedback"></span>
+                        	<span id="message_email" style="color:red;"></span>
+                        </div>
+
+                    </div>
+                     <div class="form-group has-feedback">
+                        <div class="col-sm-12">
+                            <input class="form-control" type="text" name="topic" id="topic" value="" placeholder="topic">
+                            <span class="glyphicon glyphicon-pencil form-control-feedback"></span>
+                        	<span id="message_topic" style="color:red;"></span>
+                        </div>
+
+                    </div>
+
+                    <div class="form-group">
+                        <div class="col-sm-12">
+                            <textarea class="form-control" name="message" id="message" placeholder="type your message here..."></textarea>
+                        	<span id="message_body" style="color:red;"></span>
+                        </div>
+
+                    </div>
+
+                    <div class="form-group">
+                        <div class="col-sm-12">
+                            <span id="message_text"></span>
+                            <input type="button"  name="submit" value="Send" class="btn pull-right btn-warning btn_contact">
+                        </div>
+                    </div>
+
+                </form>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+
+
+<footer>   
+
+    <div class="container">
+
+        <p style="font-family: league_gothic_regular;">Built by <a href="www.247mixtape.com" title="247Mixtapes.com">247Mixtapes.com</a></p>
+
+        <ul>
+            <li>
+                <a href="/privacy">
+                    <span>Privacy</span>
+                </a>
+            </li>
+			<li>
+                <a href="/terms">
+                    <span>terms</span>
+                </a>
+            </li>
+			<li>
+                <a href="/dmca">
+                    <span>DMCA</span>
+                </a>
+            </li>
+            <li>
+                <a href="/advertise" >
+                    <span>Advertise</span>
+                </a>
+            </li>
+        </ul>
+
+        <p class="photos-copyright"><small>© 2006 - {% now "Y" %} 24/7 Mixtapes, Inc. All rights reserved. Mixtape content is provided for promotional use and not for sale.
+
+    </div>
+
+</footer>
+
+
+<div class="modal fade" id="help-modal" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <h3 class="modal-title">Help</h3>
+            </div>
+
+            <div class="modal-body">
+
+                <h3>Lorem ipsum</h3>
+
+                <blockquote>
+                    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut sagittis leo ut sapien tristique adipiscing. Nunc vitae nisi id ipsum congue ullamcorper.
+                </blockquote>
+
+                <p>Fusce a rhoncus tortor. Quisque quis turpis sit amet arcu elementum posuere ac a nisi. Donec congue, sem ac lacinia placerat, orci dolor interdum felis, ac faucibus enim ipsum sit amet justo. Integer ut metus egestas, aliquam sapien et, adipiscing orci. Ut tempus risus et mi consequat, eget rhoncus lectus tempus. Aliquam posuere enim nec interdum vehicula.</p>
+
+                <p>Etiam feugiat lobortis consequat. Nullam non augue a mauris auctor mattis vel non lectus. Nullam gravida odio at dui tincidunt, sit amet imperdiet est mollis.</p>
+
+            </div>
+
+            <div class="modal-footer">
+                <button type="button" class="btn btn-warning" data-dismiss="modal">Close</button>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+  {% addtoblock "bottom_js" %}
+  <script src="//ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js" type="text/javascript"></script>
+
+      <!-- jQuery -->
+<script type="text/javascript" src="{{STATIC_URL}}js/newjs/jquery.1.11.0.min.js"></script>
+
+<!-- bootstrap js -->
+
+
+<!-- scrollTo js -->
+<script type="text/javascript" src="{{STATIC_URL}}js/newjs/jquery.scrollTo.min.js"></script>
+
+<script type="text/javascript" src="{{STATIC_URL}}lightbox/js/lightbox.min.js"></script>
+
+<!-- custom js -->
+<script type="text/javascript" src="{{STATIC_URL}}js/newjs/custom.js"></script>
+<!--<script>window.jQuery || document.write('<script src="{% static "js/vendor/jquery-1.10.1.min.js" %}"><\/script>')</script>-->
+  <!--<script src="{% static 'js/vendor/bootstrap.min.js' %}"></script>-->
+  <script src="//cdnjs.cloudflare.com/ajax/libs/select2/3.4.4/select2.min.js"></script>
+  <script src="{{STATIC_URL }}select2/select2.min.js"></script>
+
+
+<script src="{{STATIC_URL}}wonder/js/jquery.flexslider.js" type="text/javascript"></script>
+<script src="{{STATIC_URL }}js/parsley_bootstrap3_config.js"></script>
+<script src="{{STATIC_URL }}pnotify/jquery.pnotify.min.js"></script>
+<script src="{{STATIC_URL }}js/pnotify_config.js"></script>
+<script src="{{STATIC_URL }}parsleyjs/parsley.js"></script>
+<script src="{{STATIC_URL }}handlebars/handlebars.min.js"></script>
+<script src="{{STATIC_URL }}js/handlebars_helpers.js"></script>
+<script src="{{STATIC_URL }}jquery.tablesorter/js/jquery.metadata.js"></script>
+<script src="{{STATIC_URL }}jquery.tablesorter/js/jquery.tablesorter.min.js"></script>
+<script src="{{STATIC_URL }}js/csrf.js"></script>
+<script src="{{STATIC_URL}}js/mixtape_create.js"></script>
+<script type="text/javascript" src="{{STATIC_URL}}js/newjs/bootstrap.min.js"></script>
+<script type="text/javascript" src="{{STATIC_URL}}js/newjs/jquery.prettySocial.min.js"></script>
+<!-- custom js -->
+<script type="text/javascript" src="{{STATIC_URL}}js/newjs/custom.js"></script>
+
+
+
+  <script type="text/javascript">
+	(function(a){if(window.filepicker){return}var b=a.createElement("script");b.type="text/javascript";b.async=!0;b.src=("https:"===a.location.protocol?"https:":"http:")+"//api.filepicker.io/v1/filepicker.js";var c=a.getElementsByTagName("script")[0];c.parentNode.insertBefore(b,c);var d={};d._queue=[];var e="pick,pickMultiple,pickAndStore,read,write,writeUrl,export,convert,store,storeUrl,remove,stat,setKey,constructWidget,makeDropPane".split(",");var f=function(a,b){return function(){b.push([a,arguments])}};for(var g=0;g<e.length;g++){d[e[g]]=f(e[g],d._queue)}window.filepicker=d})(document);
+	</script>
+
+  <script>
+  var _gaq=[['_setAccount','UA-XXXXX-X'],['_trackPageview']];
+  (function(d,t){var g=d.createElement(t),s=d.getElementsByTagName(t)[0];
+    g.src='//www.google-analytics.com/ga.js';
+    s.parentNode.insertBefore(g,s)}(document,'script'));
+  </script>
+      <script>
+
+			$(function () {
+			  $('.flexslider').flexslider({
+				animation: "slide"
+				});
+			});
+			$(document).ready(function() {
+			  $.ajaxSetup({ cache: false });
+			});
+
+		</script>
+		
+		<script src="{{STATIC_URL }}smalot-bootstrap-datetimepicker/js/bootstrap-datetimepicker.min.js"></script>
+<script>
+$(function () {
+    $('input[name=release_datetime]').datetimepicker({
+        format: "dd MM yyyy - hh:ii",
+        autoclose: true,
+        todayBtn: true,
+        todayHighlight: true
+    });
+});
+</script>
+
+    <script>
+    $('body').bind('click', function (evt) {
+    if(evt.target == $('body')[0]) {
+       if("{{obj.primaryArtist}}"){
+      window.open('{{obj.primaryArtist}}/{{obj.slug}}/{{obj.id}}', '_blank', '');
+       }
+      else{
+}
+    }
+  });
+    </script>
+                
+<script>
+$(function (){
+   window.setTimeout(function() {
+     $("#alert_box .alert-success alert-info alert-danger").fadeTo(500, 0).slideUp(500, function(){
+    $(this).remove(); 
+  });
+}, 3000);
+});
+if (document.URL.indexOf('payments#success') != -1){
+	
+	<!--$('.alert-success').text('You have successfully added a credit card.')-->
+	
+}
+</script>
+
+
+    {% endaddtoblock %}
+
+  {% render_block "bottom_js" %}
+  
+  <script type="text/javascript">
+    $(function () {
+        $("{{ like_link }}")
+            .addClass("iconic")
+            .addClass("check")
+            .addClass("phileo")
+            .addClass("{{ is_liked }}");
+        $("{{ like_link }}").click(function() {
+            $.ajax({
+                url: "{{ like_url }}",
+                type: "POST",
+                data: {},
+                success:
+                    function(data, textStatus, jqXHR) {
+                        $("{{ like_span_total }}").text(data.likes_count);
+                        $("{{ like_link }}").toggleClass("{{ toggle_class }}");
+                    }
+            });
+        });
+    });
+	</script>
+{% if user.is_authenticated %}
+	<script>
+     $(document).ajaxSend(function(event, xhr, settings) {
+        function getCookie(name) {
+            var cookieValue = null;
+            if (document.cookie && document.cookie != '') {
+                var cookies = document.cookie.split(';');
+                for (var i = 0; i < cookies.length; i++) {
+                    var cookie = jQuery.trim(cookies[i]);
+                    // Does this cookie string begin with the name we want?
+                    if (cookie.substring(0, name.length + 1) == (name + '=')) {
+                        cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                        break;
+                    }
+                }
+            }
+            return cookieValue;
+        }
+        function sameOrigin(url) {
+            // url could be relative or scheme relative or absolute
+            var host = document.location.host; // host + port
+            var protocol = document.location.protocol;
+            var sr_origin = '//' + host;
+            var origin = protocol + sr_origin;
+            // Allow absolute or scheme relative URLs to same origin
+            return (url == origin || url.slice(0, origin.length + 1) == origin + '/') ||
+                (url == sr_origin || url.slice(0, sr_origin.length + 1) == sr_origin + '/') ||
+                // or any other URL that isn't scheme relative or absolute i.e relative.
+                !(/^(\/\/|http:|https:).*/.test(url));
+        }
+        function safeMethod(method) {
+            return (/^(GET|HEAD|OPTIONS|TRACE)$/.test(method));
+        }
+        
+        if (!safeMethod(settings.type) && sameOrigin(settings.url)) {
+            xhr.setRequestHeader("X-CSRFToken", getCookie('csrftoken'));
+        }
+    });
+</script>
+<script type="text/javascript" src="{{ STATIC_URL }}agon_ratings/js/jquery.raty.js"></script>
+{% if request.path != '/payments' and request.path != '/upload/' %}
+<script src="{{STATIC_URL}}js/bootstrap.js"></script>
+{% endif %}
+    <script>
+ 
+    
+    </script>
+<script type="text/javascript">
+$('.pop2').popover({
+    html:true,
+    placement:'top',
+    content:function(){
+        return $($(this).data('contentwrapper')).html();
+    }
+});
+
+{% if favorite %}
+if ($('#user_ratingtag').length>0){
+	   {% load phileo_tags agon_ratings_tags %}
+	   {% overall_rating object 'overall' as the_overall_rating %}
+	   $('#user_ratingtag').raty({ score: '2',readonly:true,path: "{{ STATIC_URL }}agon_ratings/img/" });
+	   $.fn.raty.start('{{ the_overall_rating }}', '#user_ratingtag');
+	   $.fn.raty.readOnly(true, '#user_ratingtag');
+}
+
+{% elif object %}
+if ($('#user_ratingtag').length>0){
+	   {% load phileo_tags agon_ratings_tags %}
+	   {% overall_rating object 'overall' as the_overall_rating %}
+	   $('#user_ratingtag').raty({ score: '2',readonly:true,path: "{{ STATIC_URL }}agon_ratings/img/" });
+	   $.fn.raty.start('{{ the_overall_rating }}', '#user_ratingtag');
+	   $.fn.raty.readOnly(true, '#user_ratingtag');
+}
+{% endif %}
+    	$('.pop2').on('shown.bs.popover', function () {
+    		  // do something…
+        // 1. you have a div with the id of "user_rating" where you want the stars to go
+        // 2. you have a container with the class .overall_rating where the new average rating will go
+        $(".popover-content").find("#user_rating").attr('id','popStar1');
+        $("#popStar1").raty({
+            score: function() {
+                return $(this).attr('data-score');
+            },
+            click: function(score, evt) {
+                var current_rating = 0;
+                if (score != null) {
+                    current_rating = score;
+                    $('.rate_success').show();
+        			setTimeout(function() { $('.rate_success').hide(); }, 5000);
+                }
+                console.log("Score", score, "{{ post_url }}");
+				url = '/ratings/{{mt.get_content_type_id}}/{{mt.id}}/rate/';
+                $.ajax({
+                    url: url,
+                    type: "POST",
+                    data: {
+                        "rating": current_rating
+                        {% if category %}
+                        ,"category": "{{ category }}"
+                        {% endif %}
+                    },
+                    statusCode: {
+                        403: function(jqXHR, textStatus, errorThrown) {
+                            // Invalid rating was posted or invalid category was sent
+                            console.log(errorThrown);
+                        },
+                        200: function(data, textStatus, jqXHR) {
+                            {% if category %}
+                                $(".overall_rating.category-{{ category }}").text(data["overall_rating"]);
+                                $.fn.raty.start(data["overall_rating"], '#popStar1');
+                                $.fn.raty.start(data["overall_rating"], '#user_ratingtag');
+                            {% else %}
+                                $(".popover-content").find("#o_rating").text(data["overall_rating"]);                               
+                                $.fn.raty.start(data["overall_rating"], '#user_ratingtag');
+                            {% endif %}
+                        }
+                    }
+                });
+            },
+            cancel: true,
+            path: "{{ STATIC_URL }}agon_ratings/img/"
+        });
+        $.fn.raty.start('{{ the_overall_rating }}', '#popStar1');
+    	});  
+</script>
+{% endif %}
+
+<script src="//connect.soundcloud.com/sdk.js"></script>
+<script src="{{STATIC_URL }}js/csrf.js"></script>
+
+
+<script>
+	{% if mt.video_url %}
+		$('#video_iframe').fitVids();
+	{% endif %}
+</script>
+
+
+
+
+<script type="text/javascript">
+    /* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
+    var disqus_shortname = '247mixtapes'; // required: replace example with your forum shortname
+    /* * * DON'T EDIT BELOW THIS LINE * * */
+    (function() {
+        var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+        dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+</script>
+
+
+<script src="//cdnjs.cloudflare.com/ajax/libs/mediaelement/2.13.1/js/mediaelement-and-player.min.js"></script>
+<!--<script src="{% static 'js/mejsplayer.js' %}"></script>-->
+<script>
+	$(function() {
+		$('#trackTabs a').click(function (e) {
+			e.preventDefault();
+			$(this).tab('show');
+		});
+		//addthis.init();
+	});
+</script>
+
+<script>
+	$(function () {
+		filepicker.setKey('{{FILEPICKER_API_KEY}}')
+	});		
+	
+	
+	   $('.pop1').click(function(){
+		   text = $(this).text().trim();
+		   data = {'mixtape':$(this).attr('id'),'favorite':text}
+		   $('.load_text').hide();
+		   $('.load_img').show();
+		   this_button = $(this);
+		   $.ajax({
+               url: "/addfavorite/",
+               type: "POST",
+               data: data,
+               success:
+                   function(data, textStatus, jqXHR) {
+	        		   if (data.success == true){
+	            	   		if (data.favorite == 'Favorite'){
+	                			this_button.removeClass('btn-warning').addClass('btn-success');
+	                			$('.load_text').text(data.favorite);
+	                			
+	                			$('.favorite_error').show();
+	                			setTimeout(function() { $('.favorite_error').hide(); }, 5000);
+		        		    }
+	            	   		else{
+	            	   			this_button.removeClass('btn-success').addClass('btn-warning');
+	                			$('.load_text').text(data.favorite);
+	                			$('.favorite_success').show();
+	                			setTimeout(function() { $('.favorite_success').hide(); }, 5000);
+	            	   		}
+		               }
+	            	
+	            	   
+	            	   $('.load_text').show();
+	        		   $('.load_img').hide();
+                   }
+           });
+	   })
+	       
+	   
+	    
+	    $('.pop4').popover({
+	        html:true,
+	        placement:'top',
+	        content:function(){
+	            return $($(this).data('contentwrapper')).html();
+	        }
+	    });
+	
+	   /* $('.pop5').click(function(){
+		play_track = 'audio_hide'+$(this).attr('data-contentwrapper')
+	    	cls='.audio_hide'+$(this).attr('data-contentwrapper')
+	    	$(cls).toggleClass("hide");
+		$('.track_play').children().each(function(){
+		    if ($(this).attr('class').trim() == play_track.trim()) {
+			 $(this).siblings().addClass('hide');
+		       }
+		});
+		
+	    	
+	    	if ($(cls).hasClass("hide")==false){
+	    		$('audio')[$(this).attr('data-contentwrapper')].player.play();
+	    		$.ajax({
+	                url: "/track/",
+	                type: "POST",
+	                data: {'event':'listen','name':'{{mt.name}}','id':'{{mt.id}}'},
+	                success:
+	                    function(data, textStatus, jqXHR) {
+	                        $('.s_count').text(data.count);
+	                    }
+	            });	
+	    	}
+	    	else{
+	    		$('audio')[$(this).attr('data-contentwrapper')].player.pause();
+	    	}
+	    })*/
+	    	
+	    	
+</script>
+
+
+{% if mt.use_soundcloud_player %}
+	<script>
+		$(function() {
+			SC.initialize({
+			  client_id: '1d192ebc1df7e15a2e2ea13613b62962',
+			  sharing: false,
+			});
+
+			var track_url = '{{mt.soundcloud_permalink}}';
+			SC.oEmbed(track_url, {auto_play:false, liking:false, downloadable:false, sharing:false}, function(oEmbed) {
+			  $('#soundcloudPlayer').html(oEmbed.html);
+			});
+		});
+	</script>
+{% else %}
+	<script>
+		
+	//playlist looping 	
+	  
+	</script>
+{% endif %}	
+  
+  <script src="{{STATIC_URL }}mixitup/mixitup.js"></script>
+  <script src="{{STATIC_URL }}js/subscriptions.js"></script>
+	<script>
+	
+		function isValidEmailAddress(emailAddress) {
+		    var pattern = new RegExp(/^((([a-z]|\d|[!#\$%&'\*\+\-\/=\?\^_`{\|}~]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])+(\.([a-z]|\d|[!#\$%&'\*\+\-\/=\?\^_`{\|}~]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])+)*)|((\x22)((((\x20|\x09)*(\x0d\x0a))?(\x20|\x09)+)?(([\x01-\x08\x0b\x0c\x0e-\x1f\x7f]|\x21|[\x23-\x5b]|[\x5d-\x7e]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])|(\\([\x01-\x09\x0b\x0c\x0d-\x7f]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF]))))*(((\x20|\x09)*(\x0d\x0a))?(\x20|\x09)+)?(\x22)))@((([a-z]|\d|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])|(([a-z]|\d|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])([a-z]|\d|-|\.|_|~|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])*([a-z]|\d|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])))\.)+(([a-z]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])|(([a-z]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])([a-z]|\d|-|\.|_|~|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])*([a-z]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])))\.?$/i);
+		    return pattern.test(emailAddress);
+		};
+	
+		function equalHeights (target) {
+			$(target).height('auto');
+
+			var heights = []
+			$(target).each(function(){
+				heights.push($(this).height());
+			});
+			var highest = Math.max.apply(Math, heights)
+			$(target).height(highest);
+		};
+		$(function() {
+			equalHeights('.caption');
+			equalHeights('.mymixtapesheading h2');
+			$('#grid').mixitup({
+				buttonEvent: 'click',
+				effects: ['fade','scale'],
+				easing: 'windup',
+				onMixStart:function(config){
+					if (config.filter == 'rb') {
+						$('#pagetitle').text('R&B Mixtapes')	
+					} else if (config.filter !== 'mix_all') {
+						$('#pagetitle').text(config.filter + ' Mixtapes')
+					}
+				},
+				onMixEnd: function(){
+					equalHeights('.caption');
+					equalHeights('.mymixtapesheading h2');
+				}
+			});
+		});
+
+		$(function() {
+			equalHeights('.caption');
+			equalHeights('.mymixtapesheading h2');
+		});
+
+		$(window).resize(function(){
+			equalHeights('.caption');
+			equalHeights('.mymixtapesheading h2');
+		});
+		$('.btn_contact').click(function(){
+			s=$(this).parents('form:first');
+			if (s.find('#contact_email').val()== ''){
+			s.find('#message_email').text('This field is required');
+			return false
+		   }else if(!isValidEmailAddress( s.find('#contact_email').val()) ) { 
+			   s.find('#message_email').text('Please enter a valid email address');
+				return false
+		   
+		   }else if (s.find('#topic').val()== ''){
+			   s.find('#message_email').text('');
+			   s.find('#message_topic').text('This field is required');
+				return false
+		   }else if (s.find('#message').val()== ''){
+			   s.find('#message_email').text('');
+			   s.find('#message_topic').text('');
+			   s.find('#message_body').text('This field is required');
+				return false
+		   }else{
+		   
+			$.ajax({
+                url: "/addcontactus/",
+                type: "POST",
+                data: s.serialize(),
+                success:
+                    function(data, textStatus, jqXHR) {
+                	s.find('#message_text').text('Your request has been successfully submitted.')
+                    }
+            });
+		   }
+		});
+	</script>
+      <script type="text/javascript">
+$( document ).ready(function() {
+        
+	$( "#success_captcha1").click( function(event) {
+
+		href = $(this).attr('url');
+                data = {}
+                data['abc'] = $('#recaptcha_challenge_field').val();
+                data['xys']=$('#recaptcha_response_field').val();
+		$.ajax({
+            url: "/limitdownload/",
+            type: "GET",
+            async:false,
+            data: data,
+            success:
+                function(data, textStatus, jqXHR) {
+            	if (data.success == true){
+            		$('.download_text').text(data.count.toString() + ' downloads remaining today');
+            		window.location = href;
+                        $('#Popup-close').click();
+            	}
+            	else{
+                     $('.validation_error').text(data.captcha_response);
+            	     $('.download_text').text('Your free download limit exceeds');
+            	}
+                }
+        });
+		
+		
+	});
+	
+	  $('#id_subscribe').click(function(){
+		  data={'artist':$(this).attr('data_id'),'action':$(this).text()}
+		  s=$(this);
+		   $.ajax({
+              url: "/addsubcribe/",
+              type: "POST",
+              data: data,
+              success:
+                  function(data, textStatus, jqXHR) {
+	        		   if (data.success == true){
+	        			   s.text(data.subscribe);
+		               }
+	            	
+	            	   
+	            	 
+                  }
+          });
+	   })
+	    $('#add_userprofile_button').click(function(){
+		  data=$('#add_userprofile_form').serialize();
+		  $('#loading-spinner').removeClass('hidden').hide().fadeIn();
+		  s=$(this);
+		   $.ajax({
+              url: "/addartist/",
+              type: "POST",
+              data: data,
+              success:
+                  function(data, textStatus, jqXHR) {
+	        		   if (data.success == true){
+	        			   //s.text(data);
+	        			   $('#loading-spinner').addClass('hidden');
+	        			   $('#modal_close').click();
+		               }
+                               else{
+                                   $('#form_messages').html(data.error_message);
+                                   $('#loading-spinner').addClass('hidden');
+                               }
+	            	
+	            	   
+	            	 
+                  }
+          });
+	   })
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	$('[data-toggle="popover"]').popover();
+   if ($('.social-container').length>0){
+	   $('.social-container .links a').attr('data-url',document.URL);
+   }
+	
+	
+	$('body').on('click', function (e) {
+	    $('[data-toggle="popover"]').each(function () {
+	        //the 'is' for buttons that trigger popups
+	        //the 'has' for icons within a button that triggers a popup
+	        if (!$(this).is(e.target) && $(this).has(e.target).length === 0 && $('.popover').has(e.target).length === 0) {
+	            $(this).popover('hide');
+	        }
+	    });
+	});
+	
+	
+	
+	$( ".list-headers li h3 a.desc-select").click( function(event) {
+		 $('html,body').animate({scrollTop: $(this).offset().top-5}, 500);
+	});
+	$( "#id_stream").click( function(event) {
+		 $('html,body').animate({scrollTop: $(this).offset().top-5}, 500);
+	});
+	if( /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent) ) {
+   	 // some code..
+   	 $('.detailblock').css('width','100%');
+   		$('#id_search').attr('href','/search/');
+   		$('.searchdiv').show();
+   	 
+   	}
+	else{
+		
+		$('#id_search').popover({
+		    html : true,
+		    placement: "bottom",
+		    content: function() {
+		          return $('#search-box').html();
+		        }
+
+			});
+	}
+	$('.prettySocial').prettySocial();
+	
+	
+	  $(".a_tool").tooltip({
+		    'selector': '',
+		    'placement': 'top',
+		    'container':'body'
+		  });
+	  
+	
+	$('#id_search').on('shown.bs.popover', function () {
+		  $('#search').focus();
+		})
+		
+		setInterval("flashit()", 500)
+	
+});
+function flashit(){
+ 	//var crosstable=document.getElementById? document.getElementById("myexample") : document.all? document.all.myexample : ""
+ 	var divs = $('.highlight_mixtape');
+
+	for(var i = 0; i < divs.length; i++){
+	    var crosstable = divs[i]; 
+ 		
+  		if (crosstable){
+     	if (crosstable.style.borderColor.indexOf("gold")!=-1)
+     	crosstable.style.borderColor="red"
+     	else
+     	crosstable.style.borderColor="gold"
+     	}
+ 	};
+	}
+
+</script>
+
+
+
+
+</body>
+</html>

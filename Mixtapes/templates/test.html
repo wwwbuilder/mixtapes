@@ -1,0 +1,262 @@
+{% extends "index.html" %}
+
+{% load staticfiles sekizai_tags %}
+
+{% load url from future %}
+{% load bootstrap_tags %}
+{% load i18n %}
+{% load account %}
+{% load url from future %}
+{% block pagetitle %}
+<title>Create an Account // 24/7Mixtapes</title>
+{% endblock pagetitle %}
+
+{% block head_title %}{% trans "Signup" %}{% endblock %}
+
+{% block content %}
+<div class="container">
+    <ol class="breadcrumb">
+
+    </ol>
+</div>
+
+<div class="container">
+
+    <div class="row">
+
+        <div class="col-md-10">
+
+            <h1 class="header-box">PhoneNumber Verification</h1><br><br>
+
+            <form class="form-horizontal"  data-parsley-validate data-parsley-class-handler="#element">
+                <div class="form-group has-feedback">
+                    <label for="username" class="col-sm-3 control-label">Enter Verification code sent to your cell Phone</label>
+                    <div class="col-sm-6">
+                        <input class=" form-control" id="verification" maxlength="30" name="verification" placeholder="Verification Code" type="text">
+                        <input type="hidden" name="user" value="{{ request.user.id }}" id="cur_usr">
+                        <input type="hidden" name="code" value="{{ request.user.userprofile.verify_code }}" id="cur_code">
+                       
+                    </div>
+                </div>
+
+                 <div id="error-message" class="form-group  has-feedback hidden">
+                    <label for="inputEmail3" class="col-sm-3 control-label"></label>
+                        <div class="col-sm-6">
+                            <span style="color:red;">The code you are entered is wrong. Please enter correct code</span><br />
+                       </div>
+                    </div>
+
+                <div class="form-group">
+
+
+
+                    <div class="col-sm-offset-3 col-sm-6">
+                        <div id="loading-spinner" class="hidden">
+                <p style="font-size: 150%"><i class="icon-spinner icon-spin"></i> Processing... </p>
+            </div>
+                        <button type="button" class="btn btn-primary" id="verification_button1">Submit Verification Code </button>
+                        <button type="button" class="btn btn-primary" id="re-verify">Resend Verification Code </button>
+
+                    </div>
+                </div>
+            </form>
+        </div>
+
+
+
+        <div class="col-md-2">
+            <div class="standard-box">
+
+                <h2 class="header-box">Need help?</h2>
+
+                <h3 class="margin-top-10">Ask about this template.</h3>
+
+                <div class="team-item">
+                    <img src="{% static 'img/persons/person-6.png' %}" alt="person">
+
+                    <div class="description">
+                        <h3>Kate Houston*</h3>
+                        <p><small><a href="mailto:mnbootstrap@gmail.com">mnbootstrap@gmail.com</a></small></p>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+
+{% addtoblock "bottom_js" %}
+<script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+<script src="{{STATIC_URL}}build/js/intlTelInput.js"></script>
+<script src="{{STATIC_URL}}js/phoneparser.js"></script>
+<script>
+  phonenumber = $("#id_cell_phone").intlTelInput();
+  phonenumber.intlTelInput({
+  validationScript: "../../lib/libphonenumber/build/isValidNumber.js"
+});
+  phonenumber.blur(function() {
+	validate = parsePhone($(phonenumber).val());
+	if (validate == null){
+	   <!--$('#error-msg').text('Invalidnumber');-->
+	   $('#error-msg').removeClass("hidden");
+	}
+	else {
+	  	   $('#valid-msg').removeClass("hidden");
+
+	}
+  });
+  // on keydown: reset
+  phonenumber.keydown(function() {
+   $('#error-msg').addClass("hidden");
+   $('#valid-msg').addClass("hidden");
+});
+</script>
+<script>
+   $('#re-verify').click(function () {
+        $('#loading-spinner').removeClass('hidden').hide().fadeIn();
+	user_id = $('#cur_usr').val() ;
+	currentstep = $('#re-verify');
+	endpoint = '/twilio_verification/';
+	method = "post";
+        data = {'id':user_id}
+	
+						$.ajax({
+							url: endpoint,
+							type: method,
+							data: data,
+							success: function(data) {
+								//Store mixtape data in the next button as a data attributes
+								currentstep.data('message', data.message);
+								currentstep.data('message_body', data.message_body);
+								currentstep.data('verication_text',data.verication_text);
+								currentstep.data('message_info',data.message_info);
+                                                                $('#loading-spinner').addClass('hidden');
+                                                                location.reload();
+								<!--currentstep.data('current_mixtape_content_type_id', data.content_type_id);-->
+								//Go through the usual precedure
+								if (data.message && data.verication_text){
+									var modal = $('#verification_modal');
+									<!--alert('modal');-->
+									modal.modal();
+								}
+
+								else {
+									$('#message h4').text(data.message_info);
+								}
+							},
+							error: function(data){
+								$.pnotify({
+									title: 'Error',
+									text: data.responseText,
+									icon: 'fa fa-exclamation-circle',
+									type: 'error'
+								})
+								}
+								});
+							
+
+						
+   });
+  </script>
+  <script>
+
+  function getParameterByName(name) {
+	    name = name.replace(/[\[]/, "\\[").replace(/[\]]/, "\\]");
+	    var regex = new RegExp("[\\?&]" + name + "=([^&#]*)"),
+	        results = regex.exec(location.search);
+	    return results == null ? "" : decodeURIComponent(results[1].replace(/\+/g, " "));
+	}
+
+   $('#verification_button1').click(function () {
+		id = $('#cur_usr').val();
+		verify_text = $('#verification').val();
+                currentstep = $('#re-verify');
+                verification_text = $('#cur_code').val();
+                if (verify_text == ''){
+                    $('#error-message').removeClass("hidden");
+                }
+                if (verify_text != verification_text){
+                   $('#error-message').removeClass("hidden");
+                }
+		if (verify_text == verification_text){
+			endpoint = '/reverify/';
+			method = "post";
+			$.ajax({
+					url: endpoint,
+					type: method,
+					data: {'id':id,'code':verification_text},
+					success: function(data) {
+						//Store mixtape data in the next button as a data attributes
+						var modal = $('#verification_modal');
+						 <!--alert('modal');-->
+						 <!--/modal.close();-->
+						 if (getParameterByName('next') == ""){
+
+
+						 window.location.href = "/my-profile/";
+						 }else{
+							 window.location.href = getParameterByName('next')
+						 }
+					},
+					error: function(data){
+						$.pnotify({
+							title: 'Error',
+							text: data.responseText,
+							icon: 'fa fa-exclamation-circle',
+							type: 'error'
+						})
+					}
+				});
+                }
+			else{
+			   $('#error-message').removeClass("hidden");
+			}
+
+   });
+
+   $('#pop-close').click(function(){
+        message = $('#signup').data('message');
+        data = $('#signup').data('form_data');
+        message_body = $('#signup').data('message_body');
+        verication_text = $('#signup').data('verication_text');
+        verify_text = $('#verification').val();
+            if (verify_text == ''){
+                endpoint = '/verify/';
+                method = "post";
+                $.ajax({
+                        url: endpoint,
+                        type: method,
+                        data: {'data':data,'message':message,'message_body':message_body,'code':verify_text},
+                        success: function(data) {
+                                //Store mixtape data in the next button as a data attributes
+                                var modal = $('#verification_modal');
+                                 <!--alert('modal');-->
+                                 <!--/modal.close();-->
+                                 if (getParameterByName('next') == ""){
+
+                                 window.location.href = "/my-profile/";
+                                 }else{
+                                         window.location.href = getParameterByName('next')
+                                 }
+                        },
+                        error: function(data){
+                                $.pnotify({
+                                        title: 'Error',
+                                        text: data.responseText,
+                                        icon: 'fa fa-exclamation-circle',
+                                        type: 'error'
+                                })
+                        }
+                });
+            }
+            else{
+                   $('#error-message').removeClass("hidden");
+                }
+   });
+
+   </script>
+ {% endaddtoblock %}
+
+
+{% endblock %}

@@ -1,0 +1,81 @@
+{% extends "my-account/mixtape_detail_base.html" %}
+{% load staticfiles sekizai_tags %}
+
+{% load micawber_tags static %}
+
+{% block extracss %}
+
+	{{block.super}}
+	<link href="//cdnjs.cloudflare.com/ajax/libs/mediaelement/2.13.1/css/mediaelementplayer.min.css" rel="stylesheet">
+	<link rel="stylesheet" href="{% static 'css/mejsplayer.css' %}">
+{% endblock %}
+
+{% block maincontent %}
+
+<section>
+	<div class="row-fluid">
+		<!-- Main rail
+		================================================== -->
+		<div class="span8">
+			<!-- Show video block if there is the video url
+			================================================== -->
+			{% if mt.video_url %}
+				<div class="row-fluid" id="video_iframe" style="margin-bottom: 20px">
+					{{mt.video_url|oembed}}
+				</div>
+			{% endif %}
+			<div class="well">
+				<div class="row-fluid">
+					<div class="tabbable tabs-left">
+						<ul class="nav nav-tabs" id="trackTabs" style="max-width: 30%">
+							{% for track in mt.tracks.all %}
+							 <li {% if forloop.first %}class="active"{% endif %}>
+									<a href="#track{{track.order}}"><div class="badge blue-back">{{track.display_order}}</div> {{track.filename}}</a>
+								</li>
+							{% endfor %}
+						</ul>
+						<div class="tab-content">
+							{% for track in mt.tracks.all %}
+								<div class="tab-pane fade {% if forloop.first %}active in{% endif %}" id="track{{track.order}}" style="padding: 10px">
+									{% include 'snippets/mixtape_detail_tabcontent.html' %}
+								</div>
+							{% endfor %}
+						</div>
+					</div>
+				</div>
+			</div>			
+
+		</div>
+		<!-- Right Rail
+		================================================== -->
+		<div class="span4">
+
+			<div class="row-fluid" id="soundcloudPlayerRow">
+				{% if mt.soundcloud_permalink and mt.use_soundcloud_player %}
+					<div id="soundcloudPlayer">
+						<iframe width="100%" height="450" scrolling="no" frameborder="no" src="https://w.soundcloud.com/player/?url=http%3A%2F%2Fapi.soundcloud.com%2Fplaylists%2F6118385"></iframe>
+					</div>
+				{% else %}
+					<audio id="mejs" type="audio/mp3" controls="controls">
+						{% for t in mt.tracks.all %}
+							<source src="{{t.secure_url}}" title="{{t.filename}}" type="audio/mp3">
+						{% endfor %}				 
+					</audio>			
+				{% endif %}
+			</div>	
+		</div>
+	</div>
+</section>
+
+
+
+{% addtoblock "bottom_js" %}
+
+{{ block.super }}
+
+
+
+
+{% endaddtoblock %}
+
+{% endblock maincontent %}

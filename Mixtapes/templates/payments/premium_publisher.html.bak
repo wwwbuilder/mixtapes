@@ -1,0 +1,424 @@
+{% extends "index.html" %}
+{% load staticfiles sekizai_tags %}
+
+{% block pagetitle %}
+  <title>Premium Publisher // 24/7Mixtapes</title>
+  {% endblock pagetitle %}
+{% block content %}
+
+<div class="container">
+
+		<h1 class="phone-center">Premium Publisher Subscription</h1>
+    <hr>
+    <h3>
+        <p class="text text-info" style="text-align: center"><i class="icon-star"></i> Get so much more as a Premium Publisher!</p>
+    </h3>
+    <br>
+           
+           
+           
+           
+           <div class="well" style="background-color:#000">
+           <div class="alert alert-info">
+           <p>  
+           Whether you’re an aspiring artist or an established one, 24/7Mixtapes provides the boost you need to grow your fan base and maximize exposure for your music. As a Premium Publisher, you’ll enjoy unlimited uploads, faster approvals, and instant access to extensive analytical data that will help you understand who – and where – your listeners are.
+           </p>
+           </div>
+           <div class="jumbotro pricelist" >
+           
+           
+           
+           {% with request.user.customer.publisher_subscription as subscription %}
+
+<div class="top-margin">
+    {% with request.user.customer.publisher_subscription as subscription %}
+     <h3>
+        Your current publisher plan is:
+        {% if subscription.plan == 'premium-publisher-monthly'%}
+        <span class="label label-info">Premium Publisher - Monthly</span>
+        {% elif subscription.plan == 'premium-publisher-yearly'%}
+        <span class="label label-info">Premium Publisher - Yearly</span>
+        {% elif subscription.plan == 'monthly'%}
+        <span class="label label-info">Premium Member - Monthly</span>
+        {% elif subscription.plan == 'yearly'%}
+        <span class="label label-info">Premium Member - Yearly</span>
+        {% else %}
+        <span class="label label-info">Basic (Free)</span>
+        {% endif %}
+    </h3>
+    {% if subscription %}
+        {% if subscription.cancel_at_period_end %}
+            {% if subscription.status == "active" %}
+                <div class="alert alert-warning lead">
+                    Your subscription has been <strong>canceled</strong> but you can continue to use the site for another <strong>{{ subscription.current_period_end|timeuntil }}</strong>.
+                </div>
+            {% endif %}
+            {% if subscription.status == "trialing" %}
+                <div class="alert alert-warning lead">
+                    Your trial has been <strong>canceled</strong> but you can continue to use the site for another <strong>{{ subscription.current_period_end|timeuntil }}</strong>.
+                </div>
+            {% endif %}
+        {% else %}
+            {% if subscription.status == "active" %}
+                <div class="alert alert-info">
+                    Your subscription will automatically renew on <strong> {{ subscription.current_period_end }}</strong>.
+                </div>
+            {% else %}
+                {% if subscription.status == "trialing" %}
+                    {% if subscription.plan and request.user.customer.card_kind %}
+                        <div class="alert alert-info">
+                            Your free trial will end in <strong>{{ subscription.current_period_end|timeuntil }}</strong> after which you commence a <strong>{{ subscription.plan_display }}</strong> plan.
+                        </div>
+                    {% else %}
+                        <div class="alert alert-warning lead">
+                            Your free trial will end in <strong>{{ subscription.current_period_end|timeuntil }}</strong> after which you will need to get a subscription to continue using the site.
+                        </div>
+                    {% endif %}
+                {% else %}
+                    {% if subscription.status == "canceled" %}
+                        {% if subscription.is_period_current %}
+                            <div class="alert alert-warning lead">
+                                Your subscription has been <strong>canceled</strong> but you can continue to use the site for another <strong>{{ subscription.current_period_end|timeuntil }}</strong>.
+                            </div>
+                        {% else %}
+                            <div class="alert alert-danger lead">
+                                Your subscription has been <strong>canceled</strong>.
+                            </div>
+                        {% endif %}
+                    {% else %}
+                        <div class="alert alert-danger lead">
+			 {{ subscription}}
+                            Your subscription is <strong>{{ subscription.status }}</strong>.
+                        </div>
+                    {% endif %}
+                {% endif %}
+            {% endif %}
+        {% endif %}
+
+    {% endif %}
+{% endwith %}
+
+	<hr>
+	
+	
+	
+	<div class="row">
+	<div class="pricing-table" >
+        <div class="col-sm-4">
+          
+           <div class="well" style="width:100%;height: 550px;background-color:#333;">
+            <div class="circle-text circle-text-basic-active" style="width:70%;margin:0 auto;"><div style="font-size:18px;font-weight: bold;color:#333;"> Basic Plan</div></div>
+            
+            <!--<h4 ><span class="icon-star icon-2x"></span> Basic Plan</h4>-->
+            <h4 ><span class="icon-check icon-2x"></span> Free</h4>
+             <h4 ><span class="icon-check icon-2x"></span> Limited Mixtape Submissions</h4>
+              <h4 ><span class="icon-check icon-2x"></span> Slower Mixtape Approvals</h4>
+               <h4 ><span class="icon-check icon-2x"></span> Basic Email Support</h4>
+                <h4 > 
+                
+                
+                {% if user.is_authenticated %}
+                            {% with user.customer as cust %}
+                                {% if not cust.has_active_publisher_subscription %}
+                                    <p style="color: grey"><i class="icon-2x icon-thumbs-up-alt"></i> Your Current Plan</p>
+                                {% elif cust.publisher_subscription.cancel_at_period_end %}
+                                    <p class="text-info" style="font-size: 100%;color:red;">
+                                        <i class="icon-2x icon-time"></i> You will be downgraded to basic membership after your current subscription period ends ({{cust.publisher_subscription.current_period_end}}).
+                                    </p>
+                                {% endif %}
+                            {% endwith %}
+                        {% else %}
+                            <a class="btn btn-large btn-success" href="/registration/?next=/payments&plan=basic">Try it Now <i class="icon-chevron-sign-right"></i></a>
+                        {% endif %}
+                
+                
+                
+                
+                
+                
+            </h4>
+               
+               
+              </div>
+          
+          
+          
+        </div><!-- /.col-sm-4 -->
+        <div class="col-sm-4">
+           <div class="well" style="width:100%;height: 550px;background-color:#333;">
+                <div class="circle-text " style="width:70%;margin:0 auto;"><div style="font-size:18px;font-weight: bold;">Premium Monthly Plan</div></div>
+                <div style="margin:0 auto;">
+                <!--<h4 ><span class="icon-star icon-2x"></span> Premium Monthly Plan</h4>-->
+                <h4 ><span class="icon-check icon-2x"></span> $10 /Month</h4>
+                <h4 ><span class="icon-check icon-2x"></span> Unlimited Mixtape Submissions</h4>
+                <h4 ><span class="icon-check icon-2x"></span> Expedited Mixtape Approvals </h4>
+                <h4 ><span class="icon-check icon-2x"></span> Mixtape Analytics</h4>
+                <h4 > 
+                
+                
+                {% if user.is_authenticated %}
+                            {% with user.customer as cust %}
+                                {% if cust.has_active_publisher_subscription %}
+                                    {% if cust.publisher_subscription.plan == 'premium-publisher-monthly' %}
+                                        <p style="color: grey">
+                                            <i class="icon-2x icon-thumbs-up-alt"></i> Your Current Plan
+                                            <br>
+                                            <br>
+                                            <em>Valid until: {{cust.publisher_subscription.current_period_end}}</em>
+                                        </p>
+                                        {% if not cust.publisher_subscription.cancel_at_period_end %}
+                                            <button class="btn btn-danger btn-large btn-signup" onclick="$('#cancelModal').modal()"><i class="icon-remove-circle"></i> Cancel</button>
+                                        {% endif %}
+                                    {% endif %}
+                                {% else %}
+				{% if user.customer.card_last_4 %}
+				    
+				    <a  class="btn btn-large btn-success" {% if user.customer.card_last_4 %}onclick="$('#monthlyModal').modal()"{% else %}href="/payments"{% endif %} >Sign up<i class="icon-chevron-sign-right"></i></a>
+			       {% else %}
+				    <a class="btn btn-large btn-success" href="/payments" >Sign up<i class="icon-chevron-sign-right"></i></a>
+				{% endif %}
+                                {% endif %}
+                            {% endwith %}
+                        {% else %}
+                            <a class="btn btn-large btn-success" href="/registration/?next=/payments&plan=mnthly">Sign up <i class="icon-chevron-sign-right"></i></a> or
+                            <a class="" href="/login/?next=/premium-publisher/&popup=mnthly">Login <i class="icon-chevron-sign-right"></i></a>
+                        {% endif %}
+                
+                
+                
+                </h4>
+                </div>
+                </div>
+          
+        </div><!-- /.col-sm-4 -->
+        <div class="col-sm-4">
+           <div class="well" style="width:100%;height: 550px;background-color:#333;">
+                <div class="circle-text  circle-text-active" style="width:70%;margin:0 auto;"><div style="font-size:18px;font-weight: bold;">Premium Yearly Plan</div></div>
+                <!--<h4 ><span class="icon-star icon-2x"></span> Premium Yearly Plan (Special Offer!)</h4>-->
+                <h4 ><span class="icon-check icon-2x"></span> $100 /Year (Save 17%!)</h4>
+                <h4 ><span class="icon-check icon-2x"></span> Unlimited Mixtape Submissions </h4>
+                <h4 ><span class="icon-check icon-2x"></span> Expedited Mixtape Approvals</h4>
+                <h4 ><span class="icon-check icon-2x"></span> Mixtape Analytics </h4>
+                <h4 >
+						{% if user.is_authenticated %}
+                            {% with user.customer as cust %}
+                                {% if cust.has_active_publisher_subscription and cust.publisher_subscription.plan == 'premium-publisher-yearly'  %}
+                                    <p style="color: grey">
+                                        <i class="icon-2x icon-thumbs-up-alt"></i> Your Current Plan
+                                        <br>
+                                        <br>
+                                        <em>Valid until: {{cust.publisher_subscription.current_period_end}}</em>
+                                    </p>
+                                    {% if not cust.publisher_subscription.cancel_at_period_end %}
+                                        <button class="btn btn-danger btn-large btn-signup" onclick="$('#cancelModal').modal()"><i class="icon-remove-circle"></i> Cancel</button>
+                                    {% endif %}
+                                {% else %}
+                                    <a class="btn btn-large btn-success" {% if user.customer.card_last_4 %}onclick="$('#yearlyModal').modal()"{% else %}href="/payments"{% endif %} >Sign up <i class="icon-chevron-sign-right"></i></a>
+                                {% endif %}
+                            {% endwith %}
+                        {% else %}
+                            <a class="btn btn-large btn-success" href="/registration/?next=/payments&plan=yearly">Sign up <i class="icon-chevron-sign-right"></i></a> or
+                            <a class="" href="/login/?next=/premium-publisher/&popup=yearly">Login <i class="icon-chevron-sign-right"></i></a>
+                        {% endif %}
+
+
+
+				</h4>
+               
+            </div>
+          
+        </div><!-- /.col-sm-4 -->
+      </div>
+	 </div>
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	 <div class="alert alert-info">
+           <p>  
+           Publish your mixtapes with pride, knowing that part of the proceeds from your membership help fund the 24/7 Inner City Youth Program, which brings youth off the streets through music-based mentorship programs. At 24/7Mixtapes, we believe music is one of the few effective ways to help today’s youth. Help us use music to do good. Become a Premium Publisher today!
+           </p>
+           </div>
+</div>
+{% endwith %}
+           
+           
+           
+           
+           
+           
+           
+           </div>
+           
+           
+           
+           </div>
+           
+           
+           
+           
+           
+           
+           
+           
+           
+           
+           
+           
+</div>
+ 
+   <div id="monthlyModal" class="modal fade" role="dialog" tabindex="-1" aria-labelledby="myModalLabel" aria-hidden="true">
+	<div class="modal-dialog">
+	<div class="modal-content">        
+        <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+            <h3 id="myModalLabel">Payment Confirmation</h3>
+        </div>
+        <div class="modal-body" style="height: 290px">
+            <div class="alert alert-info">
+                <em>Charges will be processed using: <i class="icon-credit-card icon-2x" style="padding-left: 5px"></i> {{user.customer.card_kind}} ending in <strong>{{user.customer.card_last_4}}</strong></em>
+            </div>
+            <table class="table table-hover" id="modaltable">
+                <thead></thead>
+                <tbody>
+                    <tr>
+                        <td>Monthly Publisher Premium Subscription</td>
+                        <td>$10/month</td>
+                    </tr>
+                </tbody>
+                <tfoot>
+                    <p class="alert alert-warning">
+                        <i class="icon-exclamation-sign icon-2x"></i> NOTE: This is a recurring subscription and will be automatically renewed unless a downgrade is requested.
+                    </p>
+                </tfoot>
+            </table>
+        </div>
+        <div class="modal-footer">
+            <div id="loading-spinner" class="hidden">
+                <p style="font-size: 150%"><i class="icon-spinner icon-spin"></i> Processing... </p>
+            </div>
+            <button class="btn" data-dismiss="modal" aria-hidden="true">Close</button>
+            <button class="btn btn-success btn-large" id="proceed-monthly" onclick="subscribe('premium-publisher-monthly')"><i class="icon-check-sign"></i> Proceed</button>
+        </div>
+    </div>
+	</div>
+	</div>
+
+    <div id="yearlyModal" class="modal fade">
+	<div class="modal-dialog">
+	<div class="modal-content">
+        <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+            <h3 id="myModalLabel">Payment Confirmation</h3>
+        </div>
+        <div class="modal-body" style="height: 290px">
+            <div class="alert alert-info">
+                <em>Charges will be processed using: <i class="icon-credit-card icon-2x" style="padding-left: 5px"></i> {{user.customer.card_kind}} ending in <strong>{{user.customer.card_last_4}}</strong></em>
+            </div>
+            <table class="table table-hover" id="modaltable">
+                <thead></thead>
+                <tbody>
+                    <tr>
+                        <td>Yearly Publisher Premium Subscription</td>
+                        <td>$100/year</td>
+                    </tr>
+                </tbody>
+                <tfoot>
+                    <p class="alert alert-warning">
+                        <i class="icon-exclamation-sign icon-2x"></i> NOTE: This is a recurring subscription and will be automatically renewed unless a downgrade is requested.
+                    </p>
+                </tfoot>
+            </table>
+        </div>
+        <div class="modal-footer">
+            <div id="loading-spinner" class="hidden">
+                <p style="font-size: 150%"><i class="icon-spinner icon-spin"></i> Processing... </p>
+            </div>
+            <button class="btn" data-dismiss="modal" aria-hidden="true">Close</button>
+            <button class="btn btn-success btn-large" id="proceed-yearly" onclick="subscribe('premium-publisher-yearly')"><i class="icon-check-sign"></i> Proceed</button>
+        </div>
+    </div>
+	</div>
+	</div>
+
+    <div id="cancelModal" class="modal fade" role="dialog" tabindex="-1" aria-labelledby="myModalLabel" aria-hidden="true">
+	<div class="modal-dialog">
+	<div class="modal-content">
+        <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+            <h3 id="myModalLabel">Cancellation Confirmation</h3>
+        </div>
+        <div class="modal-body" style="height: 290px">
+            <table class="table table-hover" id="modaltable">
+                <thead></thead>
+                <tbody>
+                </tbody>
+                <tfoot>
+                    <p class="alert alert-warning">
+                        <i class="icon-exclamation-sign icon-2x"></i> NOTE: Your subscription privileges are still valid until the end of the current subscription period.
+                    </p>
+                </tfoot>
+            </table>
+        </div>
+        <div class="modal-footer">
+            <div id="loading-spinner" class="hidden">
+                <p style="font-size: 150%"><i class="icon-spinner icon-spin"></i> Processing... </p>
+            </div>
+            <button class="btn" data-dismiss="modal" aria-hidden="true">Close</button>
+            <button class="btn btn-danger btn-large" id="proceed-monthly" onclick="subscribe('publisher-cancel')"><i class="icon-remove-sign"></i> Cancel</button>
+        </div>
+    </div>
+</div>
+</div>
+
+{% addtoblock "bottom_js" %}
+
+<script src="{{ STATIC_URL }}js/csrf.js"></script>
+
+<script src="{{ STATIC_URL }}js/subscriptions.js"></script>
+
+<script>
+    $(function() {
+        equalHeights('.pricing-button');
+        $(window).resize(function(){
+            $('.pricing-button').css('height', 'auto');
+        });
+    });
+</script>
+<script type="text/javascript">
+    $(document).ready(function(){
+        if (!('{{user.customer.card_last_4}}')){
+            if('{{ user.is_authenticated }}' == 'True' && window.location.href.split('=').pop() == 'mnthly'){
+                window.location.href = '/payments#plan=mnthly'
+            }
+            else if('{{ user.is_authenticated }}' == 'True' && window.location.href.split('=').pop() == 'yearly'){
+                window.location.href = '/payments#plan=yearly'
+            }
+        }
+        
+
+        if(window.location.href.indexOf("popup") > -1){
+            var plan = window.location.href.split('=').pop();
+            if ((plan == 'mnthly') && ('{{user.customer.card_last_4}}'))
+                {
+                $('#monthlyModal').modal();
+                }
+            else if((plan == 'yearly') && ('{{user.customer.card_last_4}}')){
+                $('#yearlyModal').modal();
+            }
+        }
+    });
+</script>
+
+
+	
+{% endaddtoblock %}
+
+{% endblock content %}

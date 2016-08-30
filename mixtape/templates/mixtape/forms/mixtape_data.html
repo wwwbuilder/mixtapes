@@ -1,0 +1,140 @@
+<form method="post" accept-charset="utf-8" role="form" id="mixtape_data" data-parsley-validate data-parsley-class-handler="#element">
+    <div class="form-group" id="title-holder">
+    {% if mixtape %}
+	 <input type="hidden" id="mixtapeid" value="{{ mixtape.id }}">
+    {% endif %}
+        <label for="name">Title</label>
+        <input class="form-control input-lg" type="text" name="name" value="{{mixtape.name}}" placeholder="" required>
+    </div>
+    <div class="row">
+        <div class="col-md-6">
+            <span class="help-block">
+                   <button class="btn btn-primary btn-xs pull-right" data-toggle="modal" data-target="#add_userprofile_modal" type="button">
+                        Add Artist <i class="fa fa-plus-circle"></i>
+                   </button>
+              </span>
+            <div class="form-group">
+                <label for="primaryArtist">Artist</label>
+		 <input type="hidden" id="primaryArtist" value="{{ mixtape.primaryArtist.user.username }}">
+		 <input type="hidden" id="secondaryArtist" value="{{ mixtape.secondaryArtist.user.username }}">
+		 <input type="hidden" id="producer" value="{{ mixtape.producer.user.username }}">
+		 <input type="hidden" id="djs" value="{{ mixtape.djs.user.username }}">
+                <input class="form-control input-lg" type="hidden" id="artist_select"  name="primaryArtist"  required>
+             </div>
+              
+        <!--<div class="form-group">-->
+                <!--<label for="djs">Djs</label>-->
+                <!--<input class="form-control input-lg" type="hidden" id="djs_select" name="djs" required>-->
+             <!--</div>-->
+              <!--<span class="help-block">-->
+                   <!--<button class="btn btn-primary btn-xs pull-right" data-toggle="modal" data-target="#add_userprofile_modal" type="button">-->
+                        <!--Add DJs <i class="fa fa-plus-circle"></i>-->
+                   <!--</button>-->
+              <!--</span>-->
+        <!--</div>-->
+        </div>
+        <div class="col-md-6">
+            <div class="form-group">
+                <label for="primaryGenre">Genre</label>
+                <select class="form-control input-lg" name="primaryGenre" id="genre_select" required>
+		
+                    <option value="">Select a genre</option>
+		    
+                    {% for genre in genres %}
+		      {% if genre.name == mixtape.primaryGenre.name %}
+		       <option value="{{genre.id}}" selected>{{genre.name}}</option>
+		       {% else %}
+                    <option value="{{genre.id}}">{{genre.name}}</option>
+		    {% endif %}
+                    {% endfor %}
+                </select>
+            </div>
+        </div>
+        
+    </div>
+     <div class="row">
+     	<div class="col-md-4">
+            <span class="help-block">
+                   <button class="btn btn-primary btn-xs pull-right" data-toggle="modal" data-target="#add_userprofile_modal" type="button">
+                        Add Artist <i class="fa fa-plus-circle"></i>
+                   </button>
+              </span>
+            <div class="form-group">
+                <label for="primaryArtist">Secondary Artist</label>
+                <input class="form-control input-lg" type="text" id="artist_select1" class='user_populate' name="secondaryartist" >
+             </div>
+              
+        </div>
+        <div class="col-md-4">
+            <span class="help-block">
+                   <button class="btn btn-primary btn-xs pull-right" data-toggle="modal" data-target="#add_userprofile_modal" type="button">
+                        Add DJ <i class="fa fa-plus-circle"></i>
+                   </button>
+              </span>
+            <div class="form-group">
+                <label for="primaryArtist">DJ</label>
+                <input class="form-control input-lg" type="text" id="artist_select2" class='user_populate' name="djs" >
+             </div>
+             
+       
+        </div>
+        <div class="col-md-4">
+            <span class="help-block">
+                   <button class="btn btn-primary btn-xs pull-right" data-toggle="modal" data-target="#add_userprofile_modal" type="button">
+                        Add Producer <i class="fa fa-plus-circle"></i>
+                   </button>
+              </span>
+            <div class="form-group">
+                <label for="primaryArtist">Producer</label>
+                <input class="form-control input-lg" type="text" id="artist_select3" class='user_populate' name="producer" >
+             </div>
+            
+       
+        </div>
+	</div>
+<div class="form-group" id="title-holder">
+        <label for="name">Description</label>
+        <input class="form-control input-lg" type="text" name="description" value="{{ mixtape.description }}" placeholder="" required>
+    </div>
+    <hr>
+    <h3><span class="label label-info">Optional</span></h3>
+    <div class="row">
+        <div class="col-md-6">
+            <div class="form-group">
+                <label for="release_datetime">Release Date & Time</label>
+                <div class="input-group">
+                    <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
+                    <input class="form-control" type="text" name="release_datetime" value=" {{ mixtape.releaseDatetime }}" placeholder="By default, mixtape will be released upon approval">
+                </div>
+
+                <span class="help-block" style="margin-top: 13px;">
+                    <em>When does this mixtape drop?</em>
+                </span>
+            </div>            
+        </div>
+        <div class="col-md-6">
+            <div class="form-group" id="video_url_form_group">
+                <label for="video_url">Video URL</label>                
+                <div class="input-group">
+                    <span class="input-group-addon"><i class="fa fa-youtube-play"></i></span>
+                    <input class="form-control" type="url" name="video_url" value="" placeholder="" parsley-error-container="#video_url_form_group">
+                </div>
+                <span class="help-block">
+                    <em>We will embed your <i class="fa fa-2x fa-youtube"></i> video on your mixtape's page.</em>
+                </span>
+            </div>            
+        </div>
+    </div>    
+
+    <hr>
+    <ul class="pager pull-right" style="margin: 0;">
+        <li>
+            <a id="mixtape_data_next" href="#">
+                Next 
+                <i class="fa fa-chevron-right"></i>
+            </a>
+        </li>
+    </ul>    
+
+</form>
+

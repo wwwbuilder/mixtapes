@@ -1,0 +1,1171 @@
+{% extends "index.html" %}
+{% load staticfiles sekizai_tags %}
+{% load humanize %}
+{% load micawber_tags agon_ratings_tags get_ratings_range %}
+{% block pagetitle %}
+  <title>{{object.primaryArtist.username|title }} - {{ object.name|title }} | Free Mixtape</title>
+  {% endblock pagetitle %}
+
+
+{% block metasocialmedia %}
+
+<meta property="fb:app_id" content="1512936935589178"/>
+<meta property="og:title" content="{{object.primaryArtist.username|title }} - {{ object.name|title }} | Free Mixtape" />
+<meta property="og:site_name" content="247Mixtapes"/>
+<meta property="og:type"  content="website" />
+<meta property="og:locale" content="en_US">
+
+<link rel="canonical" href="https://www.247mixtapes.com{{ mt.get_absolute_url }}">
+
+<meta property="og:url" content="https://www.247mixtapes.com{{ mt.get_absolute_url }}" />
+<meta property="og:image" content="{% if image %} {{ image }} {% else %} https://placehold.it/261x190&text=No+Image! {% endif %}" />
+<meta property="og:image:width" content="600" />
+<meta property="og:image:height" content="314" />
+<meta property="og:image:type" content="image/jpg" />
+<meta property="og:description" content="{% if object.description %} {{ object.description }} {% else %} No description {% endif %} " />
+
+{% endblock metasocialmedia %}
+
+
+{% block meta %}
+  <meta name="description" content="{{object.description|safe}}">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+ <link rel="shortcut icon" href="{{STATIC_URL}}logo/favicon.ico">
+ {% endblock %}
+
+
+{% block extrajs %}
+
+<script type="text/javascript">
+
+  $(document).ready(function() {
+   
+   $.post(
+    'https://graph.facebook.com',
+    {
+        id: 'https://www.247mixtapes.com{{ mt.get_absolute_url }}',
+        access_token:'1512936935589178|qCe1EoQD2WDecW856EZnnMJKWv0',
+        scrape: true
+    },
+    function(response){
+        console.log(response);
+    }
+);
+
+});
+
+</script>
+
+
+{% endblock extrajs %}
+
+
+
+
+{% block content %}
+
+{% addtoblock "top_css" %}
+{% if custom_skin %}
+{% if  object.images.all %}
+		{% for img in object.images.all %}
+		{% if  img.order == 3 %}
+		<style type="text/css">
+			body{
+			  background: url({{img.get_image|safe}}) no-repeat center center fixed;
+			  -webkit-background-size: cover;
+			  -moz-background-size: cover;
+			  -o-background-size: cover;
+			  background-size: cover;
+
+			}
+		</style>
+		 {% endif %}
+		{% endfor %}
+{% endif %}
+{% endif %}
+<style>
+    .set-header{
+        margin-top:0px;
+    }
+    .set-date{
+        height: 0;
+        font-size: 15px;
+        letter-spacing: 0px;
+	font-family:league_gothic_regular;
+	color:#fff;
+    }
+    #user_ratingtag .user_ratingtag {
+        width:10%;
+    }
+
+.mejs-playlist ul {
+
+  /* overflow-x: hidden; */
+  margin: 0;
+  padding: 5px;
+  height:100px;
+  list-style-type: none !important;
+ 
+}
+
+#filepicker_dialog_container {
+width:50% !important;
+height:90% !important;
+/* top:20% !important; */
+left:22% !important;
+
+}
+
+</style>
+
+{% endaddtoblock %}
+
+
+<!-- new template
+			================================================== -->
+
+ <div class="container" style="border:2px solid #333;">
+
+      <div class="blog-header">
+        <div class="well slide_well" >
+        <div id="carousel-main" class="carousel slide" data-ride="carousel" style="margin-bottom:0px;">
+
+
+      {% include "snippets/slider.html" %}
+  </div>
+
+
+</div>
+      </div>
+
+      <div class="row" >
+
+        <div class="col-sm-12 blog-main">
+	{% if object.use_soundcloud_player %}
+	   <div class="blog-post">
+	{% else %}
+          <div class="blog-post" style="margin-bottom:60px;">
+	  {% endif %}
+ 			<div class="well" style="background-color:#fff;color:#333333;">
+
+
+ 			<div class="row" style="margin-bottom:0px;">
+      <div class="col-xs-6 col-md-3 detailblock" style="padding-right:2px !important;padding-left:2px;">
+
+
+      <div class="thumbnail">
+
+      <div data-ride="carousel" class="carousel slide" id="carousel1" style="margin-bottom:0px;height: 192px;">
+      <div class="carousel-inner">
+       {% if  object.images.all %}
+		      {% for img in object.images.all %}
+        <div class="item {% if forloop.first %}active{% endif %}">
+         <a href="{{ mt.get_mixtape_thumnail }}" class="image" data-lightbox="gallery-1" data-title="{{object.name}}">
+          <img alt="{{ img.name }}" style="height:190px;width: 100%;" data-src="holder.js/900x500/auto/#777:#555/text:First slide" src="{{img.get_image}}">
+        </a>
+        </div>
+        {% endfor %}
+
+        {% else %}
+
+        <div class="item active">
+          <img alt="No image" style="height:190px;width: 100%;"  src="https://placehold.it/261x190&text=No+Image">
+        </div>
+        {% endif %}
+      </div>
+
+    </div>
+
+
+      <div class="" style="">
+        <div class="btn-group" style="width:100%;">
+
+  <button data-slide="prev" role="button" href="#carousel1"  type="button" class="btn btn-default left"  style="width:50%;">Previous</button>
+  <button data-slide="next" role="button" href="#carousel1" type="button" class="btn btn-default right"  style="width:50%;">Next</button>
+</div>
+        </div>
+    </div>
+
+
+      </div>
+      <div class="col-xs-8 col-md-5 detailblock" style="padding-right:2px !important;padding-left:2px;">
+        <div class="thumbnail" style="height:235px;width:100%">
+      <div class="caption" style="width:70%;float:left;">
+      <div style="width:100%;float:left;">
+      <h2 class="set-header">{{ object.name|title|truncatechars:40 }}</h2>
+  {% if object.primaryArtist.username %}<h4>Artist(s): <a href="/user/{{object.primaryArtist.username}}">{{object.primaryArtist.username|title }}</a>{% if object.secondaryArtist.username %}<a href="/user/{{object.secondaryArtist.username}}">,{{object.secondaryArtist.username|title }}</a>{% endif %}</h4>{% endif %}
+      {% if object.producer.username %}<h4>Produced by: <a href="/user/{{object.producer.username}}">{{object.producer.username|title }}</a></h4>{% endif %}
+      {% if object.djs.username %}<h4>Hosted by: <a href="/user/{{object.djs.username}}">{{object.djs.username|title }}</a></h4>{% endif %}
+      
+
+      <div style="width: 100%;
+    word-wrap: break-word;line-height:1 !important;font-size: 12px;" class="a_tool" data-toggle="tooltip" data-placement="top" title = "{{object.description}}"> {{object.description|upper|truncatechars:50}}</div>
+
+      </div>
+
+		      <div class="breadcrumb" style="width:100%;float:left;padding-top: 90px;">
+
+{% if request.user.is_authenticated and not request.user.customer.has_active_member_subscription %}
+
+<blink><span class="download_text" style="color:#FFC100;font-size: 15px;">{{count}} downloads remaining today</span></blink></br>
+
+{% endif %}
+
+{% if request.user.is_authenticated %}
+<button type="button" style="padding: 1px 5px;" data-contentwrapper=".rating_hide" class="btn btn-default pop2 btn-group" data-container="body" data-toggle="popover" data-placement="top" >
+  Rate
+</button>
+{% else %}
+
+<a href="/login/?next={{ mt.get_absolute_url }}" style="padding: 1px 5px;" class="btn btn-default btn-group">Rate</a>
+{% endif %}
+{% if request.user.is_authenticated %}
+<button style="padding: 1px 5px;" type="button" id="{{object.id}}"  class="btn {% if favorite %}btn-warning{% else %}btn-success{% endif %} btn-group pop1 loading" data-container="body"  data-placement="bottom" >
+  <span class="load_text">{% if favorite %}Unfavorite{% else %}Favorite{% endif %}</span><img class="load_img" style="display:none;" src="/static/img/photos/720.GIF"/>
+</button>
+{% else %}
+
+<a href="/login/?next={{ mt.get_absolute_url }}" style="padding: 1px 5px;" class="btn btn-default btn-group">Favorite</a>
+{% endif %}
+
+{% if not object.use_soundcloud_player %}
+
+{% if request.user.is_authenticated %}
+<a id="stream_button" onClick="streammixtape(mixtape='{{mt.id}}')" title="click here for streaming" style="padding: 1px 5px;" type="button"  class="btn btn-default btn-group" id="id_stream">
+  Stream
+</a>
+{% else %}
+<a  style="padding: 1px 5px;" type="button" title="please login for streaming" class="btn btn-default btn-group"  href="/login/?next={{ mt.get_absolute_url }}" >
+  Stream
+</a>
+
+{% endif %}
+
+{% else %}
+
+<a id="stream_button" onClick="streammixtape(mixtape='{{mt.id}}')" title="click here for streaming" style="padding: 1px 5px;" type="button"  class="btn btn-default btn-group" id="id_stream"> Stream </a>
+
+{% endif %}
+
+
+
+{% if request.user.is_authenticated %}
+<a id="download_button" onClick="downloadmixtape(url='{{mt.download_url}}',type='zip')" style="padding: 1px 5px;" title="Click to download all tracks" type="button"  class="btn btn-default btn-group" >
+  Download
+</a>
+{% elif sponsered %}
+<a id="download_button1"  onClick="$('#monthlyModal').modal()" style="padding: 1px 5px;" title="Click to download all tracks" type="button"  class="btn btn-default btn-group">
+  Download
+</a>
+
+{% endif %}
+
+<!-- popup for sponsored mixtape -->
+<!--<div id="yearlyModal" class="modal fade">
+    
+	<div class="modal-dialog">
+	<div class="modal-content">
+        
+        <div class="modal-body">
+            <span class="validation_error">{{ captcha_response }}</span>
+            <script type="text/javascript"
+                 src="//www.google.com/recaptcha/api/challenge?k=6LcXOPgSAAAAAMhmvDE9KTRHW2HnHDYyp_i2FgxE">
+              </script>
+              <noscript>
+                 <iframe src="//www.google.com/recaptcha/api/noscript?k=6LcXOPgSAAAAAMhmvDE9KTRHW2HnHDYyp_i2FgxE"
+                     height="100" width="100" frameborder="0"></iframe><br>
+                 <textarea name="recaptcha_challenge_field" rows="3" cols="40" id="recap">
+                 </textarea>
+                     <input type="hidden" name="recaptcha_response_field" id="recaptcha_response"
+                     value="manual_challenge" required>
+                 <input type="hidden" name="object" id="myInput" value="{{object.id}}">
+              </noscript>
+        </div>
+        <div class="modal-footer">
+            <div id="loading-spinner" class="hidden">
+                <p style="font-size: 150%"><i class="icon-spinner icon-spin"></i> Processing... </p>
+            </div>
+            
+            <button class="btn" data-dismiss="modal" aria-hidden="true" id="Popup-close">Close</button>
+            <input type="submit" class="btn btn-success btn-large" id="success_captcha" url="/download/{{object.id}}">
+        </div>
+    </div>
+	</div>
+    
+	</div>-->
+
+<!-- popup for sponsored mixtape -->
+<div id="monthlyModal" class="modal fade">
+
+	<div class="modal-dialog">
+	<div class="modal-content">
+
+        <div class="modal-body">
+            <span class="validation_error">{{ captcha_response }}</span>
+            <script type="text/javascript"
+                 src="//www.google.com/recaptcha/api/challenge?k=6LftVPwSAAAAAK0wOBNzjbt6juGZO5vsD9LYscIS">
+              </script>
+              <noscript>
+                 <iframe src="//www.google.com/recaptcha/api/noscript?k=6LftVPwSAAAAAK0wOBNzjbt6juGZO5vsD9LYscIS"
+                     height="100" width="100" frameborder="0"></iframe><br>
+                 <textarea name="recaptcha_challenge_field" rows="3" cols="40" id="recap">
+                 </textarea>
+                     <input type="hidden" name="recaptcha_response_field" id="recaptcha_response"
+                     value="manual_challenge" required>
+                 <input type="hidden" name="object" id="myInput" value="{{object.id}}">
+              </noscript>
+        </div>
+        <div class="modal-footer">
+            <div id="loading-spinner" class="hidden">
+                <p style="font-size: 150%"><i class="icon-spinner icon-spin"></i> Processing... </p>
+            </div>
+            {% if request.user.is_authenticated or sponsored %}
+            <button class="btn" data-dismiss="modal" aria-hidden="true" id="Popup-close">Close</button>
+            <input type="submit" class="btn btn-success btn-large" id="success_captcha1" url="/download/{{object.id}}">
+            {% endif %}
+            {% if not request.user.is_authenticated %}
+            {% if sponsered %}
+            <button class="btn" data-dismiss="modal" aria-hidden="true" id="Popup-close">Close</button>
+            <input type="submit" class="btn btn-success btn-large" id="success_captcha"  url="/download/{{object.id}}">
+            {% endif %}
+            {% endif %}
+        </div>
+    </div>
+	</div>
+
+	</div>
+
+
+{% include 'snippets/like-ratings.html' %}
+
+<div style="color:green;font-size:12px;display:none;" class="rate_success"> Thank you. You have just rated this mixtape.</div>
+<div style="color:green;font-size:12px;display:none;" class="favorite_success"> Congrats! You have successfully marked this mixtape as a favorite.</div>
+<div style="color:green;font-size:12px;display:none;" class="favorite_error"> You have now removed this mixtapes from your favorites list.</div>
+ 	</div>
+
+
+        </div>
+
+          <div id="midetails" style="float: right; width: 30%;">
+      	    <div class="well" style="margin-bottom:0px;margin-top:5px;padding:10px;width:100%;line-height:1;color:#333;">
+		      <div class="label label-success">{{mixtapeviews|intcomma}}</div>
+		      <div style="font-size:15px;overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap">Views</div>
+		      <div class="label label-info s_count" style="text-align:center;">
+		      {% if object.soundcloud_favoritings_count != None %}{{object.soundcloud_favoritings_count|intcomma}}{%else%}0{% endif %}
+		    </div>
+		      <div style="font-size:15px;overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap">Streams</div>
+		      <div class="label label-default d_count">
+
+		      {% if object.soundcloud_playback_count != None %}{{object.soundcloud_playback_count|intcomma}}{%else%}0{% endif %}
+
+		    </div>
+		      <div style="font-size:15px;overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap">Downloads</div>
+		      <div id="user_ratingtag" class=""></div>
+		      </div>
+		      <span class="">
+                           <!--Release date-->
+                           <span class="set-date">{% if object.releaseDatetime %}Released on: {{object.releaseDatetime|date:"m/d/Y"}}{% endif %}</span>
+{% if featured %}
+<span title="" class="label label-info">Featured</span>
+{% endif %}
+	{% if sponsered %}
+<span title="Downloading this mixtape does not count toward your download limit." class="label label-success">Sponsored</span>
+{% endif %}
+</span>
+		       </div>
+
+    </div>
+      </div>
+      <div class="col-xs-7 col-md-4 detailblock" style="padding-right:2px !important;padding-left:2px;">
+      <div class="thumbnail" id="video-thumbnail" style="height:235px;">
+
+      <div >
+{% if object.video_url %}
+
+    {% load embed_video_tags %}
+
+      <!--<video  class="sublime" data-autoresize='fit' width="100%" height="250px" data-settings="uid:autoresize:fit;" data-youtube-id="{{object.video_url|get_youtubevideo}}" preload="none"></video>-->
+      {% video mt.video_url '353x223' %}
+
+{% else%}
+
+	<div  class="carouse"  style="height:226px;">
+      <!-- <ol class="carousel-indicators">
+        <li class="" data-slide-to="0" data-target="#carousel-example-generic"></li>
+        <li data-slide-to="1" data-target="#carousel-example-generic" class=""></li>
+        <li data-slide-to="2" data-target="#carousel-example-generic" class="active"></li>
+      </ol> -->
+      <div class="">
+        <div class="">
+          <h2 align="center" style="color=#fff"> {% if ads %} {{ads.content}} {% else %} {% endif %} </h2>
+        </div>
+      </div>
+   <!--    <a data-slide="prev" role="button" href="#carousel-example-generic" class="left carousel-control">
+       <span class="glyphicon glyphicon-chevron-left"></span>
+      <a data-slide="next" role="button" href="#carousel-example-generic" class="right carousel-control">
+        <!-- <span class="glyphicon glyphicon-chevron-right"></span> --> 
+      </a>
+      </a>
+    </div>
+
+{% endif %}
+
+				</div>
+      </div>
+
+      </div>
+
+    </div>
+     
+      
+
+ 		<div class="" >
+ 		<div class="social-container">
+
+
+		<div class="links" >
+
+                    <a href="#" data-type="twitter" data-url="https://www.247mixtapes.com/{{ mt.get_absolute_url }}" data-description="{{object.name}}-{{object.description}}" data-via="247Mixtapes" data-media="{% if image %} {{ image }} {% else %} https://placehold.it/261x190&text=No+Image! {% endif %}" class="prettySocial fa fa-twitter twitter"></a>
+
+			<a href="#" data-type="facebook" data-url="https://www.247mixtapes.com/{{ mt.get_absolute_url }}/"  data-media="{% if image %} {{ image }} {% else %} https://placehold.it/261x190&text=No+Image! {% endif %}" class="prettySocial fa fa-facebook facebook"></a>
+
+			<a href="#" data-type="googleplus" data-url="https://www.247mixtapes.com{{ mt.get_absolute_url }}/" data-description="-{{object.description}}." data-media="{{ object.slider_album_cover }}" data-media="{% if image %} {{ image }} {% else %} https://placehold.it/261x190&text=No+Image! {% endif %}" class="prettySocial fa fa-google-plus google"></a>
+
+			<a href="#" data-type="pinterest" data-url="https://www.247mixtapes.com{{ mt.get_absolute_url }}" data-description="-{{object.description}}." data-media="{% if image %} {{ image }} {% else %} https://placehold.it/261x190&text=No+Image! {% endif %}" class="prettySocial fa fa-pinterest pinterest"></a>
+
+			<a href="#" data-type="linkedin" data-url="https://www.247mixtapes.com{{ mt.get_absolute_url }}" data-title="{{object.name}}." data-description="-{{object.description}}." data-via="Mixtapes" data-media="{% if image %} {{ image }} {% else %} https://placehold.it/261x190&text=No+Image! {% endif %}" class="prettySocial fa fa-linkedin linkedin"></a>
+		</div>
+
+
+	</div>
+
+ 		</div>
+
+
+ 			<!--
+ 			<div class="media" style=''>
+		      <a href="#" class="pull-left">
+		      {% if  object.images.all %}
+		      {% for img in object.images.all %}
+		      <img alt="80x64" data-src="holder.js/80x64" src="{{img.get_image}}" class="media-object" style="width: 128px; height: 128px;" >
+		      {{ break }}
+		      {% endfor %}
+		      {% else %}
+		        <img alt="80x64" data-src="holder.js/80x64" src="album.jpg" class="media-object" style="width: 128px; height: 128px;" >
+		      {% endif %}
+		      </a>
+		      <div class="media-body">
+
+		        <div class="col-sm-8" style="font-size:14px;line-height:1;">
+		         <h4 class="media-heading" style="color:#333333;">{{object.name}}</h4>
+		        Cras sit amet nibh libero, in gravida nulla. Nulla vel metus scelerisque ante sollicitudin commodo. Cras purus odio, vestibulum in vulputate at, tempus viverra turpis. Fusce condimentum nunc ac nisi vulputate fringilla. Donec lacinia congue felis in faucibus.
+		      </div>
+		      <div class="well" style="height:135px;width:105px;float:right;margin-bottom:0px;padding:12px;line-height:1">
+		      <span class="label label-success">4582</span></br>
+		      <span style="font-size:15px;">Views</span></br>
+		      <span class="label label-info s_count">
+		      {% if object.soundcloud_favoritings_count != None %}{{object.soundcloud_favoritings_count}}{%else%}0{% endif %}
+		    </span></br>
+		      <span style="font-size:15px;">Streams</span></br>
+		      <span class="label label-default d_count">
+
+		      {% if object.soundcloud_playback_count != None %}{{object.soundcloud_playback_count}}{%else%}0{% endif %}
+
+		    </span></br>
+		      <span style="font-size:15px;">Downloads</span>
+
+		      </div>
+		      </div>
+		    </div>
+		    -->
+ 			</div>		
+	
+{% if request.user.customer.has_active_member_subscription %}
+
+                <div id="bitto" style="margin-bottom:20px;">
+                    <div class="track_play" style="float:left;width:100%" >
+ 
+    {% for track in object.tracks.all %}
+
+                        <div class="audio_hide{{forloop.counter0}} hide">
+                            <div class="row-fluid" style="{% if not track.soundcloud_permalink and object.use_soundcloud_player %}width: 480px;border: 5px solid #fff;border-radius: 4px;height: 74px;margin: auto;{% endif%} " id="soundcloudPlayerRow">
+                                <audio id="mejs" type="audio/mp3" controls="controls" preload="none">
+
+        {% for track in trackslist %}
+
+                                    <source class="signed_check" src="{% if track.order == 3 %} {{ track.url }} {% else %} {{ track.aws_url }} {% endif %}" title="{{forloop.counter}}. {{track.filename}}" type="audio/mp3" id="{{ track.id }}" >
+                                                           
+        {% endfor %}
+
+                                </audio>
+                            </div>
+                        </div>
+
+    {% endfor %}
+
+                    </div>
+                </div>
+
+{% endif %}
+
+                <div id="bit" style="margin-bottom:20px;">
+                    <div id="soundcloudPlayer" style="display:none;">
+                        <!-- <iframe width="100%" height="365" scrolling="no" frameborder="no" src="http://bit.ly/1yBaB7I"></iframe> -->
+                    </div>
+                </div>
+                <div id="clickbtn">
+                    {% if request.user.customer.has_active_member_subscription %}
+					<h2 style="color:white" align="center">Notice any tracks missing? Click here to use our internal audio player instead! 
+
+					{% else %}
+					<h2 style="color:white" align="center">'Notice any tracks missing? Click here to become a Premium Member and start using our internal audio player instead!
+					{% endif %}
+                    
+
+{% if request.user.customer.has_active_member_subscription %}
+
+                        <a id="new_stream_button"  onClick="nonsoundmixtape(mixtape='{{mt.id}}')" style="" type="button" class="btn btn-default btn-group">Click</a>
+
+{% else %}
+
+                        <a href="/premium-member/" id="pre_stream_button" style="" type="button" title="Sorry. Only Premium Members have this option." class="btn btn-default btn-group" id="pre_id_stream">Click</a>
+
+{% endif %}
+
+                    </h2>
+                </div>
+			    <br>
+		        <div class="well tom" style="background-color:#fff;margin-top:-18px;" >
+                    <table class="table table-striped table-hover" id="trackview">
+                        <thead>
+                            <tr>
+                                <th>#</th>
+                                <th>Tracks</th>
+                            </tr>
+                        </thead>
+                        <tbody style="font-size:14px;color:#333333">
+
+{% for track in object.tracks.all %}
+
+                            <tr>
+                                <td><span class="badge">{{forloop.counter}}</span></td>
+                                <td>
+
+        {% if track.order == 3 %}
+
+                                    <a href="#track{{track.order}}" style="font-size:14px;color:#333333;"> 24/7Mixtapes Drop</a>
+                                </td>
+                                <td>
+
+        {% else %}
+
+                                    <a href="#track{{track.order}}" style="font-size:14px;color:#333333"> {{track.filename}}</a>
+                                </td>
+                                <td>
+
+	    {% endif %}
+
+                                    <div id="mix_hide"> <a  data-contentwrapper="{{forloop.counter0}}" href="javascript:void(0)" class="pop5" data-container="body"  title= data-placement="top"><img src="{{STATIC_URL}}img/play.png"  style="width:25px;display:none;width:0px;hight:0px;"></a> </div>
+	  
+        {% if request.user.customer.has_active_member_subscription %}
+            {% if track.order == 3 %}
+
+                                    <!--<a   href="/downloadsample/{{object.id}}" class=""  title="Download"  ><img src="{% static 'img/download_1.png' %}" style="width:27px;"></a>-->
+
+            {% else %}
+
+                                    <a href="javascript:void(0)" class=""  title="Download" onClick="downloadfile(url='{{track.signed_url}}', type='Track', filename='{{track.filename}}')" ><img src="{{STATIC_URL}}img/download_1.png" style="width:27px;"></a>
+
+            {% endif %}
+        {% else %}
+
+                                    <a href="/premium-member/" class=""  title='Sorry. Only Premium Members can download individual tracks.' ><img src="{{STATIC_URL}}img/download_1.png" style="width:27px;"></a>
+
+        {% endif %}
+
+                                </td>
+                            </tr>
+
+    {% if track.lyrics %}
+
+                            <tr>
+                                <td colspan=3>
+                                    <h4>Lyrics</h4>
+			                        <p>{{track.lyrics}}</p>
+			                    </td>
+		                    </tr>
+
+    {% endif %}
+{% endfor %}
+
+                        </tbody>
+                    </table>
+
+    {% for o in object.artistother %}
+						<div class="span3 alert alert-warning artistother">
+							<img src="{{o.album_cover}}" class="shadowimage">
+							<h5>{{o.title}}</h5>
+							<em>{{o.primaryArtist.username}}</em>
+						</div>
+					{% endfor %}
+ </div>
+
+ 		<section>
+	<div class="row-fluid">
+		<!-- Main rail
+		================================================== -->
+		<div class="span8">
+			<!-- DISQUS comments section
+			================================================== -->
+			<div class="row-fluid" id="disqusRow">
+			    <div id="disqus_thread" class="well"></div>
+			    <noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+			    <a href="http://disqus.com" class="dsq-brlink">comments powered by
+			    	<span class="logo-disqus">Disqus</span>
+			    </a>
+			</div>
+		</div>
+		<!-- Right Rail
+		================================================== -->
+		<div class="span4">
+			<!-- Other suggestions section
+			================================================== -->
+			{% if object.artistother %}
+			<div class="row-fluid">
+				<h3>You might also like... </h3>
+				<div class="row-fluid">
+					{% for o in object.artistother %}
+						<div class="span3 alert alert-warning artistother">
+							<img src="{{o.album_cover}}" class="shadowimage">
+							<h5>{{o.title}}</h5>
+							<em>{{o.primaryArtist.username}}</em>
+						</div>
+					{% endfor %}
+				</div>
+			</div>
+			<br>
+			{% endif %}
+		</div>
+	</div>
+</section>
+
+          </div><!-- /.blog-post -->
+
+
+
+
+        </div><!-- /.blog-main -->
+
+
+
+      </div><!-- /.row -->
+
+    </div><!-- /.container -->
+
+
+
+
+<!-- new template
+			================================================== -->
+
+
+{% addtoblock "bottom_js" %}
+
+<script src="//connect.soundcloud.com/sdk.js"></script>
+<script>
+//$('iframe').attr('src','{{ object.soundcloud_uri }}')
+SC.initialize({
+  client_id: '0f334ddc5f6987c9c9d9ef686759986e'
+});
+
+//var track_url = 'https://soundcloud.com/247mixtapes/this-is-my-sound-4';
+//SC.oEmbed(track_url, { auto_play: true }, function(oEmbed) {
+//  console.log('oEmbed response: ' + oEmbed.html);
+//});
+</script>
+
+<script>
+
+{% if object.video_url %}
+
+//$('#video_iframe').fitVids();
+// TODO find out why does this not work if script plugged in with <script src=...> tag
+$(document).ready(function(){
+    $.getScript('//cdnjs.cloudflare.com/ajax/libs/fitvids/1.1.0/jquery.fitvids.js', function(){
+        $('#video-thumbnail').fitVids();
+    });
+});
+
+{% endif %}
+
+</script>
+
+<script type="text/javascript">
+
+        //shabeer changes
+
+$(document).ready(function(){
+
+$("#clickbtn").hide();
+ {% if  object.use_soundcloud_player %}
+  $("#mix_hide").hide();
+  $("#bitto").hide();
+ {% endif %}
+
+ $("#bit").hide();
+
+ $('#stream_button').click(function() {
+
+
+ {% if  object.use_soundcloud_player %}
+        $("#bit").show();
+        $("#clickbtn").show();
+      {% else %}
+  $('.tom').css('margin-top', '151px');
+    {% endif %}
+      $('#stream_button').attr('disabled','true');
+$('#stream_button').css('background-color','#000000');
+      
+    });
+
+$('#new_stream_button').click(function() {
+
+ $("#bit").hide();
+
+    });
+
+
+
+
+
+});
+
+        
+ </script>
+
+<script type="text/javascript">
+ var RecaptchaOptions = {
+    theme : 'custom',
+    custom_theme_widget: 'recaptcha_widget'
+ };
+</script>
+
+<!-- <script src="//cdnjs.cloudflare.com/ajax/libs/fitvids/1.1.0/jquery.fitvids.min.js"></script> -->
+
+<script type="text/javascript">
+
+
+$(document).ready(function() {
+    //$('#video-thumbnail').fitVids();
+
+{% if not request.user.customer.has_active_member_subscription %}
+
+	  if({{count}} == 0){
+
+$('#download_button').attr('disabled','disabled');
+$('#download_button').attr('href','/premium-member/');
+	$('#download_button').css({'background-color':'#000000','pointer-events':'auto','cursor':'pointer'});
+        $('#download_button').attr('title','You have exceeded our daily free download limit. Upgrade to a Premium Member account to continue downloading mixtapes.');
+
+
+ $('#download_button').click(function(){
+    location.href = $('#' + $(this).attr('rel')).attr('href');
+})
+
+}
+
+{% endif %}
+
+window.onload=function() {
+      setTimeout(function(){
+        $('#download_button').attr('disabled','disabled');
+	$('#download_button').css({'background-color':'#000000','pointer-events':'auto','cursor':'pointer'});
+        $('#download_button').attr('title','This download button is only available for 45 seconds upon page load. Please refresh the page and  try again.');
+
+       $('#download_button1').attr('disabled','disabled');
+	$('#download_button1').css({'background-color':'#000000','pointer-events':'auto','cursor':'pointer'});
+        $('#download_button1').attr('title','This download button is only available for 45 seconds upon page load. Please refresh the page and  try again.');
+
+
+
+
+         $('#download_button').each(function(){
+    $(this).data('onclick', this.onclick);
+
+    this.onclick = function(event) {
+      if($(this).attr('disabled')) { // HERE
+        return false;
+      }
+        else{
+         return true;
+        }
+    };
+  });
+        
+        $('#download_button1').each(function(){
+    $(this).data('onclick', this.onclick);
+
+    this.onclick = function(event) {
+      if($(this).attr('disabled')) { // HERE
+        return false;
+      }
+        else{
+         return true;
+        }
+    };
+  });
+
+
+
+
+
+      },45000);
+    }
+
+{% if request.user.is_authenticated or sponsered %}
+
+	  $.get( "/fpdetails/", function( data ) {
+		  
+		  policy_upload = data.FILEPICKER_UPLOAD_POLICY;
+		  signature_upload = data.FILEPICKER_UPLOAD_SIGNATURE;
+                  policy_download = data.FILEPICKER_DOWNLOAD_POLICY;
+                  signature_download = data.FILEPICKER_DOWNLOAD_SIGNATURE;
+		  policy_read = data.FILEPICKER_READ_POLICY;
+		  signature_read = data.FILEPICKER_READ_SIGNATURE;
+		  querystring = "?signature="+signature_read+"&policy="+policy_read;
+			
+			});
+
+{% endif %}
+{% if sponsered %}
+
+    $('#success_captcha').click(function(event){
+        href = $(this).attr('url');
+        //captcha_valid = ($('#recaptcha_response').val() != undefined);
+        //var ab = $('#recaptcha_response').val();
+        //var xy = '{{ object.id }}';
+        data = {}
+        data['abc'] = $('#recaptcha_challenge_field').val();
+        data['xys']=$('#recaptcha_response_field').val();
+        $.ajax({
+            url: "{% url 'test_dwnld' %}",
+            type: "POST",
+            async:false,
+            data: data,
+            success:
+                function(data, textStatus, jqXHR) {
+            	if (data.success == true){
+                    //$('.download_text').text(data.count.toString() + ' downloads remaining today');
+                    //window.location = href;
+                    $.ajax({
+	                url: "/signedtrack/",
+	                type: "POST",
+	                data: {'event':'signed_url','url':'{{mt.mixtape_zip}}'},
+	                success:
+	                    function(data) {
+                                downloadtrack(url=data.url, type='zip');
+	                    }
+	            });
+                    $('#Popup-close').click();
+            	}
+            	else{
+                    $('.validation_error').text(data.captcha_response);
+                    $('.download_text').text('Your free download limit exceeds');
+            	}
+                }
+        });
+        });
+
+{% endif %}
+
+    });
+</script>
+
+<!--download section for logged in users-->
+<script>
+    count='';
+	function downloadmixtape(url,type) { 
+
+{% if not request.user.customer.has_active_member_subscription %}
+           
+            $.ajax({
+            url: "/limitdownload/",
+            type: "GET",
+            async:false,
+            data: {},
+            success:
+
+                function(data, textStatus, jqXHR) {
+            	if (data.success == true){
+                       
+            		downloadtrack(url,type);
+            		$('.download_text').text(data.count.toString() + ' downloads remaining today.');
+            	}
+            	else{
+            		$('.download_text').text('You have exceeded our daily free download limit. Upgrade to a Premium Member account to continue downloading mixtapes.');
+                       
+$('#download_button').attr('disabled','disabled');
+$('#download_button').attr('href','/premium-member/');
+	$('#download_button').css({'background-color':'#000000','pointer-events':'auto','cursor':'pointer'});
+        $('#download_button').attr('title','You have exceeded our daily free download limit. Upgrade to a Premium Member account to continue downloading mixtapes.');
+
+
+ $('#download_button').click(function(){
+    location.href = $('#' + $(this).attr('rel')).attr('href');
+})
+
+            	}
+                }
+        });
+
+{% else %}
+
+    downloadtrack(url,type);
+
+{% endif %}
+		
+	}
+
+	function downloadtrack(url,type){
+		
+                var url = url
+                
+		type = type
+	filepicker.exportFile(
+	  url,
+	  {
+	  	extension:'.zip',
+	  	suggestedFilename:'{{mt.name}}_FULL',
+		policy:policy_download,
+		signature:signature_download,
+                //mobile: true
+	  },
+	    {
+	        access: 'public',
+	        location: 'S3'
+      
+	    },
+
+	  function(InkBlob){
+
+	    	$.ajax({
+                url: "/track/",
+                type: "POST",
+                data: {'event':'download','name':'{{mt.name}}','id':'{{mt.id}}'},
+                success:
+                    function(data, textStatus, jqXHR) {
+                        console.log(data);
+                        $('.d_count').text(data.count);
+                    }
+            });
+
+	    _gaq.push(['_trackEvent', type, 'Download', '{{mt.name}}']);            
+
+	});
+
+
+	}
+
+</script>
+
+<script>
+
+	function downloadfile (url, type, filename) {
+		var url = url,//+querystring,
+			policy = policy_download, //policy_upload
+			signature = signature_download, //signature_upload,
+			type = type
+
+		filepicker.exportFile(
+		  url,
+		  {
+		  	extension:'.zip',
+		  	suggestedFilename: (typeof(filename)===undefined ? '{{object.slug}}_FULL' : filename),
+		  	signature: signature,
+		  	policy: policy
+		  	
+		  },
+		  function(InkBlob){
+		    _gaq.push(['_trackEvent', type, 'Download', '{{object.title}}']);
+
+		});
+	}
+
+</script>
+<script>
+
+function nonsoundmixtape(mixtape){
+    $("#bitto").show();
+    $("#mix_hide").show();
+    document.getElementById("soundcloudPlayerRow").removeAttribute("style");
+    $('.tom').css('margin-top', '157px');
+    $("#clickbtn").hide();
+
+    $.getScript("{{STATIC_URL}}js/mejsplayer.js", function(data, status, jqxhr) {
+        /*
+            do something now that the script is loaded and code has been executed
+        */
+        var isplaying = true;
+        var playedcount = 0;total= parseInt('{{total}}');
+        $('audio').mediaelementplayer({
+            autoplay: true,
+            loop:false,
+            audioHeight: 30,
+            audioWidth: '100%',
+            playlist: true,
+            playlistposition: 'bottom',
+            features: ['playlistfeature', 'prevtrack', 'playpause','autoplay','nexttrack', 'continuous', 'shuffle', 'playlist', 'current', 'progress', 'duration', 'volume'],
+            success: function(mediaElement, domObject) {
+                mediaElement.addEventListener('ended', function() {
+		            playedcount=playedcount+1;
+		            if(playedcount==total){
+                        //alert(playedcount);
+                        mediaElement.stop();
+                        isplaying = false;
+                        playedcount=0;
+                    }
+                }, false);
+                /*mediaElement.addEventListener('loadeddata', function() {
+                    loaded=loaded+1;
+                    console.log(  loaded+'loaded');
+                }, false);*/
+            },
+            error: function() {
+                //alert('Error setting media!');
+            }
+        });
+        if(isplaying){
+            play_track = 'audio_hide'+$('.pop5').attr('data-contentwrapper')
+            cls ='.audio_hide'+$('.pop5').attr('data-contentwrapper')
+            $(cls).toggleClass("hide");
+            $('.track_play').children().each(function(){
+                if ($(this).attr('class').trim() == play_track.trim()) {
+                    $(this).siblings().addClass('hide');
+                }
+            });
+            if ($(cls).hasClass("hide")==false){
+                $('audio')[$('.pop5').attr('data-contentwrapper')].player.play();
+                $.ajax({
+                    url: "/track/",
+                    type: "POST",
+                    data: {'event':'listen','name':'{{mt.name}}','id':'{{mt.id}}'},
+                    success: function(data, textStatus, jqXHR) {
+                        console.log(data);
+                        $('.s_count').text(data.count);
+                    }
+                });
+            }
+            else{
+                $('audio')[$(this).attr('data-contentwrapper')].player.pause();
+            }
+            $('#stream_button').attr('disabled','true');
+            $('#stream_button').css('background-color','#000000');
+        }
+    });
+
+}
+
+function streammixtape(mixtape){
+    SC.oEmbed('{{mt.soundcloud_permalink}}', { auto_play: false }, document.getElementById('soundcloudPlayer'));
+    $('#soundcloudPlayer').css('display','');
+    mixtape = mixtape;
+    url = '/addstreamcount/';
+    data = {'mixtape':mixtape}
+    $.ajax({
+        url:url,
+	    method: "POST",
+	    data :data,
+	    success:function(data) {
+	        $('.s_count').text(data.stream_count);
+	    }
+    });
+}
+
+</script>
+
+<script type="text/javascript">
+
+ //script for non-soundcloud player playlist looping once 
+ //discarded, signed urls are requested on play events
+
+  /*$(document).ready(function() {
+
+
+$('audio').children().each(function(){
+
+$.ajax({
+	                url: "/signedtrack/",
+	                type: "POST",
+	                data: {'event':'aws_url','url':$(this).attr('src').trim(),'id':$(this).attr('id')},
+	                success:
+	                    function(data) {
+			        
+                                      
+                                        var element  = document.getElementById(data.id);
+                                        
+                                        $(element).attr('src',data.url);
+                                        //console.log($(this));
+	  
+	                    }
+	            });
+
+});*/
+	
+// mobile css	
+
+      if( /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent) ) {
+   	 // some code..
+  	  $('.col-xs-6').css('width','100%');
+      $('.col-xs-8').css('width','100%');
+      $('.col-xs-7').css('width','100%');
+      $('.breadcrumb').css({'position':'absolute','bottom':'5px'});
+      $('.caption').css({'width':'60%','height':''});
+      $('#midetails').css('width','40%');
+      $('.thumbnail').css('height','300px');
+      $('.breadcrumb').find('button').each(function(){
+         $(this).css('width','60%');
+      });
+      $('#stream_button').css('width','60%');
+     $('#download_button').css('width','60%');
+     $('.clock').css('margin-left','28%');
+
+   	}
+    else {
+      $('.caption').css('height','');
+      $('.breadcrumb').css({'position':'absolute','bottom':'5px'});
+
+    }
+    
+  });
+
+
+
+
+
+</script>
+
+<script>
+//Dirty workaround to download files (tracks) from cdn
+//TODO write one js for all cdn access tasks
+function cdn_openfile(url){
+    url = encodeURI(url);
+    $.ajax({
+        url: "/signedtrack/",
+        type: "POST",
+        data: {'event':'signed_url','url':url},
+        success: function(data) {
+            window.open(data.url);
+        }
+    });
+}
+</script>
+
+{% endaddtoblock %}
+
+{% endblock content %}

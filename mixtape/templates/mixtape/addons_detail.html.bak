@@ -1,0 +1,367 @@
+{% extends "index.html" %}
+{% load staticfiles sekizai_tags %}
+
+{% block content %}
+{% if object %}
+<div class="container">
+    <div class="row-fluid">
+        <div class="username">
+            <h1 class="phone-center"><a href="{{object.get_absolute_url}}">{{object.name}}</a></h1>
+        </div>
+        <hr>
+        <div class="row-fluid">
+            <div class="span6">
+                <div class="mymixtapes-img" style="margin-bottom: 25px">
+                    <img src="{{object.other_album_cover}}" class="mixtapeCoverImage shadowimage">
+                </div>
+            </div>
+            
+            <div class="span6">
+                <div class="well" style="height:210px;">
+                    <div class="label" style="display:block;float:none;">
+                        <h4>Quick Stats</h4>
+                    </div>
+                    <table class="table" style="width:400px;float:left;color:#333;">
+                        <tbody>
+                            <tr>
+                                <td><strong>Downloads</strong></td>
+                                <td> <span class="label label-default d_count">
+                                {% if object.soundcloud_playback_count != None %}{{object.soundcloud_playback_count}}{%else%}0{% endif %}
+								</span></td>
+                            </tr>
+                            <tr>
+                                <td><strong>Listens</strong></td>
+                                <td><span class="label label-default d_count">{% if object.soundcloud_favoritings_count != None %}{{object.soundcloud_favoritings_count}}{%else%}0{% endif %}</span></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                     <a class="image" href="{{ object.get_absolute_url }}" style="float:right">
+                       
+                            <img class="img-responsive full-width" style="width:150px;margin-top:15px;" src="{{ object.get_mixtape_thumnail}}" alt="{{ object.name }}">
+                            <!--<span class="rating">-->
+                                <!--<span class="star positive">-->
+                                    <!--<span class="glyphicon glyphicon-star"></span>-->
+                                <!--</span>-->
+                                <!--<span class="star positive">-->
+                                    <!--<span class="glyphicon glyphicon-star"></span>-->
+                                <!--</span>-->
+                                <!--<span class="star positive">-->
+                                    <!--<span class="glyphicon glyphicon-star"></span>-->
+                                <!--</span>-->
+                                <!--<span class="star positive">-->
+                                    <!--<span class="glyphicon glyphicon-star"></span>-->
+                                <!--</span>-->
+                                <!--<span class="star negative">-->
+                                    <!--<span class="glyphicon glyphicon-star"></span>-->
+                                <!--</span>-->
+                            <!--</span>-->
+                        </a>
+                </div>
+            </div>
+           
+        </div>
+    </div>
+
+    <hr>
+
+    <ul class="nav nav-tabs" id="addonsTab">
+	<div class="span4 pull-right">
+                    <button class="btn btn-success btn-large btn-span pull-right hidden" id="new-addonstop" onClick="$('#sumModal').modal()"><i class="icon-shopping-cart icon-2x"></i> Checkout</button>
+                </div>
+
+        {% if other %}
+            <li>
+                <a href="#other">
+                    <h4><i class="icon-question-sign"></i> Purchase Addons</h4>
+                </a>
+            </li>
+        {% endif %}
+        {% if active %}
+            <li class="active">
+                <a href="#active">
+                    <h4><i class="icon-check-sign"></i> Active Addons</h4>
+                </a>
+            </li>
+        {% endif %}
+    </ul>
+
+    <div class="tab-content" id="addonsTabContent">
+        {% if active %}
+        <div id="active" class="tab-pane active fade in">
+            <div class="row-fluid">
+               
+                <table class="table" id="activeaddons">
+                    <thead>
+                        <th></th>
+                        <th><i class="icon-time"></i> End Date and Time</th>
+                        <th style="width: 30%"></th>
+                    </thead>
+                    <tbody>
+                        {% for ad in active %}
+                            <tr>
+                                <td>
+                                    <h5>{{ad.name|safe}}</h5>
+                                </td>
+                                <td>
+                                    <h5>{{ad.end_date}}</h5>
+                                </td>
+                                <td>
+                                    <em class="description">{{ad.description|safe}}</em>
+                                </td>
+                            </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        {% endif %}
+
+        {% if other %}
+        <div id="other" class="tab-pane {% if not active %}active in{% endif %} fade">
+            <div class="row-fluid">
+              
+
+                
+                        {% for cat in other %}
+                        {% if cat.id != 3 %}
+	                        <h3>{{cat.name}}</h3>
+	                        <table class="table" id="otherAddons">
+                    <thead>
+                        <tr>
+                            <th></th>
+                            <th>Purchase Add-On?</th>
+                            <th>Price</th>
+                            <th>Duration (days)</th>
+                            <th>Description</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+	                        {% for ad in cat.addons %}
+                        
+                        <tr class="addonRow" id="{{ad.id}}">
+                            <td style="width: 20%">
+                                <h5>
+                                    {{ad.name|safe}}
+                                </h5>
+                            </td>
+                            <td class="addon-select">
+                                <button class="btn btn-success">
+                                    <h5>
+                                        <i class="icon-plus-sign"></i>
+                                    </h5>
+                                </button>
+                            </td>
+                            <td>
+                                <h5 class="addonPrice">${{ad.price}}</h5>
+                            </td>
+                            <td>
+                                <h5 style="text-align: center">{{ad.duration|default_if_none:"N/A"}}</h5>
+                            </td>
+                            <td style="width: 30%">
+                                <em class="description">{{ad.description|safe}}</em>
+                            </td>
+                        </tr>
+                        {% endfor %}
+                        </tbody>
+					    </table>
+					    
+					    {% if not forloop.last %}
+					    <hr>
+					    {% endif %}
+					    {% endif %}
+                        {% endfor %}
+                    </tbody>
+
+                </table>
+
+                <br>
+                <div class="span4 pull-right">
+                    <button class="btn btn-success btn-large btn-span pull-right hidden" id="new-addons" onClick="$('#sumModal').modal()"><i class="icon-shopping-cart icon-2x"></i> Checkout</button>
+                </div>
+            </div>
+        </div>
+        {% endif %}
+    </div>
+    <br>
+
+
+<input type="hidden" id="value"   />
+    <div id="sumModal" class="modal fade" style="height: 400px">
+
+        	<div class="modal-dialog">
+		<div class="modal-content">
+        <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+            <h3 id="myModalLabel">Payment Confirmation</h3>
+        </div>
+        <div class="modal-body" >
+            <div class="alert alert-info">
+                <em>Charges will be processed using: <i class="icon-credit-card icon-2x" style="padding-left: 5px"></i> {{user.customer.card_kind}} ending in <strong>{{user.customer.card_last_4}}</strong></em>
+            </div>
+            <table class="table table-hover" id="modaltable">
+                <tbody>
+
+                </tbody>
+            </table>
+
+        </div>
+        <div class="modal-footer">
+            <div id="loading-spinner" class="hidden">
+                <p style="font-size: 150%"><i class="icon-spinner icon-spin"></i> Processing... </p>
+            </div>
+            <button class="btn btn-default" data-dismiss="modal" aria-hidden="true">Close</button>
+            <button class="btn btn-success btn-large" id="proceed-checkout"><i class="icon-check-sign"></i> Proceed</button>
+        </div>
+    </div>
+</div>
+     </div>
+</div>
+ {% endif %}
+
+{% addtoblock "bottom_js" %}
+
+	<script src="{{ STATIC_URL }}js/csrf.js"></script>
+
+	<script>
+		$(function () {
+			$('.addon-select').click(
+				function(){
+					$(this).find('i').toggleClass('icon-plus-sign').toggleClass('icon-check')
+					console.log($(this).find('i.icon-check').length);
+					var addonid = $(this).closest('.addonRow').prop('id');
+					if ($(this).find('i.icon-check').length >0){
+						$('#new-addons').removeClass('hidden');
+	                    
+	                    $('#value').val(addonid);
+	                    var modaltablebody = $('#modaltable tbody')
+	                  $.ajax({
+							url:'/routers/mixtapeaddon-viewset/' + addonid,
+							type:'GET',
+							success:function(data){
+								console.log(data);
+								modaltablebody.append('<tr id="confirm-' + data.id + '"><td><strong>' + data.name + '</strong></td>' +
+									'<td class="priceinfo">$' + data.price + ' USD' + '</td>' +
+									'</tr>'
+								).hide().fadeIn()
+							}
+						});
+					}
+					else{
+						$('#modaltable tbody tr#confirm-'+addonid).remove();
+					}
+					
+				});
+			});
+	</script>
+
+
+	<script>
+		$(function () {
+			$('.addon-select').click(
+				function(){
+					$(this).find('i').toggleClass('icon-plus-sign').toggleClass('icon-check')
+					console.log($(this).find('i.icon-check').length);
+					var addonid = $(this).closest('.addonRow').prop('id');
+					if ($(this).find('i.icon-check').length >0){
+						$('#new-addonstop').removeClass('hidden');
+	                    
+	                    $('#value').val(addonid);
+	                    var modaltablebody = $('#modaltable tbody')
+	                  $.ajax({
+							url:'/routers/mixtapeaddon-viewset/' + addonid,
+							type:'GET',
+							success:function(data){
+								console.log(data);
+								modaltablebody.append('<tr id="confirm-' + data.id + '"><td><strong>' + data.name + '</strong></td>' +
+									'<td class="priceinfo">$' + data.price + ' USD' + '</td>' +
+									'</tr>'
+								).hide().fadeIn()
+							}
+						});
+					}
+					else{
+						$('#modaltable tbody tr#confirm-'+addonid).remove();
+					}
+					
+				});
+			});
+	</script>
+
+{#	<script>#}
+{#		$(function () {#}
+{#			var modaltablebody = $('#modaltable tbody')#}
+{##}
+{#			$('#sumModal').on('hidden', function(){#}
+{#				modaltablebody.children().fadeOut().remove();#}
+{#			});#}
+{#			$('#sumModal').on('shown', function(){#}
+{##}
+{#				$.each($('#otherAddons tbody tr i.icon-check'), function(){#}
+{#                    var t= $('#value').val();#}
+{#                    alert(t);#}
+{#                    alert('hi');#}
+{#					var addonid = $(this).closest('.addonRow').prop('id')#}
+{#					$.ajax({#}
+{#						url:'/routers/mixtapeaddon-viewset/' + addonid,#}
+{#						type:'GET',#}
+{#						success:function(data){#}
+{#							console.log(data);#}
+{#							modaltablebody.append('<tr id="confirm-' + data.id + '"><td><strong>' + data.name + '</strong></td>' +#}
+{#								'<td class="priceinfo">$' + data.price + ' USD' + '</td>' + 							#}
+{#								'</tr>'#}
+{#							).hide().fadeIn()#}
+{#						}#}
+{#					});#}
+{#				});#}
+{#			});#}
+{#		});#}
+{#	</script>#}
+
+	<script>
+		$(function () {
+			$('#proceed-checkout').click(function(){
+
+				$('#loading-spinner').removeClass('hidden').hide().fadeIn();				
+
+				var addonsids = [],
+					rows = $('#modaltable tbody tr');
+
+				$.each(rows, function(){
+					var addonid = $(this).prop('id').split('-')[1];
+					console.log(addonid);
+					addonsids.push(addonid);
+				});
+				console.log('ids are: ' + addonsids);
+
+				console.log(JSON.stringify(addonsids));
+				$.ajax({
+					type:'POST',
+					contentType:'application/JSON',
+					url:'/addons-checkout/',
+					data:JSON.stringify({
+						'addons':addonsids,
+						'mixtape':'{{object.id}}'
+					}),				
+					success:function(data){
+						if (data.success = true) {
+							window.location.reload();
+						}
+					},
+				});
+			});
+		});
+	</script>
+
+<script>
+	$(function() {
+
+		$('#addonsTab a').click(function (e) {
+			e.preventDefault();
+			$(this).tab('show');
+		});
+	});
+</script>	
+
+
+{% endaddtoblock %}
+{% endblock content %}

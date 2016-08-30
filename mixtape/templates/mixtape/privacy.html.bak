@@ -1,0 +1,132 @@
+{% extends "index.html" %}
+{% load staticfiles sekizai_tags %}
+{% block pagetitle %}
+  <title>Privacy Policy // 24/7Mixtapes</title>
+  {% endblock pagetitle %}
+
+{% block content %}
+
+
+<div class="container">
+    <ol class="breadcrumb">
+        
+    </ol>
+</div>
+
+<div class="container">
+
+    <div class="row">
+
+        <div class="col-sm-4 col-md-3">
+
+            <div class="standard-box">
+
+                <h2 class="header-box">Submenu</h2>
+
+                <ul class="list with-links list-headers">
+
+                                      <li>
+                        <h3>
+                            <a href="#privacy">24/7 Mixtapes Privacy Policy</a>
+                        </h3>
+                    </li>
+
+                    <li>
+                        <h3>
+                            <a href="#collection">Collection Of Information</a>
+                        </h3>
+                    </li>
+                    <li>
+                        <h3>
+                            <a href="#disclosure">Disclosure Of Information</a>
+                        </h3>
+                    </li>
+                    <li>
+                        <h3>
+                            <a href="#use">We Use Appropriate Security Safeguard</a>
+                        </h3>
+                    </li>
+                    <li>
+                        <h3>
+                            <a href="#assurance">Assurance Of Quality Information</a>
+                        </h3>
+                    </li>
+                    <li>
+                        <h3>
+                            <a href="#opt">Opt Out Right</a>
+                        </h3>
+                    </li>
+                    <li>
+                        <h3>
+                            <a href="#questions">Questions Or Comments</a>
+                        </h3>
+                    </li>
+
+                </ul>
+
+            </div>
+
+        </div>
+
+        <div class="col-sm-9 col-md-8">
+
+            <h2 class="header-box" id="privacy">24/7 Mixtapes Privacy Policy</h2>
+
+            <div class="text">
+
+                
+                <p>
+					Last Updated On Tuesday, May 26th, 2015
+				</p><p>
+					Protecting consumer privacy is very important to us. Our Privacy Policy is available to inform you about our collection and use of personal information so that you can make informed choices about how your own information is collected and used. This Privacy Policy reflects our policies covering personal information collected at 247Mixtapes.com on or after the effective date shown above.
+				</p><p>
+					We believe that information used responsibly benefits consumers and the economy. In addition, 247Mixtapes.com strives to better serve our customers by offering goods and services that we believe fit their needs and interests. When identifying an opportunity, 247Mixtapes.com may use consumer information it has collected in an effort to identify consumers who may be interested in what we have to offer. Consumers rely on 247Mixtapes.com for safe and reliable service. The relationships we have developed through the years have been established based on mutual trust and exceptional customer service. Each day we strive to reinforce our commitment to our consumers ensuring that we abide by a set of privacy policies, which are outlined below. These policies guide us in the collection and use of information as well as protecting your privacy. We use personal information about consumers only in a manner consistent with these policies.
+                </p>
+                <h3 id="collection">Collection Of Information</h3>
+
+                <p>
+                
+					247Mixtapes.com needs to collect personal information in order to offer or provide goods and services to consumers and our customers. We may obtain this information from a variety of sources:
+					<ul><li>Directly from transactions in which 247Mixtapes.com and customers are involved;</li>
+					<li>Directly from consumer surveys, questionnaires and other materials submitted to us by consumers;</li>
+					<li>Indirectly from click thru activity on our web sites;</li>
+					</ul>            
+                
+                
+                </p>
+ 				
+                 <h3 id="disclosure">Disclosure Of Information</h3>
+                 <p>
+					
+					247Mixtapes.com does not disclose customer information to third parties without first giving customers an opportunity to opt-out of certain kinds of disclosures. There are some disclosures to third parties that are not subject to the opt-out, such as disclosures necessary to effect, administer or enforce a transaction requested by you, to companies that perform services for us or to prevent fraud.
+                 </p>
+                 <h3 id="use">We Use Appropriate Security Safeguards</h3>
+                 <p>
+					Security is a priority to 247Mixtapes.com. We employ appropriate measures to protect consumer information against unauthorized access, disclosure, alteration or destruction. These may include, among others, encryption, physical access security and other appropriate technologies. 247Mixtapes.com continually reviews and enhances its security systems, as necessary.	
+			     </p>
+                 <h3 id="assurance">Assurance Of Quality Information</h3>
+                 <p>
+					
+247Mixtapes.com employs appropriate measures to assure the quality of information we collect directly from consumers is accurate. We will inform consumers about how they can access their personal information and make corrections. Where 247Mixtapes.com collects information directly from consumers, we permit them, if possible, to dispute or correct any erroneous or out-of-date personally identifiable information. Where applicable, we abide by laws related to such information. You can correct factual errors in your personally identifiable information by sending us a written request that credibly shows error. We reserve the right to independently verify claims made. To protect your privacy and security, we also will take reasonable steps to verify your identity before making corrections.
+				</p>
+				<h3 id="opt">Opt Out Right</h3>
+                 <p>
+					247Mixtapes.com may disclose consumer information to third parties as described earlier in this notice. Many of these disclosures are beneficial to consumers because they permit goods and services of interest to consumers to be offered to consumers at attractive rates. We strive to give consumers choices about how their data will be used. You have the right to opt-out of (direct us not to make) these disclosures when the consumer information is about you. If you would like to opt out simply visit our homepage and select the "Opt Out" option at the bottom of the page.
+				</p>
+                 <h3 id="questions">Questions Or Comments</h3>
+                 <p>
+                 
+					If you have any questions or comments about our Privacy Policy, or for some reason believe we have not adhered to our statement, please contact: <a href="mailto:info@247mixtapes.com" class="style1">info@247Mixtapes.com</a>.
+					
+					We may alter this statement as needed for certain products and services and to abide by local laws or regulations around the world. 247Mixtapes.com reserves the right to amend or modify this statement from time to time. We urge you to review this statement whenever you visit in order to obtain the most current statement. You may change your choices at any time.
+				</p>
+                
+            </div>
+
+        </div>
+
+     
+
+    </div>
+    </div>
+    {% endblock content %}

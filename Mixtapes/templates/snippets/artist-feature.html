@@ -1,0 +1,54 @@
+<div class="thickwhiteborder">
+	<div class="row-fluid" id="mixtapeTitleRow">
+
+		<em class="centeredimg">Featured Artist</em>
+		<h3 style="text-align: center">---{{ mt.primaryArtist.user.username}}---
+			<a href="{% url 'user' slug=mt.primaryArtist.user.username %}" target="_blank">{{mt.primaryArtist}} 
+				<i class="icon-signin"></i>
+			</a>
+		</h3>
+		<a href="/my-profile" target="_blank">
+			<img src="{{mt.primaryArtist.profile_image}}" class="shadowimage centeredimg">
+		</a>
+		<br>
+
+		{% if mt.can_edit and user == mt.created_by %}
+			<div class="buttonSide">
+				<a class="btn btn-large btn-info btn-span" style="margin-top: 10px" href="{% url 'mixtape_create' mixtapeid=mt.id %}">
+					Edit Mixtape <i class="icon-edit"></i>
+				</a>
+			</div>
+		{% endif %}
+
+		{% if mt.isReleased %}	
+			{% if user.is_authenticated %}
+				<a class='btn btn-large btn-primary btn-span pull-right big-btn' href="{% url 'download' mixtapeid=mt.id %}"  style="margin: 10px 0; color: white" >
+					Download Mixtape <i class="icon-download-alt"></i>
+				</a>
+			{% else %}
+				<a class='btn btn-large btn-primary btn-span pull-right big-btn' href="{% url 'account_login' %}?next={{request.get_full_path}}" style="margin: 10px 0; color: white" >
+					Download Mixtape <i class="icon-download-alt"></i>
+				</a>			
+			{% endif %}
+			<hr>
+			<table class="table table-hover" id="mixtape-totals">
+				<thead></thead>
+				<tbody>
+					<tr>
+						<td>
+							<div class="label label-info">Downloads</div>
+						</td>
+						<td><h4>{{mt.totaldownloads}}</h4></td>
+					</tr>
+					<tr>
+						<td>
+							<div class="label label-info">Playbacks</div>
+						</td>
+						<td><h4>{{mt.totalplaybacks}}</h4></td>
+					</tr>
+				</tbody>
+			</table>
+			
+		{% endif %}
+	</div>
+</div>

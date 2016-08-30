@@ -1,0 +1,241 @@
+{% extends 'index.html' %}
+
+{% load staticfiles sekizai_tags %}
+
+{% addtoblock "top_js" %}
+
+{% endaddtoblock %}
+
+
+{% block pagetitle %}
+  <title>My Mixtapes // 24/7Mixtapes</title>
+  {% endblock pagetitle %}
+
+{% block content %}
+<div class="container">
+	<div class="row-fluid">
+		<div class="username">
+			<h1 class="phone-center">{{username|capfirst}}'s Mixtapes</h1>
+		</div>
+		<hr>
+		
+	</div>
+	<br>
+	<br>
+
+	<section>
+		<div id="mixtapecontent" class="rows-fluid" >
+{% if waitingapproval and  object_list %}
+			<ul class="nav nav-tabs" id="myMixtapesTab">
+				{% if waitingapproval %}
+					<li class="active">
+						<a href="#awaitingapproval"><h4><i class="icon-question-sign"></i> Awaiting Approval</h4></a>
+					</li>
+				{% endif %}
+				{% if object_list %}
+					<li class="{% if not waitingapproval %}active{% endif %}">
+						<a href="#approved"><h4><i class="icon-check-sign"></i> Approved Mixtapes</h4></a>
+					</li>
+				{% endif %}
+			</ul>
+{% endif %}
+			<div class="tab-content" id="myMixtapesTabContent">
+			
+			
+				{% if waitingapproval %}
+					<div class="tab-pane active fade in" id="awaitingapproval">
+						<span class="label label-pop mymixtapesheading awaiting-approval-label thickwhiteborder">
+							<h3>Mixtapes Awaiting Approval</h3>
+						</span>
+						<!-- Table for tablet and desktop
+						================================================== -->
+		
+						<!-- Description list for mobile sizes
+						================================================== -->
+						{% include 'snippets/awaiting_mixtapes_mobile.html' %}
+
+                                                <!-- pagination section-->
+                                                <div class="row">
+                                                <ul class="pagination">
+                                                  {% if waitingapproval.has_previous %}
+                                                  <li><a href="?page={{ waitingapproval.previous_page_number }}">&laquo;</a></li>
+                                                  {% endif %}
+                                                  {% if waitingapproval %}
+                                                  {% for i in waitingapproval.paginator.page_range %}
+                                                      <li {% if waitingapproval.number == i %}class="active"{% endif %}>
+                                                          <a href="?page={{i}}">{{i}}</a>
+                                                      </li>
+                                                  {% endfor %}
+                                                  {% endif %}
+                                                  {% if waitingapproval.has_next %}
+                                                  <li><a href="?page={{ waitingapproval.next_page_number }}">&raquo;</a></li>
+                                                  {% endif %}
+                                                </ul>
+                                                </div>
+
+					</div>
+				{% else %}
+				
+				 
+				{% endif %}
+
+				{% if object_list %}
+					<div class="tab-pane fade {% if not waitingapproval %} active in{% endif %}" id="approved">
+						<span class="label label-info mymixtapesheading approved-label thickwhiteborder">
+							<h3>Approved Mixtapes</h3>
+						</span>
+						
+								{% for mt in object_list %}
+								
+								 <div class="media visible-phone">
+							        <a href="{{mt.get_absolute_url}}" class="pull-left">
+							            <img class="img-circle" style="width: 120px; height: 120px;" src="{{mt.get_mixtape_thumnail}}">
+							        </a>
+							        <div class="media-body">
+							            <a href="{{mt.get_absolute_url}}">
+							                <h2 class="media-heading">{{mt.name}}</h2>
+							            </a>
+							            <!--{% if mt.can_edit %}-->
+											<!--<a class="btn btn-info whitewords" href="{% url 'mixtape_create' mixtapeid=mt.id %}" style="color: white !important; margin-top: 10px">-->
+												<!--<i class="icon-edit"></i> Edit-->
+											<!--</a>-->
+										<!--{% endif %}-->
+							            <div class="meta">
+							                <p>
+							                    ft.
+							                    <strong>{{mt.primaryArtist.username}}</strong>
+							                </p>
+							            </div>
+							            <table class="table table-hover">
+							                <tbody>
+							                    <tr >
+							                        <td style="width: 250px;">
+							                            <div class="badge badge-info">Released</div>
+							                        </td>
+							                        <td style="width: 650px;">
+							                            {{mt.releaseDatetime}}
+							                        </td>
+							                    </tr>
+							                    <tr >
+							                        <td>
+							                            <div class="badge badge-info">Genre</div>
+							                        </td>
+							                        <td>
+							                            {{mt.primaryGenre}}
+							                        </td>
+							                        
+							                        {% for obj in  mt.addons.filter  %}
+							                        
+							                        {% if obj.addon.name == 'Custom Skin On Mixtape Page' %}
+							                        
+							                        <td>
+							                            <button id="upload_images_button1" class="btn btn-primary upload_images_button" filetype ="{{mt.id}}|{{mt.full_mixtape_slug}}|{{mt.get_content_type_id}}|3">
+														    <i class="fa fa-cloud-upload"></i>
+														    Upload Mixtape Background Image
+														</button>
+							                        </td>
+							                        {% endif %}
+							                        
+							                        {% if obj.addon.name == 'Custom Skin On Homepage' %}
+							                        
+							                        <td>
+							                            <button id="upload_images_button1" class="btn btn-primary upload_images_button" filetype ="{{mt.id}}|{{mt.full_mixtape_slug}}|{{mt.get_content_type_id}}|2">
+														    <i class="fa fa-cloud-upload"></i>
+														    Upload Home Page Background Image
+														</button>
+							                        </td>
+							                        {% endif %}
+							                        
+							                        
+							                        
+							                        
+							                        {% endfor%}
+							                    </tr>
+							                    <tr>
+							                        <td>
+							                            <div class="badge badge-info">Addons</div>
+							                        </td>
+							                        <td>
+							                            {% if mt.active_addons %}
+							                                {% for ao in mt.active_addons %}
+							                                    <a class="label label-info addon-link" href="{{mt.addons_url}}">
+							                                        {{ao.name}}
+							                                    </a>
+							                                {% endfor %}
+							                             {% endif %}
+							                             <br>
+							                                <a class="badge badge-info addon-link red-addon-link" href="{{mt.addons_url}}">Get add-ons? <i class="icon-chevron-sign-right"></i></a>
+							                            
+							                        </td>
+							                    </tr>
+							                </tbody>
+							            </table>
+							            <div id="images-holder"></div>
+							            {% if mt.can_edit %}
+							
+							                <a class="btn btn-info btn-large btn-span whitewords" href="{% url 'mixtape_create' mixtapeid=mt.id %}" style="color: white !important; margin-top: 10px">
+							                    <i class="icon-edit"></i> Edit
+							                </a>
+							
+							            {% endif %}            
+							        </div>
+							    </div>
+							    {% if not forloop.last %}       
+							        <hr class="soften visible-phone">
+							    {% endif %}
+							{% endfor %}
+							
+						<!-- pagination section-->
+                                                <div class="row">
+                                                <ul class="pagination">
+                                                  {% if object_list.has_previous %}
+                                                  <li><a href="?page={{ object_list.previous_page_number }}">&laquo;</a></li>
+                                                  {% endif %}
+                                                  {% if object_list %}
+                                                  {% for i in object_list.paginator.page_range %}
+                                                      <li {% if object_list.number == i %}class="active"{% endif %}>
+                                                          <a href="?page={{i}}">{{i}}</a>
+                                                      </li>
+                                                  {% endfor %}
+                                                  {% endif %}
+                                                  {% if object_list.has_next %}
+                                                  <li><a href="?page={{ object_list.next_page_number }}">&raquo;</a></li>
+                                                  {% endif %}
+                                                </ul>
+                                                </div>
+					</div>
+					
+					
+					
+				{% endif %}
+				{% if not waitingapproval and not object_list%}
+				<p class="text-info">You have not submitted any mixtapes yet. <a href="/upload/">Click here</a> to upload one.</p>
+			    {% endif %}
+			</div>
+
+		</div>
+	</section>
+
+
+<div id="fp_api_key" class="hidden">{{FILEPICKER_API_KEY}}</div>
+            <div id="fp_upload_pol" class="hidden">{{FILEPICKER_UPLOAD_POLICY}}</div>
+            <div id="fp_upload_sig" class="hidden">{{FILEPICKER_UPLOAD_SIGNATURE}}</div>
+
+{% addtoblock "bottom_js" %}
+
+<script src="//cdnjs.cloudflare.com/ajax/libs/jquery.tablesorter/2.9.1/jquery.tablesorter.min.js"></script>
+
+<script>
+	$(function() {
+		$('table').tablesorter();
+		$('#myMixtapesTab a').click(function (e) {
+			e.preventDefault();
+			$(this).tab('show');
+		});
+	});
+</script>
+
+	
+{% endaddtoblock %}
+</div>
+{% endblock content %}

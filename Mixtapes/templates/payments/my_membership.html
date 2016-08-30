@@ -1,0 +1,169 @@
+{% extends "index.html" %}
+{% load staticfiles sekizai_tags %}
+
+{% block pagetitle %}
+  <title>My Membership // 24/7Mixtapes</title>
+  {% endblock pagetitle %}
+{% block content %}
+<div class="container">
+
+		<h1 class="phone-center">{{user.username|capfirst}}'s Membership</h1>
+    <hr>
+    <h3>
+        <p class="text text-info" style="text-align: center"><i class="icon-star"></i> Get so much more with premium membership!</p>
+    </h3>
+    <br>
+            {% with request.user.customer.current_subscription as subscription %}
+
+<div class="top-margin">
+	
+	{% include "my-account/payments/subscription_status.html" %}
+	 <hr>
+	{% with request.user.customer.publisher_subscription as subscription %}
+	 <h3>
+        Your current publisher plan is:
+        {% if subscription.plan == 'premium-publisher-monthly'%}
+        <span class="label label-info">Premium Publisher - Monthly</span>
+        {% elif subscription.plan == 'premium-publisher-yearly'%}
+        <span class="label label-info">Premium Publisher - Yearly</span>
+        {% elif subscription.plan == 'monthly'%}
+        <span class="label label-info">Premium Member - Monthly</span>
+        {% elif subscription.plan == 'yearly'%}
+        <span class="label label-info">Premium Member - Yearly</span>
+        {% else %}
+        <span class="label label-info">Basic (Free)</span>
+        {% endif %}
+    </h3>
+     {% if subscription %}
+
+        {% if subscription.cancel_at_period_end %}
+            {% if subscription.status == "active" %}
+                <div class="alert alert-warning lead">
+                    Your subscription has been <strong>canceled</strong> but you can continue to use the site for another <strong>{{ subscription.current_period_end|timeuntil }}</strong>.
+                </div>
+            {% endif %}
+            {% if subscription.status == "trialing" %}
+                <div class="alert alert-warning lead">
+                    Your trial has been <strong>canceled</strong> but you can continue to use the site for another <strong>{{ subscription.current_period_end|timeuntil }}</strong>.
+                </div>
+            {% endif %}
+        {% else %}
+            {% if subscription.status == "active" %}
+                <div class="alert alert-info">
+                    Your subscription will automatically renew on <strong> {{ subscription.current_period_end }}</strong>.
+                </div>
+            {% else %}
+                {% if subscription.status == "trialing" %}
+                    {% if subscription.plan and request.user.customer.card_kind %}
+                        <div class="alert alert-info">
+                            Your free trial will end in <strong>{{ subscription.current_period_end|timeuntil }}</strong> after which you commence a <strong>{{ subscription.plan_display }}</strong> plan.
+                        </div>
+                    {% else %}
+                        <div class="alert alert-warning lead">
+                            Your free trial will end in <strong>{{ subscription.current_period_end|timeuntil }}</strong> after which you will need to get a subscription to continue using the site.
+                        </div>
+                    {% endif %}
+                {% else %}
+                    {% if subscription.status == "canceled" %}
+                        {% if subscription.is_period_current %}
+                            <div class="alert alert-warning lead">
+                                Your subscription has been <strong>canceled</strong> but you can continue to use the site for another <strong>{{ subscription.current_period_end|timeuntil }}</strong>.
+                            </div>
+                        {% else %}
+                            <div class="alert alert-danger lead">
+                                Your subscription has been <strong>canceled</strong>.
+                            </div>
+                        {% endif %}
+                    {% else %}
+                        <div class="alert alert-danger lead">
+                            Your subscription is <strong>{{ subscription.status }}</strong>.
+                        </div>
+                    {% endif %}
+                {% endif %}
+            {% endif %}
+        {% endif %}
+
+    {% endif %}
+    {% endwith %}
+	<hr>
+	<div class="row">
+    <div class="span12">
+    <div class="alert alert-info">
+           <p>  
+           247Mixtapes.com is back and better than ever before. We’ve added new features to inspire and improve the way you do music.
+           </p>
+           </div>
+        <div class="pricing-table-wrapper">
+        <div style="margin: 0 auto;">
+            <div class="pricing-table row-fluid" style="background-color:#eee;">
+            <div class="well" style="width:33%;float:left;margin-right:2%;height: 330px;margin-left:18%;">
+            
+            <h4 style="color:#333"><span class="icon-star icon-2x"></span> Premium Member Upgrade</h4>
+            <h4 style="color:#333"><span class="icon-check icon-2x"></span> Unlimited Downloads</h4>
+             <h4 style="color:#333"><span class="icon-check icon-2x"></span> Unlimited Streams</h4>
+              <h4 style="color:#333"><span class="icon-check icon-2x"></span> Uncapped Download Speeds</h4>
+               <h4 style="color:#333"><span class="icon-check icon-2x"></span> Individual Track Downloads</h4>
+                <h4 style="color:#333"> 
+                            <a class="btn btn-large btn-success" style="overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;width:100%;width:100%;" href="/premium-member/">Upgrade to a Premium Member Account <i class="icon-chevron-sign-right"></i></a>
+                
+                
+                
+                
+                
+                
+            </h4>
+
+               
+              </div>
+                <div class="well" style="width:33%;float:left;margin-right:2%;height: 330px;">
+                <h4 style="color:#333"><span class="icon-star icon-2x"></span> Premium Publisher Upgrade</h4>
+                <h4 style="color:#333"><span class="icon-check icon-2x"></span> Verified Account Status</h4>
+                <h4 style="color:#333"><span class="icon-check icon-2x"></span> Expedited Mixtape Approvals</h4>
+                <h4 style="color:#333"><span class="icon-check icon-2x"></span> Individual Mixtape Analytics</h4>
+                 <h4 style="color:#333"><span class="icon-check icon-2x"></span> Unlimited Mixtape Submissions</h4>
+                <h4 style="color:#333"> 
+                
+    
+                            <a class="btn btn-large btn-success" style="overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;width:100%;" href="/premium-publisher/">Upgrade to a Premium Publisher Account <i class="icon-chevron-sign-right"></i></a>
+                
+                
+                
+                </h4>
+                </div>
+            </div>
+        </div></div>
+    </div>
+</div>
+	<div class="alert alert-info">
+		<em>Go Premium with pride, knowing that part of the proceeds from your membership help fund the 24/7 Inner City Youth Program, which brings youth off the streets through music-based mentorship programs. At 247Mixtapes, we believe music is one of the few effective ways to help today’s youth. Help us use music to do good. Go Premium today!</em>
+	</div>
+</div>
+{% endwith %}
+</div>
+
+
+
+{% addtoblock "bottom_js" %}
+
+<script src="{{ STATIC_URL }}js/csrf.js"></script>
+
+<script src="{{ STATIC_URL }}js/subscriptions.js"></script>
+
+<script>
+    $(function() {
+        equalHeights('.pricing-button');
+        $(window).resize(function(){
+            $('.pricing-button').css('height', 'auto');
+        });
+    });
+</script>
+
+
+	
+{% endaddtoblock %}
+
+{% endblock content %}

@@ -1,0 +1,22 @@
+{% extends "my-account/mixtape_detail_base.html" %}
+
+{% block countdownsection %}
+    <section>
+	   {% include 'snippets/countdowntimer.html' %}
+    </section>
+{% endblock countdownsection %}
+
+
+{% block pagescripts %}
+
+<link href="{{STATIC_URL}}jquery-countdown/countdown.css" rel="stylesheet">
+<script src="{{STATIC_URL}}jquery-countdown/jquery.countdown.min.js"></script>
+
+<script>
+	$(function() {
+		$('#counter').countdown({ 
+			until: new Date({{mt.releaseDatetime.year}}, {{mt.releaseDatetime.month}}, {{mt.releaseDatetime.day}}, {{mt.releaseDatetime.hour}})});
+	});
+</script>
+
+{% endblock pagescripts %}

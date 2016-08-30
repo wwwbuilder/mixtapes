@@ -1,0 +1,164 @@
+{% extends "index.html" %}
+
+{% load i18n %}
+{% load staticfiles %}
+
+{% load bootstrap_tags %}
+{% load account %}
+{% load socialaccount %}
+{% load url from future %}
+
+
+{% block pagetitle %}
+  <title>Log in // 24/7Mixtapes</title>
+  {% endblock pagetitle %}
+{% block head_title %}{% trans "Sign In" %}{% endblock %}
+
+{% block content %}
+<div class="container">
+    <ol class="breadcrumb">
+        <li>
+            <span>Auth</span>
+        </li>
+        <li class="active">
+            <span>Login</span>
+        </li>
+    </ol>
+</div>
+
+ <div class="container">
+
+    <div class="row">
+
+        <div class="col-md-10">
+
+            <h1 class="header-box">Login</h1>
+
+            <form class="form-horizontal" role="form" method="POST" action="{% url 'account_login' %}">{% csrf_token %}
+                                                {% csrf_token %}
+                {%  if form.errors  %}
+                    <div class="form-group  has-feedback">
+                    <label for="inputEmail3" class="col-sm-3 control-label"></label>
+                        <div class="col-sm-6">
+                            <span style="color:red;">The username and/or password you specified are not correct.</span><br />
+                       </div>
+                    </div>
+                {% endif %}
+                <div class="form-group  has-feedback">
+                    <label for="inputEmail3" class="col-sm-3 control-label">Username</label>
+                    <div class="col-sm-6">
+{#                        <input type="email" class="form-control" id="inputEmail3" placeholder="Email">#}
+                        <input class=" form-control" id="id_login" maxlength="30" name="login" placeholder="Username" type="text" />
+                        <span class="glyphicon glyphicon-envelope form-control-feedback"></span>
+                    </div>
+                </div>
+                <div class="form-group  has-feedback">
+                    <label for="inputPassword3" class="col-sm-3 control-label">Password</label>
+                    <div class="col-sm-6">
+                           <input class=" form-control" id="id_password" name="password" placeholder="Password" type="password" />                        <span class="glyphicon glyphicon-lock form-control-feedback"></span>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-sm-offset-3 col-sm-6">
+                        <div class="checkbox">
+                            <label>
+                                <input id="id_remember" name="remember" type="checkbox" />Remember me?
+                            </label>
+                        </div>
+                    </div>
+                </div>
+
+            					{% if redirect_field_value %}
+						<input type="hidden" name="{{ redirect_field_name }}" value="{{ redirect_field_value }}" />
+					{% endif %}
+                <div class="form-group">
+                    <div class="col-sm-offset-3 col-sm-6">
+                        <input type="submit" name="submit" value="Sign in" class="btn btn-block btn-lg btn-warning btn-success">
+
+{#                        <button type="submit" class="btn btn-block btn-lg btn-warning btn-success">Sign in</button>#}
+                    </div>
+                </div>
+            <div class="form-group">
+               <div class="col-sm-offset-3 col-sm-6">
+                    <a class="button secondaryAction pull-left" href="{% url 'account_reset_password' %}">{% trans "Forgot your password?" %}</a>
+               </div>
+                <div class="col-sm-offset-3 col-sm-6">
+              <span style="float:left;"> Don't have an account?  &nbsp; </span> &nbsp;<a class="button secondaryAction pull-left" href="{% url 'registration' %}"> Create one here. </a>
+            </div>
+            </div>
+            </form>
+
+        </div>
+
+        <div class="col-md-2">
+
+            <div class="standard-box">
+
+                <h2 class="header-box">Need help?</h2>
+
+                <h3 class="margin-top-10">Shoot us an email.</h3>
+
+                <div class="team-item">
+                    <img src="{% static 'img/persons/person-6.png' %}" alt="person"/>
+
+                    <div class="description">
+                        <h3>24/7 Support</h3>
+                        <p><small><a href="mailto:support@247mixtapes.com">support@247mixtapes.com</a></small></p>
+                    </div>
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+    </div>
+{#<div class="container">#}
+{#	<h1 class="phone-center">{% trans "Sign In" %}</h1>#}
+{#	<hr>#}
+{##}
+{#	<div class="row-fluid">#}
+{##}
+{#		<div class="span4" style="width:48.5%;">#}
+{#			<div class="alert alert-success thickwhiteborder" id="signup-block">#}
+{#				<h2>... or sign up</h2>#}
+{#				<a class="btn btn-success btn-large big-btn" href="{{ signup_url }}">#}
+{#					Sign up <i class="icon-chevron-sign-right"></i>#}
+{#				</a>#}
+{#			</div>#}
+{##}
+{#		<div>#}
+{#			{% if socialaccount.providers %}#}
+{#			<div class="alert alert-info thickwhiteborder" id="social-block">#}
+{#				<h2><i class="icon-group"></i> Social login</h2>#}
+{#				<ul class="socialaccount_providers">#}
+{#					{% include "socialaccount/snippets/provider_list.html" %}#}
+{#				</ul>#}
+{#			</div>#}
+{#			{% endif %}#}
+{#		</div>#}
+{#	</div>#}
+{#		<div class="span4" style="width:48.5%;">#}
+{#			<div class="alert alert-warning thickwhiteborder" id="signin-block">#}
+{#				<h2><i class="icon-frown"></i> Antisocial, huh?</h2>#}
+{#				<form class="login" method="POST" action="{% url 'account_login' %}">#}
+{#					{% csrf_token %}#}
+{#					{{ form|as_bootstrap }}#}
+{##}
+{#					{% if redirect_field_value %}#}
+{#						<input type="hidden" name="{{ redirect_field_name }}" value="{{ redirect_field_value }}" />#}
+{#					{% endif %}#}
+{##}
+{#					<a class="button secondaryAction pull-left" href="{% url 'account_reset_password' %}">{% trans "Forgot Password?" %}</a>#}
+{#					<br>#}
+{#					<br>#}
+{#					<button class="btn btn-success btn-large primaryAction" type="submit" style="margin-top: 10px">{% trans "Sign In" %} <i class="icon-signin"></i></button>#}
+{#				</form>#}
+{#			</div>#}
+{#		</div>#}
+{##}
+{#	</div>#}
+{#</div>#}
+
+{% endblock %}
+

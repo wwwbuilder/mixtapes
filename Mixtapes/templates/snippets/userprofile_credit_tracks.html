@@ -1,0 +1,33 @@
+<div class="row-fluid">
+    <div class="well">
+        <div class="media">
+            <a href="{{t.mixtape.get_absolute_url}}" class="pull-left" style="width: 120px; height: 120px">
+                <img src='{{t.mixtape.get_mixtape_thumnail}}' class="img-circle">
+            </a>
+            <div class="media-body">
+                <h1>{{t.name}}</h1>
+                <table class="table table-hover">
+                    <thead></thead>
+                    <tbody>
+                        <tr>
+                            <td>
+                                <div class="badge badge-info">Mixtape</div>
+                            </td>
+                            <td>
+                                {{t.mixtape.name}}
+                            </td>
+                        </tr>                        
+                        <tr>
+                            <td>
+                                <div class="badge badge-info">Released</div>
+                            </td>
+                            <td>
+                                {{t.mixtape.releaseDatetime}}
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>

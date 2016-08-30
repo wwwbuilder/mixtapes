@@ -1,0 +1,75 @@
+{% load staticfiles sekizai_tags %}
+
+<div class="top-margin">
+    <div class="alert alert-success">
+        <ul class="fa-ul">
+            <li>
+                <i class="fa fa-info-circle fa-lg fa-li"></i>
+                Your information is stored on a separate, secure server.
+            </li>
+        </ul>
+    </div>
+    <hr>
+
+    <p class="lead">
+        {% if request.user.customer.card_kind and request.user.customer.card_last_4 %}
+        <div class="alert alert-info">
+            <div class="row">
+                <div class="col-md-2 col-xs-2">
+                    <i class="fa fa-2x fa-credit-card"></i>
+                </div>
+                <div class="col-md-4 col-xs-4">
+                    <strong>Type: </strong>
+                    {{ request.user.customer.card_kind }}
+                </div>
+                <div class="col-md-4 col-xs-4">
+                    <strong>Last 4 digits:</strong>
+                    {{ request.user.customer.card_last_4 }}
+                </div>
+                <div class="col-md-2 col-xs-2">
+                    <button class="btn btn-danger" onclick="deleteCard()">
+                        <i class="fa fa-2x fa-times-circle"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+        {% else %}
+        You do not currently have a card on file.
+        {% endif %}
+    </p>
+
+    {% if error %}
+    <div class="alert alert-error">{{ error }}</div>
+    {% endif %}
+
+    <form action="" data-stripe-key="{{ STRIPE_PUBLIC_KEY }}" class="form ajax" data-replace-closest=".change-card" method="POST">
+        <input name="stripe_token" type="hidden" />
+        <a href="" class="btn btn-lg btn-primary change-card" data-toggle="modal" data-target="#change-card">
+            {% if request.user.customer.card_kind %}
+            Change
+            {% else %}
+            Add
+            {% endif %} Card
+        </a>
+    </form>
+
+    {% include "my-account/payments/change-card-modal.html" %}
+
+    {% addtoblock "bottom_js" %}
+
+    <script type="text/javascript" src="https://js.stripe.com/v2/"></script>
+    <script>
+    var stripe_publishable_key="{{STRIPE_PUBLISHABLE_KEY}}",
+        change_card_url="{% url 'my-account:change-card' %}",
+        upgrade_plan_url="{%url 'my-account:upgrade-plan' %}",
+        cancel_plan_url="{%url 'my-account:cancel-plan' %}"
+    </script>
+    <script src="{% static 'js/csrf.js' %}"></script>
+    <script src="{% static 'pnotify/jquery.pnotify.min.js' %}"></script>
+    <script src="{% static 'js/pnotify_config.js' %}"></script>    
+    <script src="{{STATIC_URL }}js/stripe-card.js"></script>
+
+
+    {% endaddtoblock %}
+
+</div>

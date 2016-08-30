@@ -1,0 +1,158 @@
+{% extends "index.html" %}
+{% load staticfiles sekizai_tags %}
+
+{% block pagetitle %}
+  <title>My Payment Details // 24/7Mixtapes</title>
+  {% endblock pagetitle %}
+
+
+{% addtoblock "top_js" %}
+
+ <script>
+
+        function equalHeights (target) {
+            $(target).height('auto');
+
+            var heights = []
+            $(target).each(function(){
+                heights.push($(this).height());             
+            });
+            var highest = Math.max.apply(Math, heights)
+            $(target).height(highest);
+        }    
+
+        $(function() {
+            equalHeights('.pricing-button');
+            $(window).resize(function(){
+                $('.pricing-button').css('height', 'auto');
+            });
+        });
+       
+        
+
+    </script>
+{% endaddtoblock %}
+
+{% block content %}
+
+<div class="container">
+    <h1>My Payment Details</h1>
+    <hr>
+    <!-- Nav tabs -->
+    <ul class="nav nav-tabs">
+        <li class="active">
+            <a href="#cards" data-toggle="tab">
+                Cards
+            </a>
+        </li>
+        <li>
+            <a href="#plan" data-toggle="tab">
+                Plan
+            </a>
+        </li>
+        <li>
+            <a href="#history" data-toggle="tab">
+                History
+            </a>
+        </li>
+    </ul>
+
+    <!-- Tab panes -->
+    <div class="tab-content">
+        <div class="tab-pane fade active in" id="cards">
+            {% include "my-account/payments/card-tab.html" %}
+        </div>
+        <div class="tab-pane fade" id="plan">
+            {% include "my-account/payments/plan-tab.html" %}
+        </div>
+        <div class="tab-pane fade" id="history">
+             <h3>Mixtape Upgrades</h3>
+            	<table class="table table-hover" >
+      <thead>
+      
+      
+        <tr>
+          <th>Transaction #</th>
+          <th>Description</th>
+           <th>Card</th>
+            <th>Type</th>
+             <th>Paid</th>
+              <th>Category</th>
+               <th>Date</th>
+          
+        </tr>
+      </thead>
+      <tbody style="font-size:14px;">
+      {% for payment in history %}
+      <tr>
+      <td>{{payment.charge.stripe_id}}</td>
+       <td>{{payment.charge.description}}</td>
+        <td>{{payment.charge.card_last_4}}</td>
+         <td>{{payment.charge.card_kind}}</td>
+          <td>{{payment.charge.paid}}</td>
+          <td>Mixtape: <a href="{{payment.mixtape.get_absolute_url}}">{{payment.mixtape.name}}</td>
+          <td>{{payment.charge.created_at}}</td>
+      </tr>
+      {% endfor %}
+      </tbody>
+      </table>
+       <h3>Plan Upgrades</h3>
+                	<table class="table table-hover" >
+      <thead>
+      
+      
+        <tr>
+          <th>Transaction #</th>
+          <th>Description</th>
+           <th>Card</th>
+            <th>Type</th>
+             <th>Paid</th>
+              <th>Category</th>
+               <th>Date</th>
+          
+        </tr>
+      </thead>
+      <tbody style="font-size:14px;">
+      
+      
+      {% for payment in plans_history %}
+      <tr>
+      <td>{{payment.stripe_id}}</td>
+       <td>{{payment.description}}</td>
+        <td>{{payment.card_last_4}}</td>
+         <td>{{payment.card_kind}}</td>
+          <td>{{payment.paid}}</td>
+          <td>Plan Upgrade</td>
+          <td>{{payment.created_at}}</td>
+      </tr>
+      {% endfor %}
+      </tbody>
+      </table>
+      <!-- pagination section-->
+        <div class="row">
+        <ul class="pagination">
+          {% if history.has_previous %}
+          <li><a href="?page={{ history.previous_page_number }}">&laquo;</a></li>
+          {% endif %}
+          {% if history %}
+          {% for i in history.paginator.page_range %}
+              <li {% if history.number == i %}class="active"{% endif %}>
+                  <a href="?page={{i}}">{{i}}</a>
+              </li>
+          {% endfor %}
+          {% endif %}
+          {% if history.has_next %}
+          <li><a href="?page={{ history.next_page_number }}">&raquo;</a></li>
+          {% endif %}
+        </ul>
+        </div>
+      
+            
+        </div>
+    </div>
+
+</div>
+
+{% include "my-account/payments/plan-modals.html" %}
+
+{% endblock content %}

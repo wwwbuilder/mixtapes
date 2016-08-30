@@ -1,0 +1,272 @@
+{% extends "index.html" %}
+{% load staticfiles sekizai_tags %}
+
+{% load bootstrap_tags %}
+
+{% block extracss %}
+
+{% endblock extracss %}
+{% block pagetitle %}
+  <title>24/7 Mixtapes: {{request.user}} Free Mixtapes Online.</title>
+  {% endblock pagetitle %}
+{% block content %}
+<div class="container">
+	<div class="row-fluid">
+		<h1 id="{{object.pk}}" class="phone-center">Edit {{object.username|capfirst}}'s Profile</h1>
+		<hr>
+
+                <section>
+		<div class="row-fluid">
+			<ul class="nav nav-tabs" id="profileTabs" style="width: 100%">
+				<li class="active tab_head">
+					<a href="#otherimages" class="tab_head"><h4><i class="icon-picture"></i> Other Images</h4></a>
+				</li>
+				<li class="tab_head">
+					<a href="#basicinfo" ><h4><i class="icon-list"></i> Basic Info</h4></a>
+				</li>
+				{% with request.user.customer.current_subscription as subscription %}
+				  {% if subscription.plan == 'premium-publisher-monthly' or subscription.plan == 'premium-publisher-yearly'%}
+				<li class="tab_head">
+					<a href="#premiumAnalytics" ><h4><i class="icon-bar-chart"></i> Premium Analytics</h4></a>
+				</li>
+				{% endif %}
+				{% endwith %}
+				<li class="tab_head">
+					<a href="#socialaccounts" class="tab_head"><h4><i class="icon-puzzle-piece"></i> Social Accounts</h4></a>
+				</li>
+			</ul>
+			<div id="fp_api_key" class="hidden">{{FILEPICKER_API_KEY}}</div>
+            <div id="fp_upload_pol" class="hidden">{{FILEPICKER_UPLOAD_POLICY}}</div>
+            <div id="fp_upload_sig" class="hidden">{{FILEPICKER_UPLOAD_SIGNATURE}}</div>
+
+			<div id="profileTabsContent" class="tab-content">
+				<div id="otherimages" class="tab-pane active fade in" >
+						<h3>Other Images</h3>
+						<div id="profileImages"></div>
+				</div>
+
+				<div id="basicinfo" class="tab-pane fade" >
+
+				<form  action="/my-profile/" class="form-horizontal" id="user-form" method="post" >{% csrf_token %}
+					<img class="loader" style="display:none;" src="https://www.modern.co.ke/style/rebrand/loading.gif">
+				<div id="form_content">
+
+					{{ form|as_bootstrap }}
+				</div>
+				<div  class="buttonHolder">
+
+				<input type="button" name="submit" value="Submit" class="btn btn-primary btn btn-large btn-success"  id="user-id-submit" />
+				</div>
+				</form>
+				</div>
+				<div id="premiumAnalytics" class="tab-pane fade" >
+						<h3>Premium Analytics</h3>
+						<div id="Analytics">
+						 <form class="form-horizontal" id="tracking_form" enctype="application/x-www-form-urlencoded" method="post" action="/addtrackingcode/">{% csrf_token %}
+						<input class="form-control" type="text" name="analytics" id="premium _analytics" value="" placeholder="Tracking Code">
+
+						</br>
+						 <div class="form-group">
+                        <div class="col-sm-12">
+                            <span id="message_text"></span>
+                            <input type="button"  name="submit" value="Track Your Mixtapes" class="btn pull-right btn-warning btn_track">
+                        </div>
+                    </div>
+                    </form>
+						</div>
+				</div>
+				<div id="socialaccounts" class="tab-pane fade" style="text-align: center">
+					<p class="text-info">
+						Add or remove social accounts for faster logins.
+					</p>
+					<p class="text-info">
+						Coming Soon.
+					</p>
+
+					<!--  <a href="{% url 'socialaccount_connections' %}" class="btn btn-primary btn-large big-btn">
+						Social accounts <i class="icon-chevron-sign-right"></i>
+					</a>-->
+				</div>
+			</div>
+		</div>
+	</section>
+                <hr>
+
+		<div class="alert alert-info thickwhiteborder">
+			<h3>
+				<i class="icon-exclamation-sign icon-2x"></i> This is the page to EDIT your profile
+			</h3>
+			<br>
+			<p class="text-info">
+				<em>You may also... </em>
+				<a class="btn btn-success btn-large" href="{% url 'user' request.user %}">
+					View your public profile <i class="icon-chevron-sign-right"></i>
+				</a>
+			</p>
+		</div>
+	</div>
+	<br style="margin-top: 10px; margin-bottom: 10px">
+	<div class="row-fluid">	
+		<div class="span4">
+			<div class="row-fluid mymixtapes-img" style="margin-bottom: 20px">
+				<div class="well" style="border: 5px solid white">
+					<img src="{{object.profile_image}}" class="shadowimage" style="display:block; margin: auto;width:150px;height:150px;">
+					<br>
+					<br>
+					<div id="userprofileid" class="hidden">{{user.userprofile.pk}}</div>
+					<button id="upload-profile" class="btn btn-primary btn-large big-btn" style="display:block; margin: auto"><i class="icon-cloud-upload"></i> Upload Profile Image</button>
+				</div>
+			</div>				
+		</div>
+	<!-- <div class="span6 offset2" id="imagepreviewpane">
+			<div class="alert alert-warning thickwhiteborder" style="padding: 10px;">
+				<h3><i class="icon-info-sign icon-2x"></i> Square images are best!</h3>
+				<p class="text-info">Images that are not square will be cropped on directory pages.</p>
+				<hr>
+				<h4>As seen on directory pages</h4>
+				<img src="{{object.profile_image}}" class="shadowimage">
+				<hr>
+				<h4>As seen on your profile page</h4>
+				<img src="{{object.profile_image}}" class="shadowimage">
+			</div> 			
+		</div>
+		-->
+	</div>
+	
+	
+
+	<script id="profileimages-template" type="text/x-handlebars-template">
+		{% verbatim %}
+			{{# if entries}}
+
+			<table class="table table-hover" id="profileimagesTable">
+				<thead>
+					<tr>
+						<th>Image</th>
+						<th>Set as Profile Image</th>
+						<th>Delete?</th>
+					</tr>
+				</thead>
+				<tbody>
+
+				{{#each entries}}
+					<tr id="profileimage-{{id}}">
+						<td class="imagecolumn">
+							<img src="{{small_profile_image}}" style="width:75px;height:75px;">
+						</td>
+						<td class="defaultcolumn">
+							<i class="icon-check-sign icon-3x" onClick="setprofileImage({{id}})" style="color: green !important"></i>
+						</td>
+						<td style="text-align: left" class="removecolumn">
+							<i class="icon-remove-sign icon-3x deletebutton" onClick="deleteEntry({{id}})"></i>
+						</td>
+					</tr>
+				{{/each}}
+
+				</tbody>
+			</table>							
+			{{/if}}
+		{% endverbatim %}
+	</script>	
+</div>
+
+{% addtoblock "bottom_js" %}
+<script type="text/javascript">
+(function(a){if(window.filepicker){return}var b=a.createElement("script");b.type="text/javascript";b.async=!0;b.src=("https:"===a.location.protocol?"https:":"http:")+"//api.filepicker.io/v1/filepicker.js";var c=a.getElementsByTagName("script")[0];c.parentNode.insertBefore(b,c);var d={};d._queue=[];var e="pick,pickMultiple,pickAndStore,read,write,writeUrl,export,convert,store,storeUrl,remove,stat,setKey,constructWidget,makeDropPane".split(",");var f=function(a,b){return function(){b.push([a,arguments])}};for(var g=0;g<e.length;g++){d[e[g]]=f(e[g],d._queue)}window.filepicker=d})(document); 
+</script>
+	<script>
+		$(function () {
+			getImages({{object.pk}});
+			$('#profileTabs a').click(function (e) {
+				e.preventDefault();
+				$(this).tab('show');
+			});
+		});
+		
+		
+		$( document ).ready(function() {
+			
+			$('.btn_track').on('click',function (e) {
+				
+				
+				data=$('#tracking_form').serialize();
+				  $('#loading-spinner').removeClass('hidden').hide().fadeIn();
+				  s=$(this);
+				   $.ajax({
+		              url: "/addtrackingcode/",
+		              type: "POST",
+		              data: data,
+		              success:
+		                  function(data, textStatus, jqXHR) {
+			        		   if (data.success == true){
+			        			   //s.text(data);
+			        			   $('#loading-spinner').addClass('hidden');
+			        			   $('#modal_close').click();
+				               }
+			        		   else{
+			        			   $('#message_text').text('Please enter a valid google tracking code.');
+			        		   }
+			            	 
+		                  }
+		          });
+				
+				
+			});
+			
+		
+		
+		$('#user-id-submit').on('click',function (e) {
+			$("#user-form").submit(); //Submit  the FORM
+		});
+		//callback handler for form submit
+		$("#user-form").submit(function(e)
+		{
+		    var postData = $(this).serializeArray();
+		    var formURL = $(this).attr("action");
+		    
+		    $('#loader').show();
+		    $('#form_content').hide();
+		    $.ajax(
+		    {
+		        url : formURL,
+		        type: "POST",
+		        data : postData,
+		        success:function(data, textStatus, jqXHR)
+		        {
+		        	if (data == 'success'){
+		        		$(".alert_user").show();
+		        		$(".alert_user").delay(10000).hide(400);
+		        		
+		        	}
+		        	else{
+		        	$('#form_content').html(data);
+		        	$('#loader').hide();
+				    $('#form_content').show();
+		        	}
+		        	window.scrollTo(0,0);
+		        },
+		        error: function(jqXHR, textStatus, errorThrown)
+		        {
+		            //if fails    
+		        	console.log('Error');
+		        }
+		    });
+		    e.preventDefault(); //STOP default action
+		    //e.unbind(); //unbind. to stop multiple form submit.
+		});
+		 
+		});
+		
+	</script>
+
+	<script src="{{STATIC_URL}}js/csrf.js"></script>
+	<!--<script src="{{STATIC_URL}}js/profile.js"></script>-->
+	<script src="{% static 'handlebars/handlebars.min.js' %}"></script>
+	<script src="{% static 'js/profile.js' %}"></script>
+
+
+
+	
+{% endaddtoblock %}
+
+{% endblock content %}

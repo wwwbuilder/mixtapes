@@ -1,0 +1,98 @@
+.flip-clock-wrapper ul {
+  position: relative;
+  float: left;
+  margin: 5px;
+  width: 15%;
+  height: 100%;
+  font-size: 82px;
+  font-weight: bold;
+  line-height: 110%;
+  border-radius: 6px;
+  background: #000;
+}
+
+.flip-clock-wrapper ul {
+  position: relative;
+  float: left;
+  width: 14%;
+  height: 100%;
+  font-size: 82px;
+  font-weight: bold;
+  line-height: 110%;
+  border-radius: 6px;
+  background: #000;
+}
+.flip-clock-divider {
+  float: left;
+  display: inline-block;
+  position: relative;
+  width: 1%;
+  height: 100px; 
+}
+
+
+=screen-xs
+  @media all and (max-width: 320px)
+    @content
+
+=screen-sm
+  @media all and (max-width: 479px)
+    @content
+
+=screen-md
+  @media all and (max-width: 768px)
+    @content
+
+=screen-lg
+  @media all and (max-width: 900px)
+    @content
+
+=screen-xl
+  @media all and (max-width: 1300px)
+    @content
+
+
+
+.flip-clock-wrapper ul li a div.up:after {
+  content: "";
+  position: absolute;
+  top: 94%;
+  left: 0;
+  z-index: 5;
+  width: 100%;
+  height: 3px;
+  background-color: #000;
+  background-color: rgba(0, 0, 0, 0.4); 
+}
+
+.flip-clock-wrapper ul li a div div.inn {
+  position: absolute;
+  left: 0;
+  z-index: 1;
+  width: 100%;
+  height: 200%;
+  color: #ccc;
+  text-shadow: 0 1px 2px #000;
+  text-align: center;
+  background-color: #333;
+  border-radius: 6px;
+  font-size: 100%; }
+
+  .flip-clock-wrapper ul {
+  position: relative;
+  float: left;
+  margin: 1%;
+  width: 14%;
+  height: 100%;
+  font-size: 82px;
+  font-weight: bold;
+  border-radius: 6px;
+  background: #000;
+  line-height: 110px;
+}
+
+.flip-clock-wrapper {
+text-align: center;
+  position: relative;
+
+}

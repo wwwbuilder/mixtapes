@@ -1,0 +1,97 @@
+	<ul class="nav nav-tabs" id="discographyTabs">
+		{% if featured %}
+			<li>
+				<a href="#featured-mixtapes">
+					<h4><i class="icon-star"></i> Featured</h4>
+				</a>
+			</li>
+		{% endif %}
+
+		{% if produced %}
+			<li>
+				<a href="#produced-mixtapes">
+					<h4><i class="icon-cogs"></i> Produced</h4>
+				</a>
+			</li>
+		{% endif %}
+
+		{% if djed %}
+			<li>
+				<a href="#djed-mixtapes">
+					<h4><i class="icon-headphones"></i> DJ'd</h4>
+				</a>
+			</li>
+		{% endif %}
+
+		{% if published %}
+			<li>
+				<a href="#published-mixtapes">
+					<h4><i class="icon-cloud-upload"></i> Published</h4>
+				</a>
+			</li>
+		{% endif %}
+	</ul>
+
+	<div class="tab-content" id="discographyTabsContent">
+		{% if featured %}
+		<div class="tab-pane fade" id="featured-mixtapes">
+
+			<div class="row-fluid">
+				<div class="label label-pop mymixtapesheading featured-label thickwhiteborder" style="color:grey;">
+					<h3>{{featured|length}} featured mixtapes</h3>
+				</div>
+			</div>
+
+			{% for mt in featured %}
+				{% include 'snippets/userprofile_featured.html' %}
+			{% endfor %}
+
+		</div>
+		{% endif %}
+
+		{% if produced %}
+		<div class="tab-pane fade" id="produced-mixtapes">
+
+			<div class="row-fluid">
+				<div class="label label-info mymixtapesheading produced-label thickwhiteborder">
+					<h3>{{produced|length}} tracks produced</h3>
+				</div>
+			</div>
+
+			{% for t in produced %}
+				{% include 'snippets/userprofile_credit_tracks.html' %}
+			{% endfor %}
+
+		</div>
+		{% endif %}
+
+		{% if djed %}
+		<div class="tab-pane fade" id="djed-mixtapes">
+
+			<div class="row-fluid">
+				<div class="label label-info mymixtapesheading djd-label thickwhiteborder">
+					<h3>{{djed|length}} tracks DJ'd</h3>
+				</div>
+			</div>
+
+			{% for t in djed %}
+				{% include 'snippets/userprofile_credit_tracks.html' %}
+			{% endfor %}
+		</div>
+		{% endif %}
+
+		{% if published %}
+		<div class="tab-pane fade" id="published-mixtapes">
+
+			<div class="row-fluid">
+				<div class="label label-info mymixtapesheading published-label thickwhiteborder">
+					<h3>{{published|length}} tracks published</h3>
+				</div>
+			</div>
+
+			{% for t in published %}
+				{% include 'snippets/userprofile_credit_tracks.html' %}
+			{% endfor %}
+		</div>
+		{% endif %}
+	</div>

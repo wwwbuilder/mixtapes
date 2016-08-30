@@ -1,0 +1,281 @@
+{% extends "index.html" %}
+{% load staticfiles sekizai_tags %}
+
+{% load i18n staticfiles %}
+
+{% block content %}
+
+{% block genreheader %}
+
+{% endblock genreheader %}
+
+<div class="container">
+    <ol class="breadcrumb">
+        <li class="active">
+            <span>Mixtapes</span>
+        </li>
+    </ol>
+</div>
+<div class="container">
+
+    <div class="row">
+
+        <div class="col-md-10">
+
+            <div class="standard-box no-margin-bottom">
+
+                <h1 class="header-box">All Mixtapes</h1>
+
+                <div class="row">
+                    {% for mt in object_list %}
+
+                    <div class="col-sm-3 col-xs-6" style="height:205px;">
+                        <div class="standard-extend-item gallery">
+                       
+
+                           <div class="standard-extend-item">
+                        <a class="image" href="{{ mt.get_absolute_url }}">
+                            <span class="date date-full">
+                                <span class="day">{{ mt.created.day }}</span>
+                                <span class="month">jan</span>
+                                <span class="year">{{ mt.created.year}}</span>
+                            </span>
+                            <span class="author">by <strong>{{mt.primaryArtist}}</strong></span>
+                            <img class="img-responsive full-width" src="{{ mt.get_mixtape_thumnail}}" alt="{{ mt.name }}">
+                            <!--<span class="rating">-->
+                                <!--<span class="star positive">-->
+                                    <!--<span class="glyphicon glyphicon-star"></span>-->
+                                <!--</span>-->
+                                <!--<span class="star positive">-->
+                                    <!--<span class="glyphicon glyphicon-star"></span>-->
+                                <!--</span>-->
+                                <!--<span class="star positive">-->
+                                    <!--<span class="glyphicon glyphicon-star"></span>-->
+                                <!--</span>-->
+                                <!--<span class="star positive">-->
+                                    <!--<span class="glyphicon glyphicon-star"></span>-->
+                                <!--</span>-->
+                                <!--<span class="star negative">-->
+                                    <!--<span class="glyphicon glyphicon-star"></span>-->
+                                <!--</span>-->
+                            <!--</span>-->
+                        </a>
+                        <h3>
+                            <a href="{{ mt.get_absolute_url }}">{{ mt.name }}</a>
+                        </h3>
+                    </div>
+                           
+                           
+                        </div>
+                    </div>
+                    {% endfor %}
+
+
+                </div>
+                
+                
+                	<!-- pagination section-->
+                                                <div class="row">
+                                                <ul class="pagination">
+                                                  {% if object_list.has_previous %}
+                                                  <li><a href="?page={{ object_list.previous_page_number }}">&laquo;</a></li>
+                                                  {% endif %}
+                                                  {% if object_list %}
+                                                  {% for i in object_list.paginator.page_range %}
+                                                      <li {% if object_list.number == i %}class="active"{% endif %}>
+                                                          <a href="?page={{i}}">{{i}}</a>
+                                                      </li>
+                                                  {% endfor %}
+                                                  {% endif %}
+                                                  {% if object_list.has_next %}
+                                                  <li><a href="?page={{ object_list.next_page_number }}">&raquo;</a></li>
+                                                  {% endif %}
+                                                </ul>
+                                                </div>
+ 	
+
+            </div>
+         </div>
+
+        <div class="col-md-2">
+
+            <div class="standard-box">
+
+                <h2 class="header-box"><a href="articles-list.html">Articles</a></h2>
+
+                <div class="standard-text-list">
+
+                    <div class="standard-text-list">
+
+                        <div class="item">
+                            <h3>
+                                <a href="article-item.html">Radiohead Concert at Poznan</a>
+                            </h3>
+                            <div class="description"><strong>2013-01-17</strong> by <a href="#">monika</a></div>
+                        </div>
+
+                        <div class="item">
+                            <h3>
+                                <a href="article-item.html">In The Court Of The Crimson King</a>
+                            </h3>
+                            <div class="description"><strong>2013-01-11</strong> by <a href="#">kwarc</a></div>
+                        </div>
+
+                        <div class="item">
+                            <h3>
+                                <a href="article-item.html">About cover art of Heritage by Opeth</a>
+                            </h3>
+                            <div class="description"><strong>2013-01-09</strong> by <a href="#">super8</a></div>
+                        </div>
+
+                        <div class="item">
+                            <h3>
+                                <a href="article-item.html">Iron Maiden at concert</a>
+                            </h3>
+                            <div class="description"><strong>2013-01-02</strong> by <a href="#">the_moor</a></div>
+                        </div>
+
+                        <div class="item">
+                            <h3>
+                                <a href="article-item.html">Old musical box - about Nursery Cryme</a>
+                            </h3>
+                            <div class="description"><strong>2012-12-15</strong> by <a href="#">kwarc</a></div>
+                        </div>
+
+                    </div>
+
+                    <div class="standard-box-more">
+                        <span class="line"></span>
+                        <a href="articles-list.html" data-toggle="tooltip" data-placement="top" title="Click for more...">more &raquo;</a>
+                    </div>
+
+                </div>
+
+            </div>
+
+            <div class="standard-box">
+
+                <h2 class="header-box">Last albums</h2>
+
+                <div class="standard-text-list">
+
+                    <div class="item">
+                        <a href="tmp-pages/celebration-day.html">
+                            <img src="{{ STATIC_URL }}img/covers/celebration-day-S.jpg" alt="Led Zeppelin - Celebration Day">
+                        </a>
+                        <h3>
+                            <a href="tmp-pages/celebration-day.html">Led Zeppelin - Celebration Day</a>
+                        </h3>
+                    </div>
+
+                    <div class="item">
+                        <a href="tmp-pages/so.html">
+                            <img src="{{ STATIC_URL }}img/covers/so-S.jpg" alt="">
+                        </a>
+                        <h3>
+                            <a href="tmp-pages/so.html">Peter Gabriel - So</a>
+                        </h3>
+                    </div>
+
+                    <div class="item">
+                        <a href="tmp-pages/st-anger.html">
+                            <img src="{{ STATIC_URL }}img/covers/st-anger-S.jpg" alt="Metallica - St. Anger">
+                        </a>
+                        <h3>
+                            <a href="tmp-pages/st-anger.html">Metallica - St. Anger</a>
+                        </h3>
+                    </div>
+
+                    <div class="item">
+                        <a href="tmp-pages/dark-side-of-the-moon.html">
+                            <img src="{{ STATIC_URL }}img/covers/dark-side-of-the-moon-S.jpg" alt="Pink Floyd - Dark Side Of The Moon">
+                        </a>
+                        <h3>
+                            <a href="tmp-pages/dark-side-of-the-moon.html">Pink Floyd - Dark Side Of The Moon</a>
+                        </h3>
+                    </div>
+
+                    <div class="item">
+                        <a href="tmp-pages/fat-of-the-land.html">
+                            <img src="{{ STATIC_URL }}img/covers/fat-of-the-land-S.jpg" alt="Prodigy - The Fat Of The Land">
+                        </a>
+                        <h3>
+                            <a href="tmp-pages/fat-of-the-land.html">Prodigy - The Fat Of The Land</a>
+                        </h3>
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+{#<div class="container">#}
+{#	<h1 class="phone-center" id="pagetitle">All Mixtapes</h1>#}
+{#	<hr>#}
+{#	#}
+{#	<!--{% with genres as group %}-->#}
+{#		<!--{% include 'snippets/filter_group.html' %}-->#}
+{#	<!--{% endwith %}-->#}
+{#	<div class="row" style="margin: 20px 100px;">#}
+{#	#}
+{#		<ul class="filter-group">#}
+{#			<li class="sort btn btn-info" data-sort="data-name" data-order="desc">#}
+{#				Name <i class="icon-circle-arrow-up"></i>#}
+{#			</li>#}
+{#			<li class="sort btn btn-info" data-sort="data-name" data-order="asc">#}
+{#				Name <i class="icon-circle-arrow-down"></i>#}
+{#			</li>#}
+{#			<li class="sort btn btn-info" data-sort="data-released" data-order="desc">#}
+{#				Release <i class="icon-circle-arrow-up"></i>#}
+{#			</li>#}
+{#			<li class="sort btn btn-info" data-sort="data-released" data-order="asc">#}
+{#				Release <i class="icon-circle-arrow-down"></i>#}
+{#			</li>#}
+{#			<li class="sort btn btn-info" data-sort="data-artistname" data-order="desc">#}
+{#				Artist Name <i class="icon-circle-arrow-up"></i>#}
+{#			</li>#}
+{#			<li class="sort btn btn-info" data-sort="data-artistname" data-order="asc">#}
+{#				Artist Name <i class="icon-circle-arrow-down"></i>#}
+{#			</li>    	#}
+{#		</ul>#}
+{#	#}
+{#	</div>#}
+{#	#}
+{#	<div class="row" style="width:1000px;margin-left:-50px;">#}
+{#	#}
+{#		<ul class="thumbnails gallery-post-grid holder" id="grid">#}
+{#			{% for mt in object_list %}#}
+{#				<li class="span4 whitebackground {{mt.primaryGenre.name|slugify}} mix gallery-item" style="margin-bottom: 30px" data-name="{{mt.title}}" data-released="{{mt.releaseDatetime}}" data-artistname="{{mt.primaryArtist.username}}">#}
+{#					<a href="{{mt.get_absolute_url}}" class="thumbnail">#}
+{#						<img src="{{mt.get_mixtape_thumnail}}" alt="{{mt.name}} cover">#}
+{#						<div class="caption">#}
+{#							<h3>{{mt.name}}</h3>#}
+{#						</div>#}
+{#						<div class="meta">											#}
+{#							<div style="float: left">#}
+{#								ft.#}
+{#								<strong>{{mt.primaryArtist.username}}</strong>#}
+{#							</div>#}
+{#							<div style="text-align: right">#}
+{#								<i class="icon-time"></i> released: #}
+{#								<strong>{{mt.releaseDatetime|date:"SHORT_DATETIME_FORMAT"}}</strong>#}
+{#							</div>#}
+{#						</div>#}
+{#					</a>#}
+{#				</li>#}
+{#			{% endfor %}#}
+{#		</ul>#}
+{#	#}
+{#	</div>#}
+{#</div>		#}
+
+{% addtoblock "bottom_js" %}
+
+	
+
+{% endaddtoblock %}
+
+{% endblock content %}

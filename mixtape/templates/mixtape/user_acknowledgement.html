@@ -1,0 +1,40 @@
+{% extends "index.html" %}
+
+{% load staticfiles sekizai_tags %}
+
+{% load url from future %}
+{% load bootstrap_tags %}
+{% load i18n %}
+{% load account %}
+{% load url from future %}
+
+{% block head_title %}{% trans "Signup" %}{% endblock %}
+
+{% block content %}
+ <div class="container">
+    <ol class="breadcrumb">
+        <li>
+            <span>Auth</span>
+        </li>
+        <li class="active">
+            <span>Verify</span>
+        </li>
+    </ol>
+</div>
+
+<div class="container">
+
+    <div class="row">
+
+        <div class="col-sm-9 col-md-8">
+
+            <h2 class="header-box">verification Message</h2>
+
+            <div class="text">
+              Your account is submitted for approval. You will receive an email when it is approved
+               
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

@@ -1,0 +1,13 @@
+To: {{email}} From: support@247mixtapes.com
+
+Subject: Your mixtape has been approved
+
+Congratulations! Your mixtape has been approved and is now available on 247Mixtapes.com. Details regarding this mixtape are listed below:
+
+Mixtape Name:{{names}} Link on 247Mixtapes: {{site}}{{url}}
+
+If you would like to increase exposure for your mixtape, be sure to purchase our post-release upgrades 
+
+Sincererly,
+
+24/7Mixtapes Team www.247Mixtapes.com

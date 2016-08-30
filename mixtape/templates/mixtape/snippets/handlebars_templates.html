@@ -1,0 +1,102 @@
+{% verbatim %}
+
+<script id="images-table" type="text/x-handlebars-template">
+    <table class="table table-hover table-striped tablesorter {sortlist:[[4,0],]}">
+        <thead>
+            <tr>
+                <th style="width: 60px;">Delete</th>
+                <th style="width: 120px">Thumbnail</th>
+                <th style="width: 80px;">Order</th>                
+                <th>Caption</th>
+                <th class="hidden">Sort Order</th>
+            </tr>
+        </thead>
+        <tbody>
+            {{#each entries}}
+                <tr data-image_id="{{id}}">
+                    <td>
+                        <button type="button" class="btn btn-danger" onclick="deleteFile('images', {{id}})"><i class="fa fa-trash-o"></i>
+                        </button>
+                    </td>
+                    <td>
+                        <img src="{{small_profile_image}}" alt="{{name}}" style="width:75px;height:75px;">
+                    </td>
+                    <td>
+                        <input class="form-control parsley-check" type="number" name="order" value="{{order}}">
+                    </td>
+                    <td>
+                        <input class="form-control parsley-check" type="text" name="name" value="{{name}}">
+                    </td>
+                    <td class="hidden">
+                        {{order}}
+                    </td>
+                </tr>
+            {{/each}}
+        </tbody>
+    </table>
+</script>
+
+<script id="tracks-table" type="text/x-handlebars-template">
+    <table class="table table-hover tablesorter {sortlist:[[7,0],]}">
+        <thead>
+            <tr>
+                <th style="width: 5%;">Delete</th>
+                <th style="width: 8%;">Order</th>                
+                <th style="width: 19%">Name</th>
+                <th style="width: 19%">Artists</th>
+                <th style="width: 19%">Producers</th>
+                <th style="width: 10%">DJ's</th>
+                <th style="width: 10%">Optional</th>
+                <th class="hidden">Sort Order</th>
+                <th class="hidden">Lyrics</th>
+                <th class="hidden">Video</th>
+            </tr>
+        </thead>
+        <tbody>
+            {{#each entries}}
+                <tr data-track_id="{{id}}">
+                    <td>
+                        <button type="button" class="btn btn-danger" onclick="deleteFile('tracks', {{id}})">
+                            <i class="fa fa-trash-o"></i>
+                        </button>
+                    </td>
+                    <td>
+                        <input class="form-control" type="number" min="0" step="1" name="order" value="{{order}}">
+                    </td>
+                    <td>
+
+ 				      <input type="text" name="name"  class="form-control ajax-multiple-select parsley-check" value="{{name}}">
+
+                        
+                        <em class="helptext"><i class="fa fa-file"></i> {{filename}}</em>
+                    </td>
+                    <td>
+                        <input type="text" name="artists" multiple class="form-control ajax-multiple-select parsley-check" value="{{artists}}" data-prepop="{{ prepopulate_artists}}">
+                    </td>
+                    <td>
+                        <input type="text" name="producers" multiple class="form-control ajax-multiple-select parsley-check" value="{{producers}}" data-prepop="{{ prepopulate_producers}}">
+                    </td>
+                    <td>
+                        <input type="text" name="djs" multiple class="form-control ajax-multiple-select parsley-check" value="{{djs}}">
+                    </td>                                        
+                    <td>
+                        <button type="button" class="btn btn-info" onclick="loadOptionalModal({{id}})">
+                            <i class="fa fa-gears"></i> Other
+                        </button>
+                    </td>
+                    <td class="hidden">
+                        {{order}}
+                    </td>
+                    <td class="hidden">
+                        <input type="hidden" name="lyrics" class="form-control" value="{{lyrics}}">
+                    </td>      
+                    <td class="hidden">
+                        <input type="hidden" name="video_url" class="form-control" value="{{video_url}}">
+                    </td> 
+                </tr>
+            {{/each}}
+        </tbody>
+    </table>
+</script>
+
+{% endverbatim %}

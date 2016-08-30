@@ -1,0 +1,6 @@
+<div class="btn-group filter-group">
+    <button class="btn btn-large filter" data-filter="all">All</button>
+  {% for g in group %}
+    <button class="btn btn-large filter" data-filter="{{g|slugify}}">{{g}}</button>
+  {% endfor %}
+</div>

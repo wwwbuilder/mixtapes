@@ -1,0 +1,126 @@
+{% extends "index.html" %}
+{% load staticfiles sekizai_tags %}
+{% block pagetitle %}
+  <title>My Subscription // 24/7Mixtapes</title>
+  {% endblock pagetitle %}
+{% block content %}
+
+
+
+
+{% addtoblock "bottom_js" %}
+<script src="{% static 'mixitup/mixitup.js' %}"></script>
+<script>
+
+	$(function() {
+		$('#grid').mixitup({
+			buttonEvent: 'click',
+			effects: ['fade','scale'],
+			easing: 'windup',				
+		});		
+	});
+
+</script>
+
+ <script>
+
+        function equalHeights (target) {
+            $(target).height('auto');
+
+            var heights = []
+            $(target).each(function(){
+                heights.push($(this).height());             
+            });
+            var highest = Math.max.apply(Math, heights)
+            $(target).height(highest);
+        }    
+
+        $(function() {
+            equalHeights('.mix');
+            $(window).resize(function(){
+                $('.mix').css('height', 'auto');
+            });
+        });
+
+    </script>
+{% endaddtoblock %}
+
+
+
+
+{% block genreheader %}
+
+{% endblock genreheader %}
+<div class="container">
+    <h1>User's Channel Subscriptions</h1>
+<div class="row" style="text-align:center;">
+
+	<ul class="filter-group">
+    	<li class="sort btn btn-info" data-sort="data-username" data-order="desc">
+    		Username <i class="icon-circle-arrow-up"></i>
+    	</li>
+    	<li class="sort btn btn-info" data-sort="data-username" data-order="asc">
+    		Username <i class="icon-circle-arrow-down"></i>
+    	</li>    	
+	</ul>
+
+</div>
+
+<div class="row"  style="">
+
+<div class="thumbnails gallery-post-grid holder" id="grid">
+		{% if users%}
+           {% for mt in users %}
+           <div class="col-sm-3 col-xs-6 mix gallery-item mix_all" id="" data-username="{{ mt.artist.username }}">
+                        <div class="standard-extend-item gallery">
+                        <span class="author"><a href="{{ mt.artist.get_url }}"> <strong> {{ mt.artist.name }} </strong></a></span>
+
+                           <div class="standard-extend-item">
+                        <a class="image" href="{{ mt.artist.get_url }}">
+                             <span class="date date-full">
+                                <span class="month">{{ mt.artist.created|date:"d M Y" }}</span>
+                           		 </span>
+                            
+                            <img class="img-responsive full-width" src="{{ mt.artist.user_profile_image}}" alt="{{ mt.artist.username }}">
+                            
+                        </a>
+                        <h3>
+                            <a href="{{ mt.artist.get_url }}">{{mt.artist.username}}</a>
+                        </h3>
+                    </div>
+                           
+                           
+                        </div>
+                    </div>
+ 
+           {% endfor %}
+           {% else %}
+					 
+			 You currently have not subscribed to any user channels.
+			 {% endif %}
+
+
+</div>
+</div>
+							<div class="row">
+							{% if users %}
+                    <h5 class="pagination">
+    <span class="step-links">
+        {% if users.has_previous %}
+            <a href="?page={{ users.previous_page_number }}">previous</a>
+        {% endif %}
+
+        <span class="current">
+            Page {{ users.number }} of {{ users.paginator.num_pages }}.
+        </span>
+
+        {% if users.has_next %}
+            <a href="?page={{ users.next_page_number }}">next</a>
+        {% endif %}
+    </span>
+</h5>
+{% endif %}
+	</div>
+
+
+{% endblock content %}

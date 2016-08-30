@@ -1,0 +1,8 @@
+{% load i18n %}
+<div class="submit-row clearfix">
+
+  {% if show_save_and_continue %}<button type="submit" name="_continue" class=" btn btn-high btn-info" {{ onclick_attrib }}>{% trans 'Save' %}</button>{% endif %}
+
+  {% if show_delete_link %}<a href="delete/" class="text-error deletelink">{% trans "Delete" %}</a>
+  {% endif %}
+</div>
