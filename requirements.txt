@@ -48,7 +48,7 @@ django-storages==1.1.8
 django-stripe-payments==2.0b34
 django-suit==0.2.2
 django-toolbelt==0.0.1
-djangorestframework==2.3.12
+djangorestframework==3.11.2
 djrill==0.9.0
 docopt==0.4.0
 drf-ujson==1.1
