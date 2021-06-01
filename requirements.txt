@@ -101,7 +101,7 @@ twilio==3.6.6
 twython==3.0.0
 uWSGI==2.0.5.1
 ujson==1.33
-urllib3==1.7.1
+urllib3==1.26.5
 wsgiref==0.1.2
 python-twitter
 django-sslify>=0.2.0
