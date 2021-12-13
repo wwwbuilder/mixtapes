@@ -67,7 +67,7 @@ html5lib==0.99
 httplib2==0.9
 ipython==2.0.0
 kombu==3.0.16
-lxml==3.2.3
+lxml==4.6.5
 mandrill==1.0.53
 mechanize==0.2.5
 micawber==0.3.0
