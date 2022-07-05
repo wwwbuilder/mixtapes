@@ -100,7 +100,7 @@ tornado==3.1.1
 twilio==3.6.6
 twython==3.0.0
 uWSGI==2.0.5.1
-ujson==1.33
+ujson==5.4.0
 urllib3==1.7.1
 wsgiref==0.1.2
 python-twitter
